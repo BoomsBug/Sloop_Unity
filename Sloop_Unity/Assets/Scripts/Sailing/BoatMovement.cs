@@ -31,13 +31,5 @@ public class BoatMovement : MonoBehaviour
 
         }
 
-        if (rigidbody.velocity.y > 0 && transform.localScale.y < 0 ||
-            rigidbody.velocity.y < 0 && transform.localScale.y > 0) {
-
-            Vector3 newScale = new Vector3(transform.localScale.x, -1f * transform.localScale.y, transform.localScale.z);
-            transform.localScale = newScale;
-
-        }
-        
     }
 }
