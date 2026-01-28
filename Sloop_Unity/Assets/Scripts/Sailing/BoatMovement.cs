@@ -6,21 +6,31 @@ public class BoatMovement : MonoBehaviour
 {
 
     private Rigidbody2D rigidbody;
-
+    public float boatSpeed = 6.0f;
+    private float boatAcceleration;
+    bool accelerated = false;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        boatAcceleration = boatSpeed * 2f;
         rigidbody = GetComponent<Rigidbody2D>();
         
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        rigidbody.velocity = new Vector2(horizontalInput * 5.0f, verticalInput * 5.0f);
+
+        if (accelerated) {
+            rigidbody.velocity = new Vector2(horizontalInput * boatAcceleration, verticalInput * boatAcceleration);
+        }
+        else {
+            rigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
+        } 
+
         //animator.SetFloat("speed", Mathf.Abs(rigidbody.velocity.x));
 
         if (rigidbody.velocity.x > 0 && transform.localScale.x < 0 ||
@@ -31,5 +41,17 @@ public class BoatMovement : MonoBehaviour
 
         }
 
+        //float boatAcceleration = boatSpeed * 1.2f;
+
+        
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        accelerated = Input.GetKey(KeyCode.Space);
+        
     }
 }
