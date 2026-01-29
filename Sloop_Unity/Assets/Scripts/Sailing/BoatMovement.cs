@@ -9,6 +9,8 @@ public class BoatMovement : MonoBehaviour
     public float boatSpeed = 6.0f;
     private float boatAcceleration;
     bool accelerated = false;
+    public Transform dockCheck;
+    bool dockPressed = false;
     
 
     // Start is called before the first frame update
@@ -43,6 +45,10 @@ public class BoatMovement : MonoBehaviour
 
         //float boatAcceleration = boatSpeed * 1.2f;
 
+        if (dockPressed) {
+            rigidbody.velocity = Vector2.zero;
+        }
+
         
 
 
@@ -52,6 +58,10 @@ public class BoatMovement : MonoBehaviour
     void Update()
     {
         accelerated = Input.GetKey(KeyCode.Space);
+
+        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 8f, LayerMask.GetMask("Land"))) {
+            dockPressed = !dockPressed;
+        }
         
     }
 }
