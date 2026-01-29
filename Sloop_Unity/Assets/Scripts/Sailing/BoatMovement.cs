@@ -23,6 +23,7 @@ public class BoatMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Arrow Controls or AWSD
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -33,33 +34,28 @@ public class BoatMovement : MonoBehaviour
             rigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
         } 
 
-        //animator.SetFloat("speed", Mathf.Abs(rigidbody.velocity.x));
-
         if (rigidbody.velocity.x > 0 && transform.localScale.x < 0 ||
-            rigidbody.velocity.x < 0 && transform.localScale.x > 0) {
+            rigidbody.velocity.x < 0 && transform.localScale.x > 0) { // if going in opposite direction
 
-            Vector3 newScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            Vector3 newScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z); // Flip sprite to face other direction
             transform.localScale = newScale;
 
         }
 
-        //float boatAcceleration = boatSpeed * 1.2f;
-
         if (dockPressed) {
-            rigidbody.velocity = Vector2.zero;
+            rigidbody.velocity = Vector2.zero;  // dock (e.g. boat stops moving)
         }
-
-        
 
 
     }
+
 
     // Update is called once per frame
     void Update()
     {
         accelerated = Input.GetKey(KeyCode.Space);
 
-        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 8f, LayerMask.GetMask("Land"))) {
+        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 8f, LayerMask.GetMask("Land"))) { // if close to Land and pressed "E"
             dockPressed = !dockPressed;
         }
         
