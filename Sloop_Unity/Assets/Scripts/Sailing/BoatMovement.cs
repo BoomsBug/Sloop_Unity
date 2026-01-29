@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoatMovement : MonoBehaviour
 {
 
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D boatRigidbody;
     public float boatSpeed = 6.0f;
     private float boatAcceleration;
     bool accelerated = false;
@@ -17,7 +17,7 @@ public class BoatMovement : MonoBehaviour
     void Start()
     {
         boatAcceleration = boatSpeed * 2f;
-        rigidbody = GetComponent<Rigidbody2D>();
+        boatRigidbody = GetComponent<Rigidbody2D>();
         
     }
 
@@ -28,14 +28,14 @@ public class BoatMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         if (accelerated) {
-            rigidbody.velocity = new Vector2(horizontalInput * boatAcceleration, verticalInput * boatAcceleration);
+            boatRigidbody.velocity = new Vector2(horizontalInput * boatAcceleration, verticalInput * boatAcceleration);
         }
         else {
-            rigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
+            boatRigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
         } 
 
-        if (rigidbody.velocity.x > 0 && transform.localScale.x < 0 ||
-            rigidbody.velocity.x < 0 && transform.localScale.x > 0) { // if going in opposite direction
+        if (boatRigidbody.velocity.x > 0 && transform.localScale.x < 0 ||
+            boatRigidbody.velocity.x < 0 && transform.localScale.x > 0) { // if going in opposite direction
 
             Vector3 newScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z); // Flip sprite to face other direction
             transform.localScale = newScale;
@@ -43,7 +43,7 @@ public class BoatMovement : MonoBehaviour
         }
 
         if (dockPressed) {
-            rigidbody.velocity = Vector2.zero;  // dock (e.g. boat stops moving)
+            boatRigidbody.velocity = Vector2.zero;  // dock (e.g. boat stops moving)
         }
 
 
