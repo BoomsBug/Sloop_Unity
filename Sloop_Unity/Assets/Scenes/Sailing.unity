@@ -301,6 +301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boatSpeed: 10
   dockCheck: {fileID: 0}
+  windDirection: 5
+  windStrength: 1
 --- !u!50 &234210563
 Rigidbody2D:
   serializedVersion: 4
@@ -941,6 +943,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boatSpeed: 10
   dockCheck: {fileID: 132346512}
+  windDirection: 5
+  windStrength: 1.5
 --- !u!61 &1738519072
 BoxCollider2D:
   m_ObjectHideFlags: 0
