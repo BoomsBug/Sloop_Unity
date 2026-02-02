@@ -6,7 +6,7 @@ public class BoatMovement : MonoBehaviour
 {
 
     private Rigidbody2D boatRigidbody;
-    public float boatSpeed = 6.0f;
+    public float boatSpeed = 8.0f;
     private float boatAcceleration;
     bool accelerated = false;
 
@@ -17,11 +17,14 @@ public class BoatMovement : MonoBehaviour
     public WindDir windDirection = WindDir.SW;
     public float windStrength = 1.5f;
 
+    private Animator boatAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
         boatAcceleration = boatSpeed * 2f;
         boatRigidbody = GetComponent<Rigidbody2D>();
+        boatAnimator = GetComponent<Animator>();
         
     }
 
@@ -40,8 +43,9 @@ public class BoatMovement : MonoBehaviour
             boatRigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
         } 
 
-        boatRigidbody.velocity += windVelocity; // add wind velocity to boat's
+        //boatRigidbody.velocity += windVelocity; // add wind velocity to boat's
 
+        /*
         if (boatRigidbody.velocity.x > 0 && transform.localScale.x < 0 ||
             boatRigidbody.velocity.x < 0 && transform.localScale.x > 0) { // if going in opposite direction
 
@@ -49,10 +53,41 @@ public class BoatMovement : MonoBehaviour
             transform.localScale = newScale;
 
         }
+        */
+
+
+        if (boatRigidbody.velocity.x > 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
+            boatAnimator.SetInteger("direction", 0); // E
+        }
+        else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y > 0) {
+            boatAnimator.SetInteger("direction", 1); // NE
+        }
+        else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y > 0) {
+            boatAnimator.SetInteger("direction", 2); // N
+        }
+        else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y > 0) {
+            boatAnimator.SetInteger("direction", 3); // NW
+        }
+        else if (boatRigidbody.velocity.x < 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
+            boatAnimator.SetInteger("direction", 4); // W
+        }
+        else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y < 0) {
+            boatAnimator.SetInteger("direction", 5); // SW
+        }
+        else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y < 0) {
+            boatAnimator.SetInteger("direction", 6); // S
+        }
+        else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y < 0) {
+            boatAnimator.SetInteger("direction", 7); // SE
+        }
+
+        boatRigidbody.velocity += windVelocity; // add wind velocity to boat's
+
 
         if (dockPressed) {
             boatRigidbody.velocity = Vector2.zero;  // dock (e.g. boat stops moving)
         }
+
 
 
     }
@@ -99,7 +134,7 @@ public class BoatMovement : MonoBehaviour
     {
         accelerated = Input.GetKey(KeyCode.Space);
 
-        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 8f, LayerMask.GetMask("Land"))) { // if close to Land and pressed "E"
+        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 5f, LayerMask.GetMask("Land"))) { // if close to Land and pressed "E"
             dockPressed = !dockPressed;
         }
         
