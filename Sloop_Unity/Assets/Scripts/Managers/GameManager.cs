@@ -37,9 +37,18 @@ public class GameManager : MonoBehaviour
     {
 
         // Starting game state
-        UpdateGameState(GameState.StartScreen);
+        if (SceneManager.GetActiveScene().name != "StartScreen")
+        {
+            UpdateGameState(GameState.StartScreen);
+        }
+        
 
+    }
 
+    public void StartGame()
+    {
+        Debug.Log("Start Game");
+        UpdateGameState(GameState.Sailing);
     }
 
     public void UpdateGameState(GameState newState)
@@ -124,3 +133,4 @@ public enum GameState
     VictoryMenu,
     LossMenu
 }
+
