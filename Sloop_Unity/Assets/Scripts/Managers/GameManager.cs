@@ -47,8 +47,18 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("Start Game");
         UpdateGameState(GameState.Sailing);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+
+        // quits for the editor but not the built version so we can test our code
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+
     }
 
     public void UpdateGameState(GameState newState)
@@ -66,8 +76,8 @@ public class GameManager : MonoBehaviour
             case GameState.Island:
                 HandleIsland();
                 break;
-            case GameState.Port:
-                HandlePort();
+            case GameState.IslandPort:
+                HandleIslandPort();
                 break;
             case GameState.PauseMenu:
                 HandlePauseMenu();
@@ -102,9 +112,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Island");
     }
 
-    private void HandlePort()
+    private void HandleIslandPort()
     {
-        SceneManager.LoadScene("Port");
+        SceneManager.LoadScene("IslandPort");
     }
 
     private void HandlePauseMenu()
@@ -121,6 +131,15 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("LossMenu");
     }
+
+
+    public void DockOnIsland()
+    {
+        UpdateGameState(GameState.IslandPort);
+    }
+
+
+
 }
 
 public enum GameState
@@ -128,7 +147,7 @@ public enum GameState
     StartScreen,
     Sailing,
     Island,
-    Port,
+    IslandPort,
     PauseMenu,
     VictoryMenu,
     LossMenu

@@ -86,6 +86,13 @@ public class BoatMovement : MonoBehaviour
 
         if (dockPressed) {
             boatRigidbody.velocity = Vector2.zero;  // dock (e.g. boat stops moving)
+
+
+            // Switch to dock on island scene if at port and press E
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.DockOnIsland();
+            }
         }
 
 
@@ -139,4 +146,6 @@ public class BoatMovement : MonoBehaviour
         }
         
     }
+
+
 }
