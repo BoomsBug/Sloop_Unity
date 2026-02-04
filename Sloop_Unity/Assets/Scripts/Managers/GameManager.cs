@@ -79,9 +79,6 @@ public class GameManager : MonoBehaviour
             case GameState.IslandPort:
                 HandleIslandPort();
                 break;
-            case GameState.PauseMenu:
-                HandlePauseMenu();
-                break;
             case GameState.VictoryMenu:
                 HandleVictoryMenu();
                 break;
@@ -117,11 +114,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("IslandPort");
     }
 
-    private void HandlePauseMenu()
-    {
-        SceneManager.LoadScene("PauseMenu");
-    }
-
     private void HandleVictoryMenu()
     {
         SceneManager.LoadScene("VictoryMenu");
@@ -148,7 +140,6 @@ public enum GameState
     Sailing,
     Island,
     IslandPort,
-    PauseMenu,
     VictoryMenu,
     LossMenu
 }
