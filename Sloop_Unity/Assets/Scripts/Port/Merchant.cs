@@ -1,0 +1,102 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class Merchant : MonoBehaviour
+{
+    public RectTransform itemContainer;
+    public Button choiceButtonPrefab;
+    public string[] itemList = {};
+    private bool isBuying;
+    private List<Button> buttons = new List<Button>();
+
+    private void Start()
+    {
+        itemContainer.gameObject.SetActive(false);
+    }
+    private void Reset()
+    {
+        var col = GetComponent<Collider2D>();
+        col.isTrigger = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D c)
+    {
+        Debug.Log("collided with "+c.name);
+        if (isBuying || !c.CompareTag("Player")) return;
+        OpenMerchant();
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D c)
+    {
+        if (!c.CompareTag("Player") || !isBuying)
+            return;
+
+        CloseMerchant();
+    }
+
+    private void OpenMerchant()
+    {
+        isBuying=true;
+        itemContainer.gameObject.SetActive(true);
+
+        ClearButtons();
+        CreateButtons();
+        SetupNavigation();
+        SelectFirstButton();
+    }
+
+    private void CloseMerchant()
+    {
+        isBuying=false;
+        itemContainer.gameObject.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    private void ClearButtons()
+    {
+        foreach (Transform child in itemContainer)
+        {
+            Destroy(child.gameObject);
+        }
+        buttons.Clear();
+    }
+
+    private void CreateButtons()
+    {
+        for (int i=0; i<itemList.Length; i++)
+        {
+            int idx = i;
+            Button btn = Instantiate(choiceButtonPrefab,itemContainer);
+            btn.GetComponentInChildren<Text>().text = itemList[i];
+            btn.onClick.AddListener(() => OnItemSelected(idx));
+            buttons.Add(btn);
+        }
+    }
+
+    private void SetupNavigation()
+    {
+        for (int i=0;i<buttons.Count; i++)
+        {
+            Navigation nav = new Navigation();
+            nav.mode = Navigation.Mode.Explicit;
+            nav.selectOnUp = i>0 ? buttons[i-1] : null;
+            nav.selectOnDown = i<buttons.Count-1 ? buttons[i+1] : null;
+
+            buttons[i].navigation = nav;
+        }
+    }
+
+    private void SelectFirstButton()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
+    }
+
+    private void OnItemSelected(int index)
+    {
+        Debug.Log("selected "+itemList[index]);
+    }
+}
