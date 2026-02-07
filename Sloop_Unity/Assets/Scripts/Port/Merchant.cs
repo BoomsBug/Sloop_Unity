@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Merchant : MonoBehaviour
 {
-    public RectTransform itemContainer;
     public Button choiceButtonPrefab;
     public string[] itemList = {};
     private bool isBuying;
@@ -13,10 +12,40 @@ public class Merchant : MonoBehaviour
 
     [Header("Reference")]
     private TopDownPlayerMovement playerMovement;
+    private RectTransform merchantPanel;
+    public RectTransform itemContainer;
+
+    private void Awake()
+    {
+        // Transform canvas = transform.Find("Canvas");
+        // merchantPanel = canvas.Find("MerchantPanel").GetComponent<RectTransform>();
+        // itemContainer = canvas.Find("MerchantPanel").Find("ItemContainer").GetComponent<RectTransform>();
+        Transform canvas = transform.Find("Canvas");
+
+        if (canvas != null)
+        {
+            // Find MerchantPanel inside Canvas
+            Transform panel = canvas.Find("MerchantPanel");
+            if (panel != null)
+            {
+                merchantPanel = panel.GetComponent<RectTransform>();
+
+                // Find ItemContainer inside MerchantPanel
+                Transform container = panel.Find("ItemContainer");
+                if (container != null)
+                {
+                    itemContainer = container.GetComponent<RectTransform>();
+                }
+                else Debug.LogWarning("ItemContainer not found under MerchantPanel");
+            }
+            else Debug.LogWarning("MerchantPanel not found under Canvas");
+        }
+        else Debug.LogWarning("Canvas not found under Merchant");
+    }
 
     private void Start()
     {
-        itemContainer.gameObject.SetActive(false);
+        merchantPanel.gameObject.SetActive(false);
     }
     private void Reset()
     {
@@ -44,7 +73,7 @@ public class Merchant : MonoBehaviour
     private void OpenMerchant()
     {
         isBuying=true;
-        itemContainer.gameObject.SetActive(true);
+        merchantPanel.gameObject.SetActive(true);
         playerMovement.enabled=false;
 
         ClearButtons();
@@ -56,7 +85,7 @@ public class Merchant : MonoBehaviour
     private void CloseMerchant()
     {
         isBuying=false;
-        itemContainer.gameObject.SetActive(false);
+        merchantPanel.gameObject.SetActive(false);
         //EventSystem.current.SetSelectedGameObject(null);
         playerMovement.enabled=true;
     }
