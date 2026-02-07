@@ -11,6 +11,9 @@ public class Merchant : MonoBehaviour
     private bool isBuying;
     private List<Button> buttons = new List<Button>();
 
+    [Header("Reference")]
+    private TopDownPlayerMovement playerMovement;
+
     private void Start()
     {
         itemContainer.gameObject.SetActive(false);
@@ -21,26 +24,28 @@ public class Merchant : MonoBehaviour
         col.isTrigger = true;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && isBuying)
+        {
+            CloseMerchant();
+        }
+    }
     private void OnTriggerEnter2D(Collider2D c)
     {
         Debug.Log("collided with "+c.name);
+        playerMovement = c.GetComponent<TopDownPlayerMovement>();
         if (isBuying || !c.CompareTag("Player")) return;
+       
         OpenMerchant();
         
-    }
-
-    private void OnTriggerExit2D(Collider2D c)
-    {
-        if (!c.CompareTag("Player") || !isBuying)
-            return;
-
-        CloseMerchant();
     }
 
     private void OpenMerchant()
     {
         isBuying=true;
         itemContainer.gameObject.SetActive(true);
+        playerMovement.enabled=false;
 
         ClearButtons();
         CreateButtons();
@@ -52,7 +57,8 @@ public class Merchant : MonoBehaviour
     {
         isBuying=false;
         itemContainer.gameObject.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(null);
+        playerMovement.enabled=true;
     }
 
     private void ClearButtons()
