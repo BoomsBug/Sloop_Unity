@@ -23,7 +23,7 @@ public class WorldGen : MonoBehaviour
     public float[] splitChances = new float[2]; //first element is chance for first split, etc...
     public float noIslandChance; //chance that a given cell will only contain ocean
     public int seed;
-    private float baseCellSize = 1;
+    public float worldSize = 5;
     public IslandGen islandGen;
     public int resolution;
     public Transform islandParent;
@@ -40,7 +40,6 @@ public class WorldGen : MonoBehaviour
 
     void Start()
     {
-        baseCellSize = resolution / resolution;
         Random.InitState(seed);
 
         root = new TreeNode { nodeID = -1 };
@@ -52,7 +51,7 @@ public class WorldGen : MonoBehaviour
             {
                 TreeNode child = new TreeNode
                 { 
-                    position = new Vector2(baseCellSize * x, baseCellSize * y) //base cell size is just 1
+                    position = new Vector2(worldSize * x, worldSize * y)
                 };
                 root.children.Add(child);
             }
@@ -87,7 +86,7 @@ public class WorldGen : MonoBehaviour
         
                 //Adding or subtracting to parent position depends on i, which represents the quadrant the island will be moved to
                 //relative to the parent cell
-                float curCellSize = baseCellSize / (4 * (node.splitCount + 1)); // base cell size is just 1
+                float curCellSize = worldSize / (4 * (node.splitCount + 1));
 
                 if (i == 1 || i == 3) childX = node.position.x + curCellSize;  //right
                 else childX = node.position.x - curCellSize;                   //left
@@ -130,6 +129,9 @@ public class WorldGen : MonoBehaviour
 
             //move island to node's position
             newIsland.transform.position = node.position;
+
+            //Adjust overall size of worldmap
+            newIsland.transform.localScale = newIsland.transform.localScale * worldSize;
 
             if (node.splitCount > 0)
                 newIsland.transform.localScale = newIsland.transform.localScale / (2 * node.splitCount);
