@@ -9,6 +9,8 @@ namespace Sloop.NPC
         [Header("Names")]
         public List<string> names = new List<string>();
 
+        // These will be Modifiers now instead of previous idea of traits
+        // i.e they will meaningfully affect play instead of determine moral alignment
         [Header("Traits")]
         public List<string> traits = new List<string>();
 
@@ -20,8 +22,8 @@ namespace Sloop.NPC
         public List<string> moods = new List<string>();
 
         [Header("Generation Settings")]
-        [Min(1)] public int minTraits = 1;
-        [Min(1)] public int maxTraits = 2;
+        [Min(1)] public int minTraits = 2;
+        [Min(1)] public int maxTraits = 3;
 
         public void Validate()
         {
