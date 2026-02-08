@@ -2,6 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// NPC-System Change Proposal
+///     MIGHT BE BETTER to have each island port represent a “Faction”. 
+///     Where each NPC on the island is either “Ruthless”, or “Neutral”, or “Honourable”
+///     Can scrap the trait idea
+///     Replace traits with “modifiers”
+///	      Such as “prone to illness”, “psychotic”, “glutton”, etc. etc.
+/// 
+
 namespace Sloop.NPC
 {
     public class NPCGenerator : MonoBehaviour
@@ -34,58 +42,6 @@ namespace Sloop.NPC
             // Temporarily use System.Random for seed generation. Will likely be getting that seed from the WorldGen script once it is built
             var rng = new System.Random(seed);
 
-
-            // Plan to expand this more such that willingness is slightly depended on what traits or mood they have
-            // For instance, a "Savage" would have a lower willingness rate, but depending on your honor, that may be good or bad.
-            ///
-            /// Per trait: -> willingness "score"
-            ///     each is a multiplier to the overall willingness of the NPC
-            /// NPC stance towards the player is dependent on the correlation between honor and willingness.
-            /// 
-            /// Im thinking somehow that bad traits give a negative multipler to willingness,
-            /// But if you have low or high honor, 
-            /// 
-            /// Low Honor + Savage => High willingness
-            /// Low Honor + Noble => Low willingness
-            /// High Honor + Savage => Low willingness
-            /// High Honor + Noble => High willingness
-            /// 
-            /// 
-            /// 
-            /// 
-            /// Per Trait:
-            /// 
-            ///     if Low Honor and High Trait Score    OR    Low Honor and Low Trait Score:
-            ///         flip Trait Score (i,e 100 - currentTraitScore)
-            ///         multiply to willingness
-            /// 
-            ///    if High honor and High Trait Score    OR    High Honor and Low Trait Score:
-            ///         multiply to willingness
-            /// 
-            ///         If < 50: subtract 50 and add to willingness
-            /// 
-            ///     
-            /// 
-            ///  int willingness = 0
-            ///  Per Trait:
-            ///     Trait Score = int(Range(-100, 100)) => -100 being most "negative" vice versa +100
-            ///     
-            ///     Add trait score to willingness
-            ///     
-            /// 
-            ///  if Low Honor and willingness >> 0   OR    Low Honor and willingness << 0:
-            ///     flip willingness ( * -1)
-            ///     
-            ///  if High honor and willingness >> 0    OR    High Honor and willingness << 0:
-            ///     Do Nothing
-            ///     
-            ///    
-            ///    
-            ///         
-            /// 
-            ///         
-            ///
-            /// 
             /// Here is current Data gen, will modify to fit design spec
             /// 
             /// 
