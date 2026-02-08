@@ -27,14 +27,9 @@ namespace Sloop.NPC
             if (database != null) database.Validate();
         }
 
-        /// The following code will need to be called by some other script in the future
-        ///     that generates multiple NPC's in this manner, but deterministically from the same seed.
-        /// i.e world seed -> branches into X seeds deterministically. X defined as the number of NPC's to be created
-        /// 
-        /// Deterministically generates am NPC from a seed
-        /// Same seed + same database contents => same NPC.
-        /// 
-        public NPCData Generate(int seed)
+        /// Adjusting code to generate on a per island basis 5 NPC's that are morally aligned
+        ///
+        public NPCData Generate(int seed, NPCRole role, MoralAlignment alignment, int islandID, int npcIndex)
         {
             if (database == null)
                 throw new InvalidOperationException("NPCGenerator: No NPCDatabase assigned.");
@@ -45,22 +40,21 @@ namespace Sloop.NPC
             /// Here is current Data gen, will modify to fit design spec
             /// 
             /// 
+            /// 
+            int traitCount = rng.Next(database.minTraits, database.maxTraits + 1);
+
             var npc = new NPCData
             {
-                seed = seed,
-                id = $"npc_{seed:X8}",  // hex id makes it easier to debug
                 name = PickOrFallback(database.names, rng, "Nameless"),
-                skill = PickOrFallback(database.skills, rng, "None"),
-                mood = PickOrFallback(database.moods, rng, "Neutral"),
-                willingness = 0  // inclusive 0-100      // THIS IS TEMPORARY, WILLINGNESS WILL BE DETERMINED AT NPC/PLAYER INTERACTION INSTANCE
-            };                                                          // NEED TO be CALLED FROM PLAYER CODE. 
-
-            // Traits:
-            int traitCount = rng.Next(database.minTraits, database.maxTraits + 1);
-            npc.traits = PickUnique(database.traits, traitCount, rng);
+                role = role,
+                alignment = alignment,
+                islandID = islandID,
+                npcIndex = npcIndex,
+                traits = PickUnique(database.traits, traitCount, rng)
+            };                                                           
 
             // Alignment derived from traits (simple scoring)
-            npc.alignment = DeriveAlignment(npc.traits);
+            //npc.alignment = DeriveAlignment(npc.traits);
 
             if (logGeneratedNPC)
                 Debug.Log($"Generated NPC:\n{npc}");
@@ -68,16 +62,6 @@ namespace Sloop.NPC
             return npc;
         }
 
-        /// <summary>
-        /// Convenience method for quick testing.
-        /// Not deterministic across play sessions unless you provide the seed.
-        /// Tester for now until access to main world seed.
-        /// </summary>
-        public NPCData GenerateRandom()
-        {
-            int seed = Environment.TickCount;
-            return Generate(seed);
-        }
 
 
         // ---------- Helpers ----------

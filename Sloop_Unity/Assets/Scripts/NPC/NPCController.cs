@@ -13,6 +13,11 @@ namespace Sloop.NPC
         //[SerializeField] private KeyCode interactKey = KeyCode.E; // Will change back to this for 2022 Unity version
         [SerializeField] private string playerTag = "Player";
 
+
+        [Header("Identity")]
+        [SerializeField] private int npcIndex = 0;
+
+
         //[Header("Willingness Settings")]
         //[Tooltip("Base willingness before honor/alignment effects. Will tune this later or derive it from traits.")]
         //[Range(0, 100)]
@@ -55,7 +60,7 @@ namespace Sloop.NPC
         {
             data = npcData;
             // Optional: rename GameObject for debugging
-            gameObject.name = $"NPC_{data.name}_{data.seed:X8}";
+            gameObject.name = $"NPC_{data.name}_{data.role}";
         }
 
         private void Awake()
@@ -76,8 +81,15 @@ namespace Sloop.NPC
                     return;
                 }
 
-                data = generator.Generate(npcSeed);
-                gameObject.name = $"NPC_{data.name}_{data.seed:X8}";
+                data = generator.Generate(
+                    npcSeed,
+                    NPCRole.Civilian,              // TEMP
+                    MoralAlignment.Neutral,        // TEMP
+                    0,                             // islandID TEMP
+                    npcIndex                       // already exists
+                );
+
+                gameObject.name = $"NPC_{data.name}_{data.role}";
             }
         }       
 
@@ -98,7 +110,14 @@ namespace Sloop.NPC
 
             if (!HasValidData() && generator != null)
             {
-                data = generator.Generate(npcSeed);
+                data = generator.Generate(
+                    npcSeed,
+                    NPCRole.Civilian,              // TEMP
+                    MoralAlignment.Neutral,        // TEMP
+                    0,                             // islandID TEMP
+                    npcIndex                       // already exists
+                );
+
             }
 
             if (data == null)
@@ -115,7 +134,7 @@ namespace Sloop.NPC
                 $"Name: {data.name}\n" +
                 $"Alignment: {data.alignment}\n" +
                 $"Traits: {(data.traits == null ? "(none)" : string.Join(", ", data.traits))}\n" +
-                $"Skill: {data.skill}\n" +
+                $"Role: {data.role}\n" +
                 $"Player Honor (0..100): {playerHonor}\n" +
                 $"Calculated Willingness (-25..25): {willingness}\n" +
                 "======================="
