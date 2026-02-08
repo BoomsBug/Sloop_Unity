@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Sloop.NPC.Dialogue;
 
 namespace Sloop.NPC
 {
@@ -76,6 +76,23 @@ namespace Sloop.NPC
             int playerHonor = GetPlayerHonor();
             int willingness = CalculateWillingness(playerHonor);
 
+            WillingnessBand band = 
+                willingness <= 25 ? WillingnessBand.Hostile :
+                willingness >= 25 ? WillingnessBand.Friendly :
+                WillingnessBand.Neutral;
+
+            // Print two dialogue types to console (testing)
+            var db = DialogueService.Instance?.Database;
+
+            string bark = DialogueSelector.GetLine(db, DialogueType.Bark, data, band);
+            string interactLine = DialogueSelector.GetLine(db, DialogueType.Interact, data, band);
+
+            Debug.Log($"[BARK] {bark}");
+            Debug.Log($"[INTERACT] {interactLine}");
+            // Later will use UI instead of console print
+            
+
+            // Print NPC Data to console
             Debug.Log(
                 "=== NPC INTERACTION ===\n" +
                 $"Name: {data.name}\n" +
@@ -83,7 +100,7 @@ namespace Sloop.NPC
                 $"Traits: {(data.traits == null ? "(none)" : string.Join(", ", data.traits))}\n" +
                 $"Role: {data.role}\n" +
                 $"Player Honor (0..100): {playerHonor}\n" +
-                $"Calculated Willingness (-50..50): {willingness}\n" +
+                $"Calculated Willingness (-50..50): {willingness} => {band}\n" +
                 "======================="
             );
         }
