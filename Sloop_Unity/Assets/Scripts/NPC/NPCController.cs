@@ -17,6 +17,11 @@ namespace Sloop.NPC
         [Header("Identity")]
         [SerializeField] private int npcIndex = 0;
 
+        [Header("IslandID")]
+        [SerializeField] private int islandID = 0;  // TEMP
+
+        [SerializeField] private MoralAlignment islandAlignment = MoralAlignment.Neutral;   // TEMP
+
 
         //[Header("Willingness Settings")]
         //[Tooltip("Base willingness before honor/alignment effects. Will tune this later or derive it from traits.")]
@@ -29,7 +34,10 @@ namespace Sloop.NPC
 
         [Header("Generation (for manually placed NPCs)")]
         [SerializeField] private NPCGenerator generator;     // assign in inspector (can be a scene singleton)
-        [SerializeField] private int npcSeed = 12345;
+        //[SerializeField] private int npcSeed = 12345;
+        [Header("Seed (TEMP testing)")]
+        [SerializeField] private int worldSeed = 111111;
+
         [SerializeField] private bool generateOnStart = true;
 
 
@@ -81,12 +89,14 @@ namespace Sloop.NPC
                     return;
                 }
 
+                var role = NPCSlotRules.RoleForSlot(npcIndex);
+
                 data = generator.Generate(
-                    npcSeed,
-                    NPCRole.Civilian,              // TEMP
-                    MoralAlignment.Neutral,        // TEMP
-                    0,                             // islandID TEMP
-                    npcIndex                       // already exists
+                    GetNpcSeed(),
+                    role,             
+                    islandAlignment,                // TEMP value manual fix for now
+                    islandID,                      // Tmepo value fixed in inspectror for now...
+                    npcIndex                       
                 );
 
                 gameObject.name = $"NPC_{data.name}_{data.role}";
@@ -110,12 +120,13 @@ namespace Sloop.NPC
 
             if (!HasValidData() && generator != null)
             {
+                var role = NPCSlotRules.RoleForSlot(npcIndex);
                 data = generator.Generate(
-                    npcSeed,
-                    NPCRole.Civilian,              // TEMP
-                    MoralAlignment.Neutral,        // TEMP
-                    0,                             // islandID TEMP
-                    npcIndex                       // already exists
+                    GetNpcSeed(),
+                    role,              
+                    islandAlignment,        // TEMP
+                    islandID,                      // Temp value fixed in inspector for now...
+                    npcIndex                       
                 );
 
             }
@@ -139,6 +150,13 @@ namespace Sloop.NPC
                 $"Calculated Willingness (-25..25): {willingness}\n" +
                 "======================="
             );
+        }
+
+
+        private int GetNpcSeed()
+        {
+            // Deterministic per worldSeed + islandID + npcIndex
+            return NPCSeedUtility.Combine(worldSeed, islandID, npcIndex);
         }
 
 
