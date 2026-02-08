@@ -2,45 +2,31 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// NPC-System Change Proposal
-///     MIGHT BE BETTER to have each island port represent a “Faction”. 
-///     Where each NPC on the island is either “Ruthless”, or “Neutral”, or “Honourable”
-///     Can scrap the trait idea
-///     Replace traits with “modifiers”
-///	      Such as “prone to illness”, “psychotic”, “glutton”, etc. etc.
-/// 
-
 namespace Sloop.NPC
 {
+    /// <summary>
+    /// Deterministically generates NPC identity from a seed and island context.
+    /// IslandNPCManager is responsible for choosing island alignment and enforcing unique names.
+    /// </summary>
     public class NPCGenerator : MonoBehaviour
     {
-        
         [Header("Data Source")]
         [SerializeField] private NPCDatabase database;
 
         [Header("Optional Debug")]
         [SerializeField] private bool logGeneratedNPC = false;
 
-
         private void OnValidate()
         {
             if (database != null) database.Validate();
         }
 
-        /// Adjusting code to generate on a per island basis 5 NPC's that are morally aligned
-        ///
         public NPCData Generate(int seed, NPCRole role, MoralAlignment alignment, int islandID, int npcIndex, string forcedName = null)
         {
             if (database == null)
                 throw new InvalidOperationException("NPCGenerator: No NPCDatabase assigned.");
 
-            // Temporarily use System.Random for seed generation. Will likely be getting that seed from the WorldGen script once it is built
             var rng = new System.Random(seed);
-
-            /// Here is current Data gen, will modify to fit design spec
-            /// 
-            /// 
-            /// 
             int traitCount = rng.Next(database.minTraits, database.maxTraits + 1);
 
             var npc = new NPCData
@@ -55,15 +41,11 @@ namespace Sloop.NPC
                 traits = PickUnique(database.traits, traitCount, rng)
             };                                                           
 
-            // Alignment derived from traits (simple scoring)
-            //npc.alignment = DeriveAlignment(npc.traits);
-
             if (logGeneratedNPC)
                 Debug.Log($"Generated NPC:\n{npc}");
 
             return npc;
         }
-
 
 
         // ---------- Helpers ----------
@@ -75,7 +57,7 @@ namespace Sloop.NPC
         }
 
 
-        // Algorithm researched online
+        // Deterministic unique selection (shuffle indices then take first N)
         private static List<string> PickUnique(List<string> list, int count, System.Random rng)
         {
             var result = new List<string>(count);
@@ -136,93 +118,8 @@ namespace Sloop.NPC
         // 
         // Any state + Neutral => Willingness State
         //      Neutral + Any honor => 
-        // The function below simply calculates the MoralAlignment of the NPC and returns it.
         // The caller will determine the willingness of the NPC at instance
-        private static MoralAlignment DeriveAlignment(List<string> traits)
-        {
-            if (traits == null || traits.Count == 0)
-                return MoralAlignment.Neutral;
 
-            int score = 0;
-
-            foreach (var t in traits)
-            {
-                if (string.IsNullOrWhiteSpace(t)) continue;
-                string trait = t.Trim().ToLowerInvariant();
-
-                // Honorable-ish
-                if (trait.Contains("kind") ||
-                    trait.Contains("loyal") ||
-                    trait.Contains("respectful") ||
-                    trait.Contains("brave") ||
-                    trait.Contains("generous"))
-                {
-                    score += 1;
-                }
-
-                // Ruthless-ish
-                if (trait.Contains("bloodthirsty") ||
-                    trait.Contains("cruel") ||
-                    trait.Contains("greedy") ||
-                    trait.Contains("vengeful"))
-                {
-                    score -= 1;
-                }
-            }
-
-            if (score >= 1) return MoralAlignment.Honorable;
-            if (score <= -1) return MoralAlignment.Ruthless;
-            return MoralAlignment.Neutral;
-        }
-
-
-
-
-        /*
-        // The rest of this file contains experimental functions for the purpose of building a file architecture first, then plugging in these functions where necessary.
-        // On a separate file, this function below. Needs work ... there is a better way I can do this ...
-        public static float CalculateWillingness(float playerHonor, MoralAlignment npcMoralAlignment)
-        {
-            float willingness;
-            if (playerHonor < -15.0)
-            {
-                if (moralAlignment == "Ruthless")
-                    willingness += 25;
-
-                if (moralAlignment == "Neutral")
-                    willingness -= 10;
-                
-                if (moralAlignment == "Honorable")
-                    willingness -= 25;
-            }
-
-            if (playerHonor > 15.0)
-            {
-                if (moralAlignment == "Ruthless")
-                    willingness -= 25;
-
-                if (moralAlignment == "Neutral")
-                    willingness += 10;
-                
-                if (moralAlignment == "Honorable")
-                    willingness += 25;
-            }
-
-            else
-            {
-                if (moralAlignment == "Ruthless")
-                    willingness -= 10;
-
-                if (moralAlignment == "Neutral")
-                    willingness = 10;
-                
-                if (moralAlignment == "Honorable")
-                    willingness += 10;
-            }
-
-            return willingness;
-
-        }
 
         /// The following will be how willingness directly impacts player experience ans thus the emergent narrative.
         /// This is simple, can expand much more later.
