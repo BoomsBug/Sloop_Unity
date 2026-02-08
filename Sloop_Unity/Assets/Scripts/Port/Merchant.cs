@@ -13,7 +13,7 @@ public class Merchant : MonoBehaviour
     [Header("Reference")]
     private TopDownPlayerMovement playerMovement;
     private RectTransform merchantPanel;
-    public RectTransform itemContainer;
+    private RectTransform itemContainer;
 
     private void Awake()
     {
