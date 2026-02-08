@@ -61,6 +61,7 @@ namespace Sloop.NPC
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Interact();
+                OpenDialogueUI();
             }
         }
 
@@ -122,6 +123,8 @@ namespace Sloop.NPC
         // Essentially compares NPC Moral Alignment with player honor and determines their "willingness" to help the player.
         // NPC + Player Same Honor level => high willingness
         // NPC + Player different Honor lvl => Low willingness
+        // Super simple design for now, may expand later
+        // also, will convert from numbers to a willingness "band" (a string such as: Hostile, neutral, or friendly)
         private int CalculateWillingness(int playerHonor)
         {
             // Willingness now centered at 0
@@ -148,6 +151,13 @@ namespace Sloop.NPC
             return Mathf.Clamp(willingness, -50, 50);
         }
 
+        private static WillingnessBand ToBand(int willingness)
+        {
+            if (willingness <= -25) return WillingnessBand.Hostile;
+            if (willingness >= 25) return WillingnessBand.Friendly;
+            return WillingnessBand.Neutral;
+        }
+
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -164,5 +174,160 @@ namespace Sloop.NPC
             playerInRange = false;
             playerTransform = null;
         }
+
+        // Below is all dialogue-related functions
+        public string GetDisplayName()
+        {
+            if (data == null) return $"NPC #{npcIndex}";
+            return $"{data.name} - {data.role}";
+        }
+
+        public void OpenDialogueUI()
+        {
+            var ui = FindFirstObjectByType<NPCDialogueUI>(FindObjectsInactive.Include);
+            if (ui == null)
+            {
+                Debug.LogWarning("No NPCDialogueUI found in scene.");
+                return;
+            }
+
+            ui.ShowForNPC(this);
+        }
+
+        public void UI_BarkPressed(NPCDialogueUI ui)
+        {
+            if (!EnsureInitialized(ui)) return;
+
+            int willingness = CalculateWillingness(GetPlayerHonor());
+            var band = ToBand(willingness);
+
+            var db = DialogueService.Instance?.Database;
+            string bark = DialogueSelector.GetLine(db, DialogueType.Bark, data, band);
+
+            ui.SetLine(bark);
+            ui.HideChoices();
+        }
+
+        public void UI_InteractPressed(NPCDialogueUI ui)
+        {
+            if (!EnsureInitialized(ui)) return;
+
+            int willingness = CalculateWillingness(GetPlayerHonor());
+            var band = ToBand(willingness);
+
+            var db = DialogueService.Instance?.Database;
+            string line = DialogueSelector.GetLine(db, DialogueType.Interact, data, band);
+
+            ui.SetLine(line);
+
+            // Role-Specific follow-up Choices
+            switch (data.role)
+            {
+                case NPCRole.Deckhand:
+                    ShowDeckhandChoices(ui, willingness);
+                    break; 
+
+                case NPCRole.Merchant:
+                    ShowMerchantChoices(ui, willingness);
+                    break; 
+
+                case NPCRole.Civilian:
+                default:
+                    ShowCivilianChoices(ui, willingness);
+                    break; 
+            }
+        }
+
+        private bool EnsureInitialized(NPCDialogueUI ui)
+        {
+            if (data == null || string.IsNullOrWhiteSpace(data.name))
+            {
+                ui.SetLine("(NPC not initialized. Did IslandNPCManager run?)");
+                return false;
+            }
+            if (DialogueService.Instance == null)
+            {
+                ui.SetLine("(DialogueService missing in scene.)");
+                return false;
+            }
+            return true;
+        }
+
+        private void ShowDeckhandChoices(NPCDialogueUI ui, int willingness)
+        {
+            int hireCost = 100; // TEMP UNTIL RESOURCE SYSTEM BUILT
+            // Later: baseCost * multiplier based on willingness + traits
+
+            ui.ShowChoices(
+                $"Hire ({hireCost} gold)",
+                () =>
+                {
+                    ui.SetLine("You hired the deckhand. (stub)");
+                    ui.HideChoices();
+                    // TODO: call CrewManager.AddCrew(data), deduct gold, etc.
+                },
+                "Maybe Later",
+                () =>
+                {
+                    ui.SetLine("Maybe another time.");
+                    ui.HideChoices();
+                }
+            );
+        }
+
+        
+        private void ShowMerchantChoices(NPCDialogueUI ui, int willingness)
+        {
+            //int priceMultiplier = 1; // TEMP UNTIL RESOURCE SYSTEM BUILT
+            // Later: basePrice * multiplier based on willingness + traits
+
+            ui.ShowChoices(
+                $"Open Shop",
+                () =>
+                {
+                    ui.SetLine("Shop Opened. (stub)");
+                    ui.HideChoices();
+                    // TODO: fire event OnShopOpen(this, willingness)
+                    // TODO: open shop UI, apply price multiplier, close shop, return
+                },
+                "Nevermind",
+                () =>
+                {
+                    ui.SetLine("Come back anytime.");
+                    ui.HideChoices();
+                }
+            );
+        }
+
+        
+        private void ShowCivilianChoices(NPCDialogueUI ui, int willingness)
+        {
+            var band = ToBand(willingness);
+
+            ui.ShowChoices(
+                $"Ask Directions",
+                () =>
+                {
+                    if (band == WillingnessBand.Friendly || band == WillingnessBand.Neutral)
+                    {
+                        ui.SetLine("I heard of ancient treasure due East (True)");
+                    }
+                    else
+                    {
+                        ui.SetLine("I heard of ancient treasure due West (False)");
+                    }
+                    ui.HideChoices();
+                },
+                "Maybe Later",
+                () =>
+                {
+                    ui.SetLine("Maybe another time.");
+                    ui.HideChoices();
+                }
+            );
+        }
+
+
+
     }
 }
