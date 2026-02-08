@@ -20,8 +20,8 @@ namespace Sloop.NPC
         public List<string> moods = new List<string>();
 
         [Header("Generation Settings")]
-        [Min(1)] public int minTraits = 2;
-        [Min(1)] public int maxTraits = 3;
+        [Min(1)] public int minTraits = 1;
+        [Min(1)] public int maxTraits = 2;
 
         public void Validate()
         {
