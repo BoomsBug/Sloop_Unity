@@ -13,35 +13,11 @@ namespace Sloop.NPC
         //[SerializeField] private KeyCode interactKey = KeyCode.E; // Will change back to this for 2022 Unity version
         [SerializeField] private string playerTag = "Player";
 
-
-        [Header("Identity")]
+        [Header("Identity (slot)")]
         [SerializeField] private int npcIndex = 0;
+        public int NpcIndex => npcIndex;
 
-        [Header("IslandID")]
-        [SerializeField] private int islandID = 0;  // TEMP
-
-        [SerializeField] private MoralAlignment islandAlignment = MoralAlignment.Neutral;   // TEMP
-
-
-        //[Header("Willingness Settings")]
-        //[Tooltip("Base willingness before honor/alignment effects. Will tune this later or derive it from traits.")]
-        //[Range(0, 100)]
-        //[SerializeField] private int baseWillingness = 0;
-
-        //[Tooltip("How strongly honor affects willingness (0..100).")]
-        //[Range(0, 100)]
-        //[SerializeField] private int honorInfluence = 40;
-
-        [Header("Generation (for manually placed NPCs)")]
-        [SerializeField] private NPCGenerator generator;     // assign in inspector (can be a scene singleton)
-        //[SerializeField] private int npcSeed = 12345;
-        [Header("Seed (TEMP testing)")]
-        [SerializeField] private int worldSeed = 111111;
-
-        [SerializeField] private bool generateOnStart = true;
-
-
-        [Header("UI")]
+        //[Header("UI")]
         //[SerializeField] private NPCDialogueUI dialogueUI; // assign in inspector or find at runtime
 
         private bool playerInRange;
@@ -77,32 +53,6 @@ namespace Sloop.NPC
                 //dialogueUI = FindFirstObjectByType<NPCDialogueUI>();
         }
 
-        private void Start()
-        {
-            if (!generateOnStart) return;
-
-            if (!HasValidData())
-            {
-                if (generator == null)
-                {
-                    Debug.LogWarning($"{name}: NPC has no data and no generator assigned. Assign an NPCGenerator in the Inspector.");
-                    return;
-                }
-
-                var role = NPCSlotRules.RoleForSlot(npcIndex);
-
-                data = generator.Generate(
-                    GetNpcSeed(),
-                    role,             
-                    islandAlignment,                // TEMP value manual fix for now
-                    islandID,                      // Tmepo value fixed in inspectror for now...
-                    npcIndex                       
-                );
-
-                gameObject.name = $"NPC_{data.name}_{data.role}";
-            }
-        }       
-
 
         private void Update()
         {
@@ -117,23 +67,9 @@ namespace Sloop.NPC
 
         private void Interact()
         {
-
-            if (!HasValidData() && generator != null)
-            {
-                var role = NPCSlotRules.RoleForSlot(npcIndex);
-                data = generator.Generate(
-                    GetNpcSeed(),
-                    role,              
-                    islandAlignment,        // TEMP
-                    islandID,                      // Temp value fixed in inspector for now...
-                    npcIndex                       
-                );
-
-            }
-
             if (data == null)
             {
-                Debug.LogWarning("NPCController: No NPCData assigned. Did you forget to generate/initialize this NPC?");
+                Debug.LogWarning($"{name}: NPC not initialized (no NPCData). Did IslandNPCManager run?");
                 return;
             }
 
@@ -147,16 +83,9 @@ namespace Sloop.NPC
                 $"Traits: {(data.traits == null ? "(none)" : string.Join(", ", data.traits))}\n" +
                 $"Role: {data.role}\n" +
                 $"Player Honor (0..100): {playerHonor}\n" +
-                $"Calculated Willingness (-25..25): {willingness}\n" +
+                $"Calculated Willingness (-50..50): {willingness}\n" +
                 "======================="
             );
-        }
-
-
-        private int GetNpcSeed()
-        {
-            // Deterministic per worldSeed + islandID + npcIndex
-            return NPCSeedUtility.Combine(worldSeed, islandID, npcIndex);
         }
 
 
@@ -172,56 +101,6 @@ namespace Sloop.NPC
             return Mathf.Clamp(honorComp.Honor, 0, 100);
         }
 
-
-        // This is a variation to the willingness calculation below. 
-        // It stays here as it has some additions to the algorithm I may want to implement later.
-        /*
-        /// <summary>
-        /// Core willingness formula: correlates player honor with NPC alignment.
-        /// This is intentionally simple for Sprint 1.
-        /// </summary>
-        public int CalculateWillingness(int playerHonor)
-        {
-            // Normalize honor around 50: [-50..+50]
-            int centered = playerHonor - 50;
-
-            // Alignment decides whether NPC likes honorable or dishonorable behavior
-            // Honorable NPC: higher honor increases willingness
-            // Ruthless NPC: higher honor decreases willingness
-            // Neutral NPC: mild effect
-            float alignmentSign = data.alignment switch
-            {
-                MoralAlignment.Honorable => +1f,
-                MoralAlignment.Ruthless => -1f,
-                _ => +0.25f
-            };
-
-            // Influence scales how much honor matters
-            float delta = (centered / 50f) * honorInfluence * alignmentSign;
-
-            int result = Mathf.RoundToInt(baseWillingness + delta);
-
-            
-            // Optional: quick trait nudges (tiny, safe, easy to expand)
-            // This is an experimental idea compared to my simpler version
-            if (data.traits != null)
-            {
-                foreach (var t in data.traits)
-                {
-                    if (string.IsNullOrWhiteSpace(t)) continue;
-                    string trait = t.ToLowerInvariant();
-
-                    if (trait.Contains("greedy")) result -= 3;
-                    if (trait.Contains("loyal")) result += 3;
-                    if (trait.Contains("suspicious")) result -= 2;
-                    if (trait.Contains("charming")) result += 2;
-                }
-            }
-            
-
-            return Mathf.Clamp(result, 0, 100);
-        }
-        */
 
         // Essentially compares NPC Moral Alignment with player honor and determines their "willingness" to help the player.
         // NPC + Player Same Honor level => high willingness

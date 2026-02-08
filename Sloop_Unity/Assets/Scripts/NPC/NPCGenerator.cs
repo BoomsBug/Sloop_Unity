@@ -29,7 +29,7 @@ namespace Sloop.NPC
 
         /// Adjusting code to generate on a per island basis 5 NPC's that are morally aligned
         ///
-        public NPCData Generate(int seed, NPCRole role, MoralAlignment alignment, int islandID, int npcIndex)
+        public NPCData Generate(int seed, NPCRole role, MoralAlignment alignment, int islandID, int npcIndex, string forcedName = null)
         {
             if (database == null)
                 throw new InvalidOperationException("NPCGenerator: No NPCDatabase assigned.");
@@ -45,7 +45,9 @@ namespace Sloop.NPC
 
             var npc = new NPCData
             {
-                name = PickOrFallback(database.names, rng, "Nameless"),
+                name = string.IsNullOrWhiteSpace(forcedName)
+                    ? PickOrFallback(database.names, rng, "Nameless")
+                    : forcedName,
                 role = role,
                 alignment = alignment,
                 islandID = islandID,
@@ -107,6 +109,15 @@ namespace Sloop.NPC
 
             return result;
         }
+
+
+        public List<string> GetNamePool()
+        {
+            // Return a COPY (remove used names).
+            if (database == null || database.names == null) return new List<string>();
+            return new List<string>(database.names);
+        }
+
 
 
         // NPC: Type: Crewmember, merchant, civ
