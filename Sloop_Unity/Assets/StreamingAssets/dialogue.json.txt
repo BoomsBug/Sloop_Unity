@@ -1,0 +1,61 @@
+{
+  "entries": [
+    {
+      "id": "bark_ruthless_01",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "Keep your hand where I can see it."
+    },
+    {
+      "id": "bark_honorable_01",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "Fair winds and fair dealings."
+    },
+    {
+      "id": "bark_neutral_01",
+      "type": "bark",
+      "tags": ["alignment:neutral"],
+      "text": "Aye? Need something?"
+    },
+
+    {
+      "id": "interact_ruthless_merchant_friendly_01",
+      "type": "interact",
+      "tags": ["alignment:ruthless", "role:merchant", "willingness:friendly"],
+      "text": "Leverage is everything. Right now, you're worth keeping close. Let's trade."
+    },
+    {
+      "id": "interact_ruthless_merchant_hostile_01",
+      "type": "interact",
+      "tags": ["alignment:ruthless", "role:merchant", "willingness:hostile"],
+      "text": "I don't do charity. Pay up, or get out."
+    },
+
+    {
+      "id": "interact_honorable_deckhand_friendly_01",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:deckhand", "willingness:friendly"],
+      "text": "You've got a decent name. If you've room aboard, I'll sail with you."
+    },
+    {
+      "id": "interact_neutral_civilian_neutral_01",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:neutral"],
+      "text": "Road splits near the palms. Left's safer usually."
+    },
+
+    {
+      "id": "interact_role_merchant_fallback_01",
+      "type": "interact",
+      "tags": ["role:merchant"],
+      "text": "Buyin' or sellin'?"
+    },
+    {
+      "id": "interact_type_fallback_01",
+      "type": "interact",
+      "tags": [],
+      "text": "..."
+    }
+  ]
+}
