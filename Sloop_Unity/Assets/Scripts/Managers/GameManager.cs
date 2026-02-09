@@ -33,33 +33,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-
-        // Starting game state
-        if (SceneManager.GetActiveScene().name != "StartScreen")
-        {
-            UpdateGameState(GameState.StartScreen);
-        }
-        
-
-    }
-
-    public void StartGame()
-    {
-        UpdateGameState(GameState.Sailing);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-
-        // quits for the editor but not the built version so we can test our code
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-
-    }
 
     public void UpdateGameState(GameState newState)
     {

@@ -68,6 +68,7 @@ public class PauseManager : MonoBehaviour
             GameManager.Instance.UpdateGameState(GameState.StartScreen);
             
         }
+
     }
 
     // Quit game immediately
