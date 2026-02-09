@@ -13,8 +13,6 @@ public class WorldGen : MonoBehaviour
 
         TODO:
         - Eventually hook up island reference to some manager somewheres
-        - Add ID to islands
-        - Maybe apply a random scale to each island (will require filling out the gaps in the tiles)
     */
 
     private TreeNode root;
@@ -28,6 +26,7 @@ public class WorldGen : MonoBehaviour
     public int resolution;
     public Transform islandParent;
     private int islandCounter = 0;
+    public List<Island> islands;
 
 
     public class TreeNode
@@ -111,21 +110,21 @@ public class WorldGen : MonoBehaviour
             //adjust scale for new ppu
             GameObject newIsland;
             if (Random.value < noIslandChance)
-                newIsland = islandGen.Generate(Random.Range(0, 10000), -1f, true, resolution, islandCounter); // just water (maybe with a lil something)
+                newIsland = islandGen.Generate(Random.Range(0, 10000), -1f, true, resolution, islandCounter, node.position); // just water (maybe with a lil something)
             else if (node.splitCount == 0)
             {
-                newIsland = islandGen.Generate(Random.Range(0, 10000), 0.05f, false, resolution * 4, islandCounter); // large
+                newIsland = islandGen.Generate(Random.Range(0, 10000), 0.03f, false, resolution * 4, islandCounter, node.position); // large
                 //newIsland.transform.localScale = newIsland.transform.localScale / 4;
             }
                 
             else if (node.splitCount == 1)
             {
-                newIsland = islandGen.Generate(Random.Range(0, 10000), 0.0f, false, resolution * 2, islandCounter); // medium
+                newIsland = islandGen.Generate(Random.Range(0, 10000), 0.0f, false, resolution * 2, islandCounter, node.position); // medium
                 //newIsland.transform.localScale = newIsland.transform.localScale / 2;
             }
                 
             else
-                newIsland = islandGen.Generate(Random.Range(0, 10000), -0.05f, false, resolution, islandCounter); // small
+                newIsland = islandGen.Generate(Random.Range(0, 10000), -0.05f, false, resolution, islandCounter, node.position); // small
 
             //move island to node's position
             newIsland.transform.position = node.position;
@@ -138,7 +137,8 @@ public class WorldGen : MonoBehaviour
 
             newIsland.transform.SetParent(islandParent);
             islandCounter ++;
-            //add newIsland to some manager list here
+            //add newIsland to manager list here
+            islands.Add(newIsland.GetComponent<Island>());
         }
     }
 }

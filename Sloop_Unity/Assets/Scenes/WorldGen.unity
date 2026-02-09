@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 1191205006}
     - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
       propertyPath: resolution
-      value: 256
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
       propertyPath: islandParent
