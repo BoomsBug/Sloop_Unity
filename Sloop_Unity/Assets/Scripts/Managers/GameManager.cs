@@ -49,14 +49,14 @@ public class GameManager : MonoBehaviour
             case GameState.Island:
                 HandleIsland();
                 break;
-            case GameState.IslandPort:
-                HandleIslandPort();
+            case GameState.HIslandPort:
+                HandleHIslandPort();
                 break;
-            case GameState.IslandPort2:
-                HandleIslandPort2();
+            case GameState.NIslandPort:
+                HandleNIslandPort();
                 break;
-            case GameState.IslandPort3:
-                HandleIslandPort3();
+            case GameState.RIslandPort:
+                HandleRIslandPort();
                 break;
             case GameState.VictoryMenu:
                 HandleVictoryMenu();
@@ -88,19 +88,19 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Island");
     }
 
-    private void HandleIslandPort()
+    private void HandleHIslandPort()
     {
-        SceneManager.LoadScene("IslandPort");
+        SceneManager.LoadScene("H-islandPort");
     }
 
-    private void HandleIslandPort2()
+    private void HandleNIslandPort()
     {
-        SceneManager.LoadScene("IslandPort 2");
+        SceneManager.LoadScene("N-islandPort");
     }
 
-    private void HandleIslandPort3()
+    private void HandleRIslandPort()
     {
-        SceneManager.LoadScene("IslandPort 3");
+        SceneManager.LoadScene("R-islandPort");
     }
 
     private void HandleVictoryMenu()
@@ -117,9 +117,9 @@ public class GameManager : MonoBehaviour
     public void DockOnIsland()
     {
         GameState[] Ports = {
-            GameState.IslandPort,
-            GameState.IslandPort2,
-            GameState.IslandPort3
+            GameState.HIslandPort,
+            GameState.NIslandPort,
+            GameState.RIslandPort
         };
 
         int index = UnityEngine.Random.Range(0, Ports.Length);
@@ -131,15 +131,15 @@ public class GameManager : MonoBehaviour
 
         /*
          If IslandID == "Good" {
-            UpdateGameState(GameState.IslandPort);
+            UpdateGameState(GameState.HIslandPort);
          }
          
          If IslandID == "Neutral" {
-            UpdateGameState(GameState.IslandPort2);
+            UpdateGameState(GameState.NIslandPort);
          }
          
          If IslandID == "Bad" {
-             UpdateGameState(GameState.IslandPort3);
+             UpdateGameState(GameState.RRIslandPort);
          }
         */
 
@@ -155,9 +155,9 @@ public enum GameState
     StartScreen,
     Sailing,
     Island,
-    IslandPort,
-    IslandPort2,
-    IslandPort3,
+    HIslandPort,
+    NIslandPort,
+    RIslandPort,
     VictoryMenu,
     LossMenu
 }
