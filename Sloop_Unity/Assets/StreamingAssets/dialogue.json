@@ -36,7 +36,7 @@
       "id": "interact_honorable_deckhand_friendly_01",
       "type": "interact",
       "tags": ["alignment:honorable", "role:deckhand", "willingness:friendly"],
-      "text": "You've got a decent name. If you've room aboard, I'll sail with you."
+      "text": "If you've room aboard, I'll sail with you."
     },
     {
       "id": "interact_neutral_civilian_neutral_01",
