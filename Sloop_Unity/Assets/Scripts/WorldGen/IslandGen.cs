@@ -51,7 +51,7 @@ public class IslandGen : MonoBehaviour
     private Sprite islandSprite;
 
     //noIsland for if just an empty patch of water (so it doesn't add a collider)
-    public GameObject Generate(int seed, float extraLevel, bool noIsland, int resolution, int islandCounter) 
+    public GameObject Generate(int seed, float extraLevel, bool noIsland, int resolution, int islandCounter, Vector2 tile) 
     {
         //rend = GetComponent<SpriteRenderer>();
         Random.InitState(seed);
@@ -130,7 +130,7 @@ public class IslandGen : MonoBehaviour
         noiseTex.Apply();
         //rend.material.mainTexture = noiseTex;
 
-        return SaveIsland(noIsland, islandCounter);
+        return SaveIsland(noIsland, resolution, islandCounter, new Vector2(xCenter, yCenter), tile, extraLevel);
     }
 
     private Color CalculateColor(float sample)
@@ -147,12 +147,28 @@ public class IslandGen : MonoBehaviour
         return snow;
     }
 
-    private GameObject SaveIsland(bool noIsland, int islandCounter) //NOT FUCKING WORKING
+    private GameObject SaveIsland(bool noIsland, int resolution, int islandCounter, Vector2 center, Vector2 tile, float extraLevel)
     {
         GameObject islandObject = new GameObject($"Island {islandCounter}");
         //give sprite
         islandObject.AddComponent<SpriteRenderer>();
         islandObject.GetComponent<SpriteRenderer>().sprite = islandSprite;
+
+        //Give island a script and data
+        Island islandScript = islandObject.AddComponent<Island>();
+        islandScript.islandID = islandCounter;
+        islandScript.tileCoordinates = tile;
+        islandScript.isIsland = !noIsland;
+
+        if (extraLevel < 0)
+            center /= resolution;
+        else if (extraLevel == 0)
+            center /= resolution / 2;
+        else
+            center /= resolution / 4;
+
+        islandScript.islandCenter = center + tile; //how tf do i convert the center (pixels) into world space??
+
 
         //generate and give collider
         if (!noIsland)
