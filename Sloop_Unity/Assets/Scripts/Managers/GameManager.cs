@@ -52,6 +52,12 @@ public class GameManager : MonoBehaviour
             case GameState.IslandPort:
                 HandleIslandPort();
                 break;
+            case GameState.IslandPort2:
+                HandleIslandPort2();
+                break;
+            case GameState.IslandPort3:
+                HandleIslandPort3();
+                break;
             case GameState.VictoryMenu:
                 HandleVictoryMenu();
                 break;
@@ -87,6 +93,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("IslandPort");
     }
 
+    private void HandleIslandPort2()
+    {
+        SceneManager.LoadScene("IslandPort 2");
+    }
+
+    private void HandleIslandPort3()
+    {
+        SceneManager.LoadScene("IslandPort 3");
+    }
+
     private void HandleVictoryMenu()
     {
         SceneManager.LoadScene("VictoryMenu");
@@ -100,7 +116,15 @@ public class GameManager : MonoBehaviour
 
     public void DockOnIsland()
     {
-        UpdateGameState(GameState.IslandPort);
+        GameState[] Ports = {
+            GameState.IslandPort,
+            GameState.IslandPort2,
+            GameState.IslandPort3
+        };
+
+        int index = UnityEngine.Random.Range(0, Ports.Length);
+
+        UpdateGameState(Ports[index]);
     }
 
 
@@ -113,6 +137,8 @@ public enum GameState
     Sailing,
     Island,
     IslandPort,
+    IslandPort2,
+    IslandPort3,
     VictoryMenu,
     LossMenu
 }
