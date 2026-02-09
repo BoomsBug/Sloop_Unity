@@ -12,12 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Sailing.unity
     guid: 9841513f97081584e9582762d3e6bbaf
   - enabled: 1
-    path: Assets/Scenes/IslandPort.unity
+    path: Assets/Scenes/N-IslandPort.unity
     guid: 6c05f548a7e46fa448e86b07ebd3dd6f
   - enabled: 1
-    path: Assets/Scenes/IslandPort 2.unity
+    path: Assets/Scenes/R-IslandPort.unity
     guid: 4e19abf381945ce4fb9a67b6a2d766dc
   - enabled: 1
-    path: Assets/Scenes/IslandPort 3.unity
+    path: Assets/Scenes/H-IslandPort.unity
     guid: 1cc787acb5e30c24a82ca221ea5bd98b
   m_configObjects: {}
