@@ -125,6 +125,25 @@ public class GameManager : MonoBehaviour
         int index = UnityEngine.Random.Range(0, Ports.Length);
 
         UpdateGameState(Ports[index]);
+
+
+        //pseudocode for next steps in linking ports
+
+        /*
+         If IslandID == "Good" {
+            UpdateGameState(GameState.IslandPort);
+         }
+         
+         If IslandID == "Neutral" {
+            UpdateGameState(GameState.IslandPort2);
+         }
+         
+         If IslandID == "Bad" {
+             UpdateGameState(GameState.IslandPort3);
+         }
+        */
+
+
     }
 
 
