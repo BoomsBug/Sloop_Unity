@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 //using Unity.Mathematics;
+
+//using Unity.Mathematics;
 using UnityEngine;
 
 /*
@@ -46,6 +48,8 @@ public class IslandGen : MonoBehaviour
     public Color mountain;
     public Color snow;
 
+    public GameObject port;
+
     private Texture2D noiseTex;
     private Color[] pix;
     private Sprite islandSprite;
@@ -55,6 +59,8 @@ public class IslandGen : MonoBehaviour
     {
         //rend = GetComponent<SpriteRenderer>();
         Random.InitState(seed);
+
+        bool hasPort = false;
 
         // Set up the texture and a Color array to hold pixels during processing.
         noiseTex = new Texture2D(resolution, resolution);
@@ -70,7 +76,6 @@ public class IslandGen : MonoBehaviour
             resolution
         );
         //rend.sprite = islandSprite;
-
 
         float xCenter = noiseTex.width / 2;
         float yCenter = noiseTex.height / 2;
@@ -123,6 +128,17 @@ public class IslandGen : MonoBehaviour
                     (noiseHeight - level < beachLevel) ? 0.5f : 1.0f // if water, make semi transparent so unity can generate a collider
                 );
                 pix[(int)y * noiseTex.width + (int)x] = pixColor;
+
+                //if island is not small and sample is forest, place a port there (temporary?)
+                // place at x / noiseTex.width, y / noiseTex.height?
+                if (!hasPort && extraLevel >= 0 && noiseHeight + level > forestLevel)
+                {
+                    // x,y / resolution SHOULD be right?? ahhhhhhhhhhg! the formula makes sense and should work!! fml
+                    // will have to do for now, they are all in the right general area but definitely not exact
+                    Instantiate(port, (new Vector2(x, y) / resolution) + tile - (0.5f* new Vector2(xCenter/resolution, yCenter/resolution)), Quaternion.identity);
+                    //Debug.Log($"Res: {resolution}, x: {x}, y: {y}, placed at: {(new Vector2(x, y) / resolution) + tile}");
+                    hasPort = true;
+                }
             }
         }
         // Copy the pixel data to the texture and load it into the GPU.
@@ -154,21 +170,25 @@ public class IslandGen : MonoBehaviour
         islandObject.AddComponent<SpriteRenderer>();
         islandObject.GetComponent<SpriteRenderer>().sprite = islandSprite;
 
+        //Add trigger over the whole sprite so ship can detect when it moves into a new ocean tile\
+        BoxCollider2D tileTrigger = islandObject.AddComponent<BoxCollider2D>();
+        tileTrigger.isTrigger = true;
+        islandObject.tag = "Ocean Tile";
+
         //Give island a script and data
         Island islandScript = islandObject.AddComponent<Island>();
         islandScript.islandID = islandCounter;
         islandScript.tileCoordinates = tile;
         islandScript.isIsland = !noIsland;
+        islandScript.islandCenter = (center / resolution) + tile; //how tf do i convert the center (pixels) into world space??
 
-        if (extraLevel < 0)
-            center /= resolution;
-        else if (extraLevel == 0)
-            center /= resolution / 2;
-        else
-            center /= resolution / 4;
+        //determine island morality
+        int morality = Random.Range(0, 1000) % 3;
+        if (morality == 0) islandScript.morality = "R";
+        else if (morality == 1) islandScript.morality = "N";
+        else islandScript.morality = "N";
 
-        islandScript.islandCenter = center + tile; //how tf do i convert the center (pixels) into world space??
-
+        //islandScript.port = islandPort;
 
         //generate and give collider
         if (!noIsland)

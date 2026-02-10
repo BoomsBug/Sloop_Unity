@@ -10,7 +10,7 @@ public class BoatMovement : MonoBehaviour
     private float boatAcceleration;
     bool accelerated = false;
 
-    public Transform dockCheck;
+    public float dockCheckRadius;
     bool dockPressed = false;
     
     public enum WindDir {E, NE, N, NW, W, SW, S, SE} // 8 directions: 4 cardinal and 4 intercardinal direction
@@ -18,6 +18,9 @@ public class BoatMovement : MonoBehaviour
     public float windStrength = 1.5f;
 
     private Animator boatAnimator;
+
+    //So the boat knows where it is on the map and can access the relevant island information
+    public GameObject curOceanTile;
 
     // Start is called before the first frame update
     void Start()
@@ -133,19 +136,45 @@ public class BoatMovement : MonoBehaviour
         }
     }
 
-
-
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(gameObject.transform.position, dockCheckRadius);
+    }
 
     // Update is called once per frame
     void Update()
     {
         accelerated = Input.GetKey(KeyCode.Space);
 
-        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 5f, LayerMask.GetMask("Land"))) { // if close to Land and pressed "E"
+        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Port"))) { // if close to Land and pressed "E"
             dockPressed = !dockPressed;
+
+            //call port scene
+            Island curIsland = curOceanTile.GetComponent<Island>();
+            if (curIsland.morality == "R")
+            {
+                //call ruthless port
+                Debug.Log("Docking at ruthless");
+            } else if (curIsland.morality == "N")
+            {
+                //call neutral port
+                Debug.Log("Docking at neutral");
+            } else if (curIsland.morality == "H")
+            {
+                //call honourable port
+                Debug.Log("Docking at Honourable");
+            } else Debug.Log("Invalid Island Morality");
         }
         
     }
 
+    // When the ship enters a new ocean tile, set curIsland to that tile
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ocean Tile")) 
+        {
+            curOceanTile = collision.gameObject;
+        }
+    }
 
 }

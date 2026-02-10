@@ -44,12 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a4ccecb530d974d982539c38fcec9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numStartingCells: 4
+  numStartingCells: 3
   splitChances:
   - 0.6
   - 0.4
   noIslandChance: 0.2
   seed: 125
+  worldSize: 5
   islandGen: {fileID: 0}
   resolution: 128
   islandParent: {fileID: 0}
+  islands: []

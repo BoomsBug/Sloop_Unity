@@ -9,12 +9,14 @@ public class Island : MonoBehaviour
     public Vector2 islandCenter;
     public bool isIsland;
     public int size; // < 0 is small, 0 is medium, > 0 is large
+    public string morality;
+    public GameObject port;
 
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(islandCenter, 0.1f);
+        Gizmos.DrawWireSphere(islandCenter, 0.1f);
     }
 
     // Start is called before the first frame update
