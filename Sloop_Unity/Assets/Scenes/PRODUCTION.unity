@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 37159621}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.228417, y: -0.9406129, z: -0.13855535}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -354,6 +354,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IslandGenManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9048004392253026016, guid: 929a227dda071ad4d8bf98a5299ae7de, type: 3}
+      propertyPath: port
+      value: 
+      objectReference: {fileID: 3585663256030153739, guid: ede512e9fd3f8fa458bc91f2876bf278, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -367,6 +371,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
+      propertyPath: seed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
       propertyPath: islandGen
       value: 

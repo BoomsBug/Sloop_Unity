@@ -141,8 +141,9 @@ public class BoatMovement : MonoBehaviour
     {
         accelerated = Input.GetKey(KeyCode.Space);
 
-        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 5f, LayerMask.GetMask("Land"))) { // if close to Land and pressed "E"
+        if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(dockCheck.position, 5f, LayerMask.GetMask("Port"))) { // if close to Land and pressed "E"
             dockPressed = !dockPressed;
+            Debug.Log("Docking");
         }
         
     }

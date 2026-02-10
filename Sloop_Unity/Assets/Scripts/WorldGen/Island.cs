@@ -14,7 +14,7 @@ public class Island : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(islandCenter, 0.1f);
+        Gizmos.DrawWireSphere(islandCenter, 0.1f);
     }
 
     // Start is called before the first frame update
