@@ -186,7 +186,7 @@ public class IslandGen : MonoBehaviour
         int morality = Random.Range(0, 1000) % 3;
         if (morality == 0) islandScript.morality = "R";
         else if (morality == 1) islandScript.morality = "N";
-        else islandScript.morality = "N";
+        else islandScript.morality = "H";
 
         //islandScript.port = islandPort;
 
