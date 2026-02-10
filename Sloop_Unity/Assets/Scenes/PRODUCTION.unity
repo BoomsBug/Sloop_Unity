@@ -523,6 +523,10 @@ PrefabInstance:
       propertyPath: windStrength
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8977479901357671448, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: dockCheckRadius
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8079765471882660851, guid: b422367889da544439dac250a0adea90, type: 3}

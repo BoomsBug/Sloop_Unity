@@ -77,7 +77,6 @@ public class IslandGen : MonoBehaviour
         );
         //rend.sprite = islandSprite;
 
-
         float xCenter = noiseTex.width / 2;
         float yCenter = noiseTex.height / 2;
         //add a random offset 
@@ -171,13 +170,25 @@ public class IslandGen : MonoBehaviour
         islandObject.AddComponent<SpriteRenderer>();
         islandObject.GetComponent<SpriteRenderer>().sprite = islandSprite;
 
+        //Add trigger over the whole sprite so ship can detect when it moves into a new ocean tile\
+        BoxCollider2D tileTrigger = islandObject.AddComponent<BoxCollider2D>();
+        tileTrigger.isTrigger = true;
+        islandObject.tag = "Ocean Tile";
+
         //Give island a script and data
         Island islandScript = islandObject.AddComponent<Island>();
         islandScript.islandID = islandCounter;
         islandScript.tileCoordinates = tile;
         islandScript.isIsland = !noIsland;
-
         islandScript.islandCenter = (center / resolution) + tile; //how tf do i convert the center (pixels) into world space??
+
+        //determine island morality
+        int morality = Random.Range(0, 1000) % 3;
+        if (morality == 0) islandScript.morality = "R";
+        else if (morality == 1) islandScript.morality = "N";
+        else islandScript.morality = "N";
+
+        //islandScript.port = islandPort;
 
         //generate and give collider
         if (!noIsland)
