@@ -159,7 +159,7 @@ public class TopDownPlayerMovement : MonoBehaviour
     {
         if (playerResources != null && playerResources.BuyWoodFromMerchant())
         {
-            UpdateMerchantPrices();
+            //UpdateMerchantPrices();
         }
     }
 
@@ -169,7 +169,6 @@ public class TopDownPlayerMovement : MonoBehaviour
 
         // optional clean-up
         spriteRenderer.color = defaultColor;
-        CloseMerchantUI();
 
         // Load sailing scene via state machine (keeps flow consistent)
         GameManager.Instance.UpdateGameState(GameState.Sailing);
