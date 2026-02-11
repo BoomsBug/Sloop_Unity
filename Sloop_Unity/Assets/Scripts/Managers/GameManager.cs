@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 {
 
     public GameState state;
-
+    public int worldSeed;
     public static event Action<GameState> OnGameStateChanged;
 
 
@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        worldSeed = UnityEngine.Random.Range(0, 999999);
     }
 
 
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleSailing()
     {
-        SceneManager.LoadScene("Sailing");
+        SceneManager.LoadScene("PRODUCTION");
     }
 
     private void HandleIsland()

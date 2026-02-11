@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/H-IslandPort.unity
     guid: 1cc787acb5e30c24a82ca221ea5bd98b
+  - enabled: 1
+    path: Assets/Scenes/PRODUCTION.unity
+    guid: d59dd65438c6e30418b8eb0ba1e26373
   m_configObjects: {}

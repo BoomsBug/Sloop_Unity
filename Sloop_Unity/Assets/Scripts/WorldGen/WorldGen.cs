@@ -39,6 +39,8 @@ public class WorldGen : MonoBehaviour
 
     void Start()
     {
+        seed = GameManager.Instance.worldSeed;
+        Debug.Log($"World Seed: {seed}");
         Random.InitState(seed);
 
         root = new TreeNode { nodeID = -1 };
