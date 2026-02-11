@@ -6,7 +6,6 @@ TagManager:
   tags:
   - NPC
   - Item
-  - Merchant
   layers:
   - Default
   - TransparentFX
