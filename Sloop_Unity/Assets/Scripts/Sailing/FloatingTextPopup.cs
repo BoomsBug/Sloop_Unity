@@ -2,6 +2,14 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+/*
+Most of the code in this script is AI-generated
+
+Code functionality:
+This script is responsible for displaying some floating text that fades away, 
+for a few seconds, depending on the duration and holdTime values.
+*/
+
 public class FloatingTextPopup : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;

@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sloop.Player;
 
+/*
+Most of the code in this script is AI-generated
+
+Code functionality:
+When the encounter is started by the EncounterSpawner.cs script, the player can see
+the current value of their resources. Then, as the enemy ship approaches, they no longer 
+have control over the ship and are given 2 options: either give up a crew member to 
+the enemy ship, losing honor in return, or choose to resist, losing some power in return
+but gaining gold. If they choose option 1, the enemy ship moves away. Else, it vanishes 
+(gets destroyed). Regarding of their choice, the updated resources stats get displayed 
+for a few seconds.
+*/
+
 public class ShipEncounterController : MonoBehaviour
 {
     [Header("References")]
