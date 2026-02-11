@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Merchant : MonoBehaviour
+public class MerchantTest : MonoBehaviour
 {
     public Button choiceButtonPrefab;
     public string[] itemList = {};
