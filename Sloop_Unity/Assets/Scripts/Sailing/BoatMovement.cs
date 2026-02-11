@@ -150,24 +150,6 @@ public class BoatMovement : MonoBehaviour
         accelerated = Input.GetKey(KeyCode.Space);
 
         if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Port"))) { // if close to Land and pressed "E"
-            
-            /*
-            //call port scene
-            Island curIsland = curOceanTile.GetComponent<Island>();
-            if (curIsland.morality == "R")
-            {
-                //call ruthless port
-                Debug.Log("Docking at ruthless");
-            } else if (curIsland.morality == "N")
-            {
-                //call neutral port
-                Debug.Log("Docking at neutral");
-            } else if (curIsland.morality == "H")
-            {
-                //call honourable port
-                Debug.Log("Docking at Honourable");
-            } else Debug.Log("Invalid Island Morality");
-            */
 
             dockPressed = !dockPressed;
 
