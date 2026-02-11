@@ -195,7 +195,7 @@ public class BoatMovement : MonoBehaviour
             int worldSeed = worldGen != null ? worldGen.seed : 0;
 
             // Save context for port scene NPC generation
-            IslandVisitContext.Set(worldSeed, curIsland.islandID, curIsland.morality);
+            IslandVisitContext.Set(worldSeed, curIsland.islandID, curIsland.morality, curIsland.hasTreasure);
 
             Debug.LogWarning($"IslandID {curIsland.islandID}");
 
@@ -210,6 +210,11 @@ public class BoatMovement : MonoBehaviour
 
                 gm.currentIslandID = curIsland.islandID;
                 gm.currentIslandMorality = curIsland.morality;
+            }
+
+            if (curIsland.hasTreasure)
+            {
+                SceneManager.LoadScene("Treasure");
             }
 
             // Load the correct port scene
@@ -229,6 +234,15 @@ public class BoatMovement : MonoBehaviour
                     break;
             }
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.E)) 
+        {
+            Collider2D islandCollider = Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Island"));
+            if (islandCollider && islandCollider.gameObject.GetComponent<Island>().hasTreasure)
+            {
+                SceneManager.LoadScene("Treasure");
+            }
         }
         
     }

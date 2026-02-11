@@ -11,6 +11,7 @@ public class Island : MonoBehaviour
     public int size; // < 0 is small, 0 is medium, > 0 is large
     public string morality;
     public GameObject port;
+    public bool hasTreasure;
 
 
     void OnDrawGizmos()

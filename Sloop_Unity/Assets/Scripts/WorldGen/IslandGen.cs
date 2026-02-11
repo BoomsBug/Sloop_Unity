@@ -53,6 +53,7 @@ public class IslandGen : MonoBehaviour
     private Texture2D noiseTex;
     private Color[] pix;
     private Sprite islandSprite;
+    public bool hasTreasure;
 
     //noIsland for if just an empty patch of water (so it doesn't add a collider)
     public GameObject Generate(int seed, float extraLevel, bool noIsland, int resolution, int islandCounter, Vector2 tile) 
@@ -193,6 +194,7 @@ public class IslandGen : MonoBehaviour
         //generate and give collider
         if (!noIsland)
             islandObject.AddComponent<PolygonCollider2D>();
+            islandObject.layer = LayerMask.NameToLayer("Island");
 
         return islandObject;
     }
