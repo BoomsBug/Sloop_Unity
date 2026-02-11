@@ -9,6 +9,7 @@ public class PlayerResources : MonoBehaviour
     public int gold = 100;
     public int wood = 0;
     public int food = 0;
+    public int power = 0;
     
     // Crew and Ship stats
     public int crewMates = 5;
@@ -18,6 +19,7 @@ public class PlayerResources : MonoBehaviour
     public Text goldText;
     public Text woodText;
     public Text foodText;
+    public Text powerText;
     public Text crewText;
     public Text shipText;
 
@@ -160,6 +162,8 @@ public class PlayerResources : MonoBehaviour
             woodText.text = "Wood: " + wood;
         if (foodText != null)
             foodText.text = "Food: " + food;
+        if (powerText != null)
+            powerText.text = "Power: " + power;
         if (crewText != null)
             crewText.text = "Crew: " + crewMates;
         if (shipText != null)
