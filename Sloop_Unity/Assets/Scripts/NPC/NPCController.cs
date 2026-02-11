@@ -23,6 +23,9 @@ namespace Sloop.NPC
         private bool playerInRange;
         private Transform playerTransform;
 
+        [SerializeField] private MerchantShop merchantShop;
+
+
 
         private bool HasValidData()
         {
@@ -49,8 +52,8 @@ namespace Sloop.NPC
 
         private void Awake()
         {
-            //if (dialogueUI == null)
-                //dialogueUI = FindFirstObjectByType<NPCDialogueUI>();
+            if (merchantShop == null)
+                merchantShop = GetComponent<MerchantShop>();
         }
 
 
@@ -275,7 +278,7 @@ namespace Sloop.NPC
             );
         }
 
-        
+        /*
         private void ShowMerchantChoices(NPCDialogueUI ui, int willingness)
         {
             //int priceMultiplier = 1; // TEMP UNTIL RESOURCE SYSTEM BUILT
@@ -297,7 +300,32 @@ namespace Sloop.NPC
                     ui.HideChoices();
                 }
             );
+        }*/
+
+        private void ShowMerchantChoices(NPCDialogueUI ui, int willingness)
+        {
+            ui.ShowChoices(
+                "Open Shop",
+                () =>
+                {
+                    if (merchantShop == null)
+                    {
+                        ui.SetLine("(MerchantShop missing on this NPC.)");
+                        ui.HideChoices();
+                        return;
+                    }
+
+                    merchantShop.OpenShop(ui);
+                },
+                "Nevermind",
+                () =>
+                {
+                    ui.SetLine("Come back anytime.");
+                    ui.HideChoices();
+                }
+            );
         }
+
 
         
         private void ShowCivilianChoices(NPCDialogueUI ui, int willingness)
