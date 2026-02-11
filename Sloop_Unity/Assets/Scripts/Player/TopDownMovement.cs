@@ -30,7 +30,8 @@ public class TopDownPlayerMovement : MonoBehaviour
     // Track what we're near
     private bool isNearNPC = false;
     private bool isNearItem = false;
-    // private bool isNearMerchant = false;
+    private bool isNearMerchant = false;
+    private bool isNearShip = false;
 
     private PlayerResources playerResources;
 
@@ -91,6 +92,12 @@ public class TopDownPlayerMovement : MonoBehaviour
             spriteRenderer.color = defaultColor;
             // CloseMerchantUI();
         }
+
+        // Return to ship
+        if (Input.GetKeyDown(KeyCode.E) && isNearShip)
+        {
+            ReturnToShip();
+        }
     }
 
     void FixedUpdate()
@@ -148,13 +155,26 @@ public class TopDownPlayerMovement : MonoBehaviour
     //     }
     // }
     
-    // public void BuyWood()
-    // {
-    //     if (playerResources != null && playerResources.BuyWoodFromMerchant())
-    //     {
-    //         UpdateMerchantPrices();
-    //     }
-    // }
+    public void BuyWood()
+    {
+        if (playerResources != null && playerResources.BuyWoodFromMerchant())
+        {
+            UpdateMerchantPrices();
+        }
+    }
+
+    private void ReturnToShip()
+    {
+        Debug.Log("Returning to ship...");
+
+        // optional clean-up
+        spriteRenderer.color = defaultColor;
+        CloseMerchantUI();
+
+        // Load sailing scene via state machine (keeps flow consistent)
+        GameManager.Instance.UpdateGameState(GameState.Sailing);
+    }
+
     
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -165,6 +185,10 @@ public class TopDownPlayerMovement : MonoBehaviour
         if (other.CompareTag("NPC"))
         {
             isNearNPC = true;
+        }
+        if (other.CompareTag("Ship"))
+        {
+            isNearShip = true;
         }
         else if (other.CompareTag("Item"))
         {
@@ -185,10 +209,17 @@ public class TopDownPlayerMovement : MonoBehaviour
             isNearNPC = false;
             spriteRenderer.color = defaultColor;
         }
+        if (other.CompareTag("Ship"))
+        {
+            isNearShip = false;
+            spriteRenderer.color = defaultColor;
+        }
         else if (other.CompareTag("Item"))
         {
             isNearItem = false;
             spriteRenderer.color = defaultColor;
         }
     }
+
+
 }

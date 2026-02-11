@@ -16,9 +16,18 @@ public class GameManager : MonoBehaviour
     public int worldSeed;
     public static event Action<GameState> OnGameStateChanged;
 
+    [Header("Boat State")]
+    public Vector3 boatPosition;
+    public Vector2 boatVelocity;
+    public bool hasBoatState = false;
+
+    [Header("Docking")]
+    public int currentIslandID = -1;
+    public string currentIslandMorality;
+
 
     // GameManager instance to grab from anywhere in game
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
     // One game manager only and game manager 
     // continues from scene to scene
