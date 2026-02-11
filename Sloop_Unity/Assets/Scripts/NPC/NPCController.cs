@@ -112,14 +112,20 @@ namespace Sloop.NPC
 
         private int GetPlayerHonor()
         {
-            if (playerTransform == null) return 50; // safe default
+            // OLD PLAYERHONOR script
+            //if (playerTransform == null) return 50; // safe default
 
             // Replace this with your actual player honor component name if different
-            var honorComp = playerTransform.GetComponent<Sloop.Player.PlayerHonor>();
-            if (honorComp == null)
-                return 50;
+            //var honorComp = playerTransform.GetComponent<Sloop.Player.PlayerHonor>();
+            //if (honorComp == null)
+                //return 50;
 
-            return Mathf.Clamp(honorComp.Honor, 0, 100);
+            //return Mathf.Clamp(honorComp.Honor, 0, 100);
+
+            // NEW PlayerStateManager script holds playerHonor
+            var ps = Sloop.Player.PlayerStateManager.Instance;
+            if (ps == null) return 50;
+            return Mathf.Clamp(ps.Honor, 0, 100);
         }
 
 
