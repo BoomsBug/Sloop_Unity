@@ -380,6 +380,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1634548536}
     - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
+      propertyPath: worldSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
       propertyPath: islandParent
       value: 
       objectReference: {fileID: 37159622}
@@ -465,6 +469,7 @@ MonoBehaviour:
   worldSeed: 0
   boatPosition: {x: 0, y: 0, z: 0}
   boatVelocity: {x: 0, y: 0}
+  hasBoatState: 0
   currentIslandID: -1
   currentIslandMorality: 
 --- !u!4 &1621310198
@@ -527,11 +532,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.42
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.66
+      value: -2.37
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.z
