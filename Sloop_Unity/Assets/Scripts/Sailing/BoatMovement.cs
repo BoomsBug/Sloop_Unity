@@ -48,7 +48,12 @@ public class BoatMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        Vector2 windVelocity = WindVectorDirection(windDirection) * windStrength;
+        //Vector2 windVelocity = WindVectorDirection(windDirection) * windStrength;
+
+        float windMult = (RainScheduler.Instance != null) ? RainScheduler.Instance.CurrentWindMultiplier : 1f;
+        Vector2 gust = (RainScheduler.Instance != null) ? RainScheduler.Instance.GustVector : Vector2.zero;
+
+        Vector2 windVelocity = WindVectorDirection(windDirection) * windStrength * windMult + gust;
 
         if (accelerated) {
             boatRigidbody.velocity = new Vector2(horizontalInput * boatAcceleration, verticalInput * boatAcceleration);
@@ -95,7 +100,7 @@ public class BoatMovement : MonoBehaviour
             boatAnimator.SetInteger("direction", 7); // SE
         }
 
-        boatRigidbody.velocity += windVelocity; // add wind velocity to boat's
+        boatRigidbody.velocity += windVelocity; // add wind velocity to boat's, but still affected by rain
 
 
         if (dockPressed) {
