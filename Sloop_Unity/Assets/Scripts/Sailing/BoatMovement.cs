@@ -31,6 +31,14 @@ public class BoatMovement : MonoBehaviour
         boatAcceleration = boatSpeed * 2f;
         boatRigidbody = GetComponent<Rigidbody2D>();
         boatAnimator = GetComponent<Animator>();
+
+        var gm = GameManager.Instance;
+        if (gm != null && gm.hasBoatState)
+        {
+            transform.position = gm.boatPosition;
+            boatRigidbody.velocity = gm.boatVelocity;
+        }
+        
         
     }
 
@@ -150,6 +158,24 @@ public class BoatMovement : MonoBehaviour
         accelerated = Input.GetKey(KeyCode.Space);
 
         if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Port"))) { // if close to Land and pressed "E"
+            
+            /*
+            //call port scene
+            Island curIsland = curOceanTile.GetComponent<Island>();
+            if (curIsland.morality == "R")
+            {
+                //call ruthless port
+                Debug.Log("Docking at ruthless");
+            } else if (curIsland.morality == "N")
+            {
+                //call neutral port
+                Debug.Log("Docking at neutral");
+            } else if (curIsland.morality == "H")
+            {
+                //call honourable port
+                Debug.Log("Docking at Honourable");
+            } else Debug.Log("Invalid Island Morality");
+            */
 
             dockPressed = !dockPressed;
 
@@ -167,6 +193,19 @@ public class BoatMovement : MonoBehaviour
             IslandVisitContext.Set(worldSeed, curIsland.islandID, curIsland.morality);
 
             Debug.LogWarning($"IslandID {curIsland.islandID}");
+
+
+            // Save Boat context
+            var gm = GameManager.Instance;
+            if (gm != null)
+            {
+                gm.boatPosition = transform.position;
+                gm.boatVelocity = boatRigidbody.velocity;
+                gm.hasBoatState = true;
+
+                gm.currentIslandID = curIsland.islandID;
+                gm.currentIslandMorality = curIsland.morality;
+            }
 
             // Load the correct port scene
             switch (curIsland.morality)

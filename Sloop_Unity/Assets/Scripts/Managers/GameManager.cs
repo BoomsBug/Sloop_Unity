@@ -13,12 +13,21 @@ public class GameManager : MonoBehaviour
 {
 
     public GameState state;
-
+    public int worldSeed;
     public static event Action<GameState> OnGameStateChanged;
+
+    [Header("Boat State")]
+    public Vector3 boatPosition;
+    public Vector2 boatVelocity;
+    public bool hasBoatState = false;
+
+    [Header("Docking")]
+    public int currentIslandID = -1;
+    public string currentIslandMorality;
 
 
     // GameManager instance to grab from anywhere in game
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
     // One game manager only and game manager 
     // continues from scene to scene
@@ -31,6 +40,8 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        worldSeed = UnityEngine.Random.Range(0, 999999);
     }
 
 
@@ -113,7 +124,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("LossMenu");
     }
 
-    /*
+
     public void DockOnIsland()
     {
         GameState[] Ports = {
@@ -129,7 +140,7 @@ public class GameManager : MonoBehaviour
 
         //pseudocode for next steps in linking ports
 
-        
+        /*
          If IslandID == "Good" {
             UpdateGameState(GameState.HIslandPort);
          }
@@ -141,12 +152,10 @@ public class GameManager : MonoBehaviour
          If IslandID == "Bad" {
              UpdateGameState(GameState.RRIslandPort);
          }
-        
+        */
 
 
     }
-    */
-
 
 
 

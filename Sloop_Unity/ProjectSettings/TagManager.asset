@@ -7,6 +7,8 @@ TagManager:
   - NPC
   - Item
   - Ocean Tile
+  - Merchant
+  - Ship
   layers:
   - Default
   - TransparentFX
