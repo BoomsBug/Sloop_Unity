@@ -9,7 +9,7 @@ public class BoatMovement : MonoBehaviour
 {
 
     private Rigidbody2D boatRigidbody;
-    public float boatSpeed = 8.0f;
+    public float boatSpeed = 6.0f;
     private float boatAcceleration;
     bool accelerated = false;
 
