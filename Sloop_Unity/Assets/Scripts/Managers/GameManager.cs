@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("LossMenu");
     }
 
-    /*
+
     public void DockOnIsland()
     {
         GameState[] Ports = {
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         //pseudocode for next steps in linking ports
 
-        
+        /*
          If IslandID == "Good" {
             UpdateGameState(GameState.HIslandPort);
          }
@@ -143,12 +143,10 @@ public class GameManager : MonoBehaviour
          If IslandID == "Bad" {
              UpdateGameState(GameState.RRIslandPort);
          }
-        
+        */
 
 
     }
-    */
-
 
 
 
