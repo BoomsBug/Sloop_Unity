@@ -432,6 +432,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
+--- !u!1 &1621310196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621310198}
+  - component: {fileID: 1621310197}
+  m_Layer: 0
+  m_Name: GameManagerObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1621310197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621310196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ef87e5bbf11354a98cc9db7732d959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  worldSeed: 0
+  boatPosition: {x: 0, y: 0, z: 0}
+  boatVelocity: {x: 0, y: 0}
+  currentIslandID: -1
+  currentIslandMorality: 
+--- !u!4 &1621310198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621310196}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1090755, y: -1.0399215, z: -0.056792565}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1634548536 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9048004392253026016, guid: 929a227dda071ad4d8bf98a5299ae7de, type: 3}
@@ -550,3 +600,4 @@ SceneRoots:
   - {fileID: 1616681898}
   - {fileID: 37159622}
   - {fileID: 1887803209}
+  - {fileID: 1621310198}

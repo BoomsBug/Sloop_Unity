@@ -31,6 +31,14 @@ public class BoatMovement : MonoBehaviour
         boatAcceleration = boatSpeed * 2f;
         boatRigidbody = GetComponent<Rigidbody2D>();
         boatAnimator = GetComponent<Animator>();
+
+        var gm = GameManager.Instance;
+        if (gm != null && gm.hasBoatState)
+        {
+            transform.position = gm.boatPosition;
+            boatRigidbody.velocity = gm.boatVelocity;
+        }
+        
         
     }
 
@@ -185,6 +193,19 @@ public class BoatMovement : MonoBehaviour
             IslandVisitContext.Set(worldSeed, curIsland.islandID, curIsland.morality);
 
             Debug.LogWarning($"IslandID {curIsland.islandID}");
+
+
+            // Save Boat context
+            var gm = GameManager.Instance;
+            if (gm != null)
+            {
+                gm.boatPosition = transform.position;
+                gm.boatVelocity = boatRigidbody.velocity;
+                gm.hasBoatState = true;
+
+                gm.currentIslandID = curIsland.islandID;
+                gm.currentIslandMorality = curIsland.morality;
+            }
 
             // Load the correct port scene
             switch (curIsland.morality)
