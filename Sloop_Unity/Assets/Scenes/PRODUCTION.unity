@@ -381,7 +381,7 @@ PrefabInstance:
       objectReference: {fileID: 1634548536}
     - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
       propertyPath: worldSize
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3713461890772996538, guid: e8904b5463a69024ca96e25b0bea8709, type: 3}
       propertyPath: islandParent

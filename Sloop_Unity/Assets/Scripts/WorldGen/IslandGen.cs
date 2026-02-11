@@ -194,6 +194,7 @@ public class IslandGen : MonoBehaviour
         //generate and give collider
         if (!noIsland)
             islandObject.AddComponent<PolygonCollider2D>();
+            islandObject.layer = LayerMask.NameToLayer("Island");
 
         return islandObject;
     }

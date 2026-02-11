@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -64,6 +65,9 @@ public class WorldGen : MonoBehaviour
         //decide which island will have the treasure
         treasureIsland = Random.Range(0, islands.Count);
         islands[treasureIsland].hasTreasure = true;
+        // CircleCollider2D treasureCollider = islands[treasureIsland].AddComponent<CircleCollider2D>();
+        // treasureCollider.isTrigger = true;
+        // treasureCollider.
     }
 
     public void DFS(TreeNode node)
