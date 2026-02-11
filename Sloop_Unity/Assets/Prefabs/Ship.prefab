@@ -217,7 +217,7 @@ MonoBehaviour:
   gold: 100
   wood: 0
   food: 0
-  power: 0
+  power: 50
   crewMates: 5
   shipLevel: 1
   goldText: {fileID: 0}

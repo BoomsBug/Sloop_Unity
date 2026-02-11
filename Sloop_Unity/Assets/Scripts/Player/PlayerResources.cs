@@ -9,7 +9,7 @@ public class PlayerResources : MonoBehaviour
     public int gold = 100;
     public int wood = 0;
     public int food = 0;
-    public int power = 0;
+    public int power = 50;
     
     // Crew and Ship stats
     public int crewMates = 5;
@@ -61,6 +61,12 @@ public class PlayerResources : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void AddPower(int amount)
+    {
+        power += amount;
+        UpdateUI();
     }
     
     public void AddFood(int amount)

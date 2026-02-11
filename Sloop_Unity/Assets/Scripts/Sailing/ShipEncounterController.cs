@@ -133,7 +133,7 @@ public class ShipEncounterController : MonoBehaviour
 
         if (resources)
         {
-            //resources.AddPower(-powerCostIfEngage);
+            resources.AddPower(-powerCostIfEngage);
             resources.AddGold(goldLootIfEngage);
         }
         if (honor) honor.AddHonor(honorDeltaIfEngage);
