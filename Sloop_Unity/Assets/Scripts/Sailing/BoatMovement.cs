@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Sloop.World;
+
 
 public class BoatMovement : MonoBehaviour
 {
@@ -92,10 +95,10 @@ public class BoatMovement : MonoBehaviour
 
 
             // Switch to dock on island scene if at port and press E
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.DockOnIsland();
-            }
+            //if (GameManager.Instance != null)
+            //{
+                //GameManager.Instance.DockOnIsland(); Handled in Update instead
+            //}
         }
 
 
@@ -147,8 +150,8 @@ public class BoatMovement : MonoBehaviour
         accelerated = Input.GetKey(KeyCode.Space);
 
         if (Input.GetKeyDown(KeyCode.E) && Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Port"))) { // if close to Land and pressed "E"
-            dockPressed = !dockPressed;
-
+            
+            /*
             //call port scene
             Island curIsland = curOceanTile.GetComponent<Island>();
             if (curIsland.morality == "R")
@@ -164,6 +167,42 @@ public class BoatMovement : MonoBehaviour
                 //call honourable port
                 Debug.Log("Docking at Honourable");
             } else Debug.Log("Invalid Island Morality");
+            */
+
+            dockPressed = !dockPressed;
+
+            Island curIsland = curOceanTile.GetComponent<Island>();
+            if (curIsland == null)
+            {
+                Debug.LogWarning("No Island component found on curOceanTile.");
+                return;
+            }
+
+            WorldGen worldGen = FindObjectOfType<WorldGen>();
+            int worldSeed = worldGen != null ? worldGen.seed : 0;
+
+            // Save context for port scene NPC generation
+            IslandVisitContext.Set(worldSeed, curIsland.islandID, curIsland.morality);
+
+            Debug.LogWarning($"IslandID {curIsland.islandID}");
+
+            // Load the correct port scene
+            switch (curIsland.morality)
+            {
+                case "R":
+                    SceneManager.LoadScene("R-IslandPort");
+                    break;
+                case "N":
+                    SceneManager.LoadScene("N-IslandPort");
+                    break;
+                case "H":
+                    SceneManager.LoadScene("H-IslandPort");
+                    break;
+                default:
+                    Debug.LogWarning($"Invalid Island Morality: {curIsland.morality}");
+                    break;
+            }
+
         }
         
     }
