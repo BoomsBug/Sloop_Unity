@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Merchant : MonoBehaviour
+public class shop : MonoBehaviour
 {
     public enum MerchantType
     {
