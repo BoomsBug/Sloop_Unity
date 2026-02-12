@@ -17,9 +17,6 @@ namespace Sloop.NPC
         [SerializeField] private int npcIndex = 0;
         public int NpcIndex => npcIndex;
 
-        //[Header("UI")]
-        //[SerializeField] private NPCDialogueUI dialogueUI; // assign in inspector or find at runtime
-
         private bool playerInRange;
         private Transform playerTransform;
 
@@ -115,7 +112,6 @@ namespace Sloop.NPC
             // OLD PLAYERHONOR script
             //if (playerTransform == null) return 50; // safe default
 
-            // Replace this with your actual player honor component name if different
             //var honorComp = playerTransform.GetComponent<Sloop.Player.PlayerHonor>();
             //if (honorComp == null)
                 //return 50;
