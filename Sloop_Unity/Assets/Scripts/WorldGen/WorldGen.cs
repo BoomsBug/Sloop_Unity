@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WorldGen : MonoBehaviour
 {
@@ -27,6 +29,7 @@ public class WorldGen : MonoBehaviour
     public Transform islandParent;
     private int islandCounter = 0;
     public List<Island> islands;
+    public int treasureIsland;
 
 
     public class TreeNode
@@ -58,6 +61,13 @@ public class WorldGen : MonoBehaviour
             }
         }
         DFS(root);
+
+        //decide which island will have the treasure
+        treasureIsland = Random.Range(0, islands.Count);
+        islands[treasureIsland].hasTreasure = true;
+        // CircleCollider2D treasureCollider = islands[treasureIsland].AddComponent<CircleCollider2D>();
+        // treasureCollider.isTrigger = true;
+        // treasureCollider.
     }
 
     public void DFS(TreeNode node)
@@ -115,7 +125,7 @@ public class WorldGen : MonoBehaviour
                 newIsland = islandGen.Generate(Random.Range(0, 10000), -1f, true, resolution, islandCounter, node.position); // just water (maybe with a lil something)
             else if (node.splitCount == 0)
             {
-                newIsland = islandGen.Generate(Random.Range(0, 10000), 0.03f, false, resolution * 4, islandCounter, node.position); // large
+                newIsland = islandGen.Generate(Random.Range(0, 10000), 0.02f, false, resolution * 4, islandCounter, node.position); // large
                 //newIsland.transform.localScale = newIsland.transform.localScale / 4;
             }
                 
