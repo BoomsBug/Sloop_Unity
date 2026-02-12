@@ -19,7 +19,11 @@ public class BoatMovement : MonoBehaviour
     public enum WindDir {E, NE, N, NW, W, SW, S, SE} // 8 directions: 4 cardinal and 4 intercardinal direction
     public WindDir windDirection = WindDir.SW;
     public float windStrength = 1.5f;
+    int currentDirection = 0;
+    int targetDirection = 0;
 
+    float turnDelay = 0.2f;
+    float turnTimer = 0f;
     private Animator boatAnimator;
 
     //So the boat knows where it is on the map and can access the relevant island information
@@ -41,80 +45,85 @@ public class BoatMovement : MonoBehaviour
         
         
     }
+    Vector2 DirectionToVector(int dir)
+    {
+        switch (dir)
+        {
+            case 0: return new Vector2(1, 0);    // E
+            case 1: return new Vector2(1, 1).normalized; // NE
+            case 2: return new Vector2(0, 1);    // N
+            case 3: return new Vector2(-1, 1).normalized; // NW
+            case 4: return new Vector2(-1, 0);   // W
+            case 5: return new Vector2(-1, -1).normalized; // SW
+            case 6: return new Vector2(0, -1);   // S
+            case 7: return new Vector2(1, -1).normalized;  // SE
+        }
 
+        return Vector2.right;
+    }
     void FixedUpdate()
     {
-        // Arrow Controls or AWSD
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
 
-        //Vector2 windVelocity = WindVectorDirection(windDirection) * windStrength;
-
-        float windMult = (RainScheduler.Instance != null) ? RainScheduler.Instance.CurrentWindMultiplier : 1f;
         Vector2 gust = (RainScheduler.Instance != null) ? RainScheduler.Instance.GustVector : Vector2.zero;
+        float windMult = (RainScheduler.Instance != null) ? RainScheduler.Instance.CurrentWindMultiplier : 1f;
 
         Vector2 windVelocity = WindVectorDirection(windDirection) * windStrength * windMult + gust;
 
-        if (accelerated) {
-            boatRigidbody.velocity = new Vector2(horizontalInput * boatAcceleration, verticalInput * boatAcceleration);
-        }
-        else {
-            boatRigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
-        } 
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        //boatRigidbody.velocity += windVelocity; // add wind velocity to boat's
-
-        /*
-        if (boatRigidbody.velocity.x > 0 && transform.localScale.x < 0 ||
-            boatRigidbody.velocity.x < 0 && transform.localScale.x > 0) { // if going in opposite direction
-
-            Vector3 newScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z); // Flip sprite to face other direction
-            transform.localScale = newScale;
-
-        }
-        */
+        Vector2 input = new Vector2(horizontalInput, verticalInput);
 
 
-        if (boatRigidbody.velocity.x > 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
-            boatAnimator.SetInteger("direction", 0); // E
-        }
-        else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y > 0) {
-            boatAnimator.SetInteger("direction", 1); // NE
-        }
-        else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y > 0) {
-            boatAnimator.SetInteger("direction", 2); // N
-        }
-        else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y > 0) {
-            boatAnimator.SetInteger("direction", 3); // NW
-        }
-        else if (boatRigidbody.velocity.x < 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
-            boatAnimator.SetInteger("direction", 4); // W
-        }
-        else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y < 0) {
-            boatAnimator.SetInteger("direction", 5); // SW
-        }
-        else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y < 0) {
-            boatAnimator.SetInteger("direction", 6); // S
-        }
-        else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y < 0) {
-            boatAnimator.SetInteger("direction", 7); // SE
+        if (input.magnitude > 0.1f)
+        {
+            float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+            angle = (angle + 360) % 360;
+
+            targetDirection = Mathf.RoundToInt(angle / 45f) % 8;
         }
 
-        boatRigidbody.velocity += windVelocity; // add wind velocity to boat's, but still affected by rain
+        turnTimer += Time.fixedDeltaTime;
 
+        if (turnTimer >= turnDelay && currentDirection != targetDirection)
+        {
+            turnTimer = 0f;
 
-        if (dockPressed) {
-            boatRigidbody.velocity = Vector2.zero;  // dock (e.g. boat stops moving)
+            int diff = (targetDirection - currentDirection + 8) % 8;
 
-
-            // Switch to dock on island scene if at port and press E
-            //if (GameManager.Instance != null)
-            //{
-                //GameManager.Instance.DockOnIsland(); Handled in Update instead
-            //}
+            if (diff > 4)
+                currentDirection = (currentDirection - 1 + 8) % 8;
+            else
+                currentDirection = (currentDirection + 1) % 8;
         }
 
+        Vector2 moveDirection = DirectionToVector(currentDirection);
 
+        float speed = accelerated ? boatSpeed * 1.5f : boatSpeed;
+        
+
+        Vector2 thrust = Vector2.zero;
+
+        if (input.magnitude > 0.1f)
+        {
+            thrust = moveDirection * speed;
+        }
+
+        // Wind always affects boat
+        Vector2 windDrift = windVelocity;
+
+        // Final target velocity
+        Vector2 targetVelocity = thrust + windDrift;
+
+        // Smooth toward it
+        boatRigidbody.velocity = Vector2.Lerp(
+            boatRigidbody.velocity,
+            targetVelocity,
+            2f * Time.fixedDeltaTime
+        );
+
+    
+        boatAnimator.SetInteger("direction", currentDirection);
 
     }
 
