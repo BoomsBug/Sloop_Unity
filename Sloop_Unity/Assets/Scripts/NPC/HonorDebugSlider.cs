@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using Sloop.Player;
 using TMPro;
 
+
+
 namespace Sloop.UI
 {
     public class HonorDebugSlider : MonoBehaviour
