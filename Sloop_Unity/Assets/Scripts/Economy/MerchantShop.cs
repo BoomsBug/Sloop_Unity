@@ -5,6 +5,7 @@ namespace Sloop.NPC.Dialogue
 {
     /// <summary>
     /// Very simple merchant shop: one trade offer.
+    /// Miminal for PoC purposes
     /// Spend cost -> receive reward.
     /// </summary>
     public class MerchantShop : MonoBehaviour
