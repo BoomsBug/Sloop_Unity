@@ -168,6 +168,90 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &96744308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 96744310}
+  - component: {fileID: 96744309}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &96744309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96744308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b24b8746d2c2d4b8bfe72d89039121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songfrequency: 20
+  songfrequencyMax: 60
+  mainMenuMusic:
+    clip: {fileID: 8300000, guid: d7b45806854a1794a86a60b9553ea57a, type: 3}
+    volume: 1
+  sailingMusic:
+    clip: {fileID: 8300000, guid: 9855dc299e136b840b1dbe1ddb792bbc, type: 3}
+    volume: 0.3
+  islandMusic:
+    clip: {fileID: 8300000, guid: 1cf1b02f0ba57964b82f3462efb259a3, type: 3}
+    volume: 1
+  fiddleTunes:
+  - clip: {fileID: 8300000, guid: 3a350980472c81d48af4bd1e7eed5b66, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: c68a6b15a8c2b3a439bc016a13dd68a2, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 6f1448bd2188acc4fa9e3301ebf1850f, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: da6d3eafe284cd3448b7e5ad9c5e6d9e, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: f48e39da2e4603941b1c16865550dc21, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: be4882cd361fbfc46b9204d3465e9225, type: 3}
+    volume: 0.402
+  shanties: []
+  oceanClips:
+  - {fileID: 8300000, guid: b0455a4451e4d7740964cc19a905fa55, type: 3}
+  - {fileID: 8300000, guid: 67a2125581450b9448d7162170a7e7f1, type: 3}
+  - {fileID: 8300000, guid: 37cdd62143d7f2d4fb11fff6e42d352e, type: 3}
+  - {fileID: 8300000, guid: b60fe48e32b72dc419df8d7729b6b17c, type: 3}
+  shoreClips:
+  - {fileID: 8300000, guid: d623b6591e053b74ebab71719ffc89c1, type: 3}
+  - {fileID: 8300000, guid: 5952783b53b67044f9350189e4ffd239, type: 3}
+  - {fileID: 8300000, guid: 9ce0fa36a85f44e4d9d66193827122bb, type: 3}
+  - {fileID: 8300000, guid: 102db87ab211c264b8c8d90f582870c1, type: 3}
+  - {fileID: 8300000, guid: 78c5b7031ce53074aac86955a2b11195, type: 3}
+  - {fileID: 8300000, guid: 119e46228dc729445967f7f191392b07, type: 3}
+  musicGroup: {fileID: 8995162661986297739, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
+  songGroup: {fileID: -7483368657854400914, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
+  mixer: {fileID: 24100000, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
+--- !u!4 &96744310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96744308}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.56173, y: 4.098935, z: -0.09107892}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &139869870
 GameObject:
   m_ObjectHideFlags: 0
@@ -3530,3 +3614,4 @@ SceneRoots:
   - {fileID: 778783914}
   - {fileID: 61113395}
   - {fileID: 887315297}
+  - {fileID: 96744310}
