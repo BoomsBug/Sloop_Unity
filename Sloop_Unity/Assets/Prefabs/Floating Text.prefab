@@ -149,5 +149,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 0}
   floatUp: 1.5
-  duration: 1.25
+  duration: 3
   holdTime: 0.6

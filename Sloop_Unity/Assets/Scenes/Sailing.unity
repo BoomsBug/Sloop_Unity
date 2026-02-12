@@ -1569,7 +1569,7 @@ MonoBehaviour:
   enemyShipPrefab: {fileID: 2942919959104622449, guid: f161d57a22222c54682d56107f04eb8a, type: 3}
   ui: {fileID: 865802801}
   spawnRadius: 14
-  approachDistance: 6
+  approachDistance: 3
   approachSpeed: 3
   crewCostIfPay: 1
   honorDeltaIfPay: -10

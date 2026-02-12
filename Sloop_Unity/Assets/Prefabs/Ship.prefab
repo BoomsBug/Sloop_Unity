@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52542b5935f03147b1d3a493d501ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boatSpeed: 8
+  boatSpeed: 6
   dockCheckRadius: 0
   windDirection: 5
   windStrength: 1.5
