@@ -10,7 +10,7 @@ public class TopDownPlayerMovement : MonoBehaviour
     public float deceleration = 8f;
     
     // Interaction colors
-    public Color defaultColor = Color.blue;
+    public Color defaultColor = Color.white;
     public Color npcInteractionColor = Color.green;
     public Color itemPickupColor = Color.yellow;
     // public Color merchantInteractionColor = Color.green;
