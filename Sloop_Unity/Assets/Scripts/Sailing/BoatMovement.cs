@@ -1,8 +1,9 @@
+using Sloop.World;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using Sloop.World;
 
 
 public class BoatMovement : MonoBehaviour
@@ -21,6 +22,11 @@ public class BoatMovement : MonoBehaviour
     public float windStrength = 1.5f;
 
     private Animator boatAnimator;
+
+    int currentDirection = 0;
+    int targetDirection = 0;
+    float turnDelay = 0.1f; 
+    float turnTimer = 0f;
 
     //So the boat knows where it is on the map and can access the relevant island information
     public GameObject curOceanTile;
@@ -54,13 +60,13 @@ public class BoatMovement : MonoBehaviour
         Vector2 gust = (RainScheduler.Instance != null) ? RainScheduler.Instance.GustVector : Vector2.zero;
 
         Vector2 windVelocity = WindVectorDirection(windDirection) * windStrength * windMult + gust;
-
-        if (accelerated) {
-            boatRigidbody.velocity = new Vector2(horizontalInput * boatAcceleration, verticalInput * boatAcceleration);
-        }
-        else {
-            boatRigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
-        } 
+        Vector2 input = new Vector2(horizontalInput, verticalInput);
+        //if (accelerated) {
+        //    boatRigidbody.velocity = new Vector2(horizontalInput * boatAcceleration, verticalInput * boatAcceleration);
+        //}
+        //else {
+        //    boatRigidbody.velocity = new Vector2(horizontalInput * boatSpeed, verticalInput * boatSpeed);
+        //} 
 
         //boatRigidbody.velocity += windVelocity; // add wind velocity to boat's
 
@@ -73,34 +79,62 @@ public class BoatMovement : MonoBehaviour
 
         }
         */
+        if (input.magnitude > 0.1f)
+        {
+            float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+            angle = (angle + 360) % 360;
 
-
-        if (boatRigidbody.velocity.x > 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
-            boatAnimator.SetInteger("direction", 0); // E
-        }
-        else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y > 0) {
-            boatAnimator.SetInteger("direction", 1); // NE
-        }
-        else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y > 0) {
-            boatAnimator.SetInteger("direction", 2); // N
-        }
-        else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y > 0) {
-            boatAnimator.SetInteger("direction", 3); // NW
-        }
-        else if (boatRigidbody.velocity.x < 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
-            boatAnimator.SetInteger("direction", 4); // W
-        }
-        else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y < 0) {
-            boatAnimator.SetInteger("direction", 5); // SW
-        }
-        else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y < 0) {
-            boatAnimator.SetInteger("direction", 6); // S
-        }
-        else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y < 0) {
-            boatAnimator.SetInteger("direction", 7); // SE
+            targetDirection = Mathf.RoundToInt(angle / 45f) % 8;
         }
 
-        boatRigidbody.velocity += windVelocity; // add wind velocity to boat's, but still affected by rain
+        turnTimer += Time.fixedDeltaTime;
+
+        if (turnTimer >= turnDelay && currentDirection != targetDirection)
+        {
+            turnTimer = 0f;
+
+            int diff = (targetDirection - currentDirection + 8) % 8;
+
+            if (diff > 4)
+                currentDirection = (currentDirection - 1 + 8) % 8;
+            else
+                currentDirection = (currentDirection + 1) % 8;
+        }
+
+        //if (boatRigidbody.velocity.x > 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
+        //    boatAnimator.SetInteger("direction", 0); // E
+        //}
+        //else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y > 0) {
+        //    boatAnimator.SetInteger("direction", 1); // NE
+        //}
+        //else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y > 0) {
+        //    boatAnimator.SetInteger("direction", 2); // N
+        //}
+        //else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y > 0) {
+        //    boatAnimator.SetInteger("direction", 3); // NW
+        //}
+        //else if (boatRigidbody.velocity.x < 0 && Mathf.Abs(boatRigidbody.velocity.y) < 0.01) {
+        //    boatAnimator.SetInteger("direction", 4); // W
+        //}
+        //else if (boatRigidbody.velocity.x < 0 && boatRigidbody.velocity.y < 0) {
+        //    boatAnimator.SetInteger("direction", 5); // SW
+        //}
+        //else if (Mathf.Abs(boatRigidbody.velocity.x) < 0.01 && boatRigidbody.velocity.y < 0) {
+        //    boatAnimator.SetInteger("direction", 6); // S
+        //}
+        //else if (boatRigidbody.velocity.x > 0 && boatRigidbody.velocity.y < 0) {
+        //    boatAnimator.SetInteger("direction", 7); // SE
+        //}
+        Vector2 moveDirection = DirectionToVector(currentDirection);
+        float speed = accelerated ? boatSpeed * 1.5f : boatSpeed;
+
+        boatRigidbody.velocity = Vector2.Lerp(
+            boatRigidbody.velocity,
+            moveDirection * speed,
+            2f * Time.fixedDeltaTime
+        );
+        boatAnimator.SetInteger("direction", currentDirection);
+        //boatRigidbody.velocity += windVelocity; // add wind velocity to boat's, but still affected by rain
 
 
         if (dockPressed) {
@@ -114,7 +148,7 @@ public class BoatMovement : MonoBehaviour
             //}
         }
 
-
+        
 
     }
 
@@ -152,6 +186,22 @@ public class BoatMovement : MonoBehaviour
         }
     }
 
+    Vector2 DirectionToVector(int dir)
+    {
+        switch (dir)
+        {
+            case 0: return new Vector2(1, 0);    // E
+            case 1: return new Vector2(1, 1).normalized; // NE
+            case 2: return new Vector2(0, 1);    // N
+            case 3: return new Vector2(-1, 1).normalized; // NW
+            case 4: return new Vector2(-1, 0);   // W
+            case 5: return new Vector2(-1, -1).normalized; // SW
+            case 6: return new Vector2(0, -1);   // S
+            case 7: return new Vector2(1, -1).normalized;  // SE
+        }
+
+        return Vector2.right;
+    }
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(gameObject.transform.position, dockCheckRadius);
