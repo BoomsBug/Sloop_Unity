@@ -197,8 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b24b8746d2c2d4b8bfe72d89039121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songfrequency: 20
-  songfrequencyMax: 60
+  songfrequency: 15
+  songfrequencyMax: 30
   mainMenuMusic:
     clip: {fileID: 8300000, guid: d7b45806854a1794a86a60b9553ea57a, type: 3}
     volume: 1
