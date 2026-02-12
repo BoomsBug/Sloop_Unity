@@ -14,8 +14,8 @@ public class FloatingTextPopup : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;
     public float floatUp = 1.5f;
-    public float duration = 5f;
-    public float holdTime = 4f;
+    public float duration = 3f;
+    public float holdTime = 0.6f;
 
 
     void Awake()
