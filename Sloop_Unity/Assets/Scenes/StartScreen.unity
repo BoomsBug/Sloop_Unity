@@ -223,17 +223,16 @@ MonoBehaviour:
     volume: 0.402
   shanties: []
   oceanClips:
-  - {fileID: 8300000, guid: b0455a4451e4d7740964cc19a905fa55, type: 3}
-  - {fileID: 8300000, guid: 67a2125581450b9448d7162170a7e7f1, type: 3}
-  - {fileID: 8300000, guid: 37cdd62143d7f2d4fb11fff6e42d352e, type: 3}
-  - {fileID: 8300000, guid: b60fe48e32b72dc419df8d7729b6b17c, type: 3}
+  - {fileID: 8300000, guid: a2c746b9cba7d93439181709184ad377, type: 3}
+  - {fileID: 8300000, guid: 22f78f63050f9c44a9ffc57211314507, type: 3}
+  - {fileID: 8300000, guid: 0f651e63a4552cc4198e09d1570270f9, type: 3}
+  - {fileID: 8300000, guid: 935318487ea9222489e9384a45a7693a, type: 3}
   shoreClips:
-  - {fileID: 8300000, guid: d623b6591e053b74ebab71719ffc89c1, type: 3}
-  - {fileID: 8300000, guid: 5952783b53b67044f9350189e4ffd239, type: 3}
-  - {fileID: 8300000, guid: 9ce0fa36a85f44e4d9d66193827122bb, type: 3}
-  - {fileID: 8300000, guid: 102db87ab211c264b8c8d90f582870c1, type: 3}
-  - {fileID: 8300000, guid: 78c5b7031ce53074aac86955a2b11195, type: 3}
-  - {fileID: 8300000, guid: 119e46228dc729445967f7f191392b07, type: 3}
+  - {fileID: 8300000, guid: c6ac20abef9691d4a952670356b41259, type: 3}
+  - {fileID: 8300000, guid: 2d70122a42f5cee48a7f1f8c278fde64, type: 3}
+  - {fileID: 8300000, guid: e9577d3e5c575df4b955c0cff41b7ab9, type: 3}
+  - {fileID: 8300000, guid: 07cdbca967167b346b2aba7696f339e1, type: 3}
+  - {fileID: 8300000, guid: b66c2381035e0f3479dbf5a132d81243, type: 3}
   musicGroup: {fileID: 8995162661986297739, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
   songGroup: {fileID: -7483368657854400914, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
   mixer: {fileID: 24100000, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
