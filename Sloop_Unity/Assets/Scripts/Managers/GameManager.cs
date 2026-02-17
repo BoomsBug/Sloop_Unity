@@ -138,23 +138,6 @@ public class GameManager : MonoBehaviour
         UpdateGameState(Ports[index]);
 
 
-        //pseudocode for next steps in linking ports
-
-        /*
-         If IslandID == "Good" {
-            UpdateGameState(GameState.HIslandPort);
-         }
-         
-         If IslandID == "Neutral" {
-            UpdateGameState(GameState.NIslandPort);
-         }
-         
-         If IslandID == "Bad" {
-             UpdateGameState(GameState.RRIslandPort);
-         }
-        */
-
-
     }
 
 
