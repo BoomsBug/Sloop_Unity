@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Ocean Spirits
+  m_EditorClassIdentifier: 
+  encounterName: Ocean Spirits
+  text: 'As your ship crests a wave and smoothly glides down, a movement to your
+    left catches your eye. Four animal heads shaped of water emerge next to your
+    ship: a horse, a fish, a shark, and a crab. Their watery mouths move as if to
+    speak to you, but nothing comes out. Half a second later, you feel their words
+    pierce your brain, speaking directly to your mind. "What offerings do you bring
+    us?"'
+  opt1Text: Offer up gold
+  opt1Cost: 0a000000
+  opt1Gain: 00000000030000000000000003000000
+  opt1GainHidden: 1
+  opt1Outcome: The spirits jump and dash in the rolling waters around the boat in
+    a hypnotic dance, and as they crescendo, the jump into the water and dissapear.
+    A few moments later, as the trance wears off, you notice a pile of fish and crab,
+    still flopping around on the deck.
+  opt2Text: Offer up food
+  opt2Cost: 0000000004000000
+  opt2Gain: 
+  opt2GainHidden: 1
+  opt2Outcome: It is difficult to read their liquid expressions, but they seem to
+    accept this offering. Each head bows to you before dipping back under the waves.
+  opt3Text: Shoot them
+  opt3Cost: 00000000000000000100000003000000
+  opt3Gain: 
+  opt3GainHidden: 1
+  opt3Outcome: Nobody demands anything from you! You bark the orders to man the cannons
+    and in an instant, the crew comes alive. The spirits have barely any time to
+    react before you give the order to fire. Your ears ring and black smoke fills
+    the air as every cannon on the side of the ship goes off into the four spirits.
+    During the barrage, you make out that one of spirits got hit, but another flexed
+    their oceanly muscles and ripped one of your crew off your ship. As the black
+    smoke settles, they are gone, as is your crewmate.
+  opt4Text: Offer nothing
+  opt4Cost: 00000000000000000000000001000000
+  opt4Gain: 
+  opt4GainHidden: 1
+  opt4Outcome: You laugh at their request, and order the men to sail on. As you look
+    back at the spirits, their expressions are angry, and you get a bad feeling about
+    your decision.
