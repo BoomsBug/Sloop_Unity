@@ -7,17 +7,154 @@
       "text": "Keep your hand where I can see it."
     },
     {
+      "id": "bark_ruthless_02",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "Mercy gets people killed."
+    },
+    {
+      "id": "bark_ruthless_03",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "Fear keeps people obedient."
+    },
+    {
+      "id": "bark_ruthless_04",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "If there’s a sacrifice to make, pick the weakest."
+    },
+    {
+      "id": "bark_ruthless_05",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "Let the sea take the unlucky."
+    },
+    {
+      "id": "bark_ruthless_06",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "If the deep wants blood, better it’s not mine."
+    },
+    {
+      "id": "bark_ruthless_07",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "The sea rewards those who take."
+    },
+    {
+      "id": "bark_ruthless_08",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "I’d make a man walk the plank just for one doubloon."
+    },
+    {
+      "id": "bark_ruthless_09",
+      "type": "bark",
+      "tags": ["alignment:ruthless"],
+      "text": "When raiding another ship, go for the captain first."
+    },
+    
+    
+    {
       "id": "bark_honorable_01",
       "type": "bark",
       "tags": ["alignment:honorable"],
       "text": "Fair winds and fair dealings."
     },
     {
+      "id": "bark_honorable_02",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "No coin’s worth more than a life."
+    },
+    {
+      "id": "bark_honorable_03",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "The sea’s cruel, but we don’t have to be."
+    },
+    {
+      "id": "bark_honorable_04",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "If there’s danger ahead, I’ll face it."
+    },
+    {
+      "id": "bark_honorable_05",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "We look after our own. That’s the code."
+    },
+    {
+      "id": "bark_honorable_06",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "Hard times don’t scare me. Losing people does."
+    },
+    {
+      "id": "bark_honorable_07",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "Every storm ends eventually."
+    },
+    {
+      "id": "bark_honorable_08",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "I pray the tides show mercy."
+    },
+    {
+      "id": "bark_honorable_09",
+      "type": "bark",
+      "tags": ["alignment:honorable"],
+      "text": "Do right by your crew, and they will follow you."
+    },
+
+
+    {
       "id": "bark_neutral_01",
       "type": "bark",
       "tags": ["alignment:neutral"],
       "text": "Aye? Need something?"
     },
+    {
+      "id": "bark_neutral_02",
+      "type": "bark",
+      "tags": ["alignment:neutral"],
+      "text": "I trust coin more than promises."
+    },
+    {
+      "id": "bark_neutral_03",
+      "type": "bark",
+      "tags": ["alignment:neutral"],
+      "text": "Every crew’s got its problems."
+    },
+    {
+      "id": "bark_neutral_04",
+      "type": "bark",
+      "tags": ["alignment:neutral"],
+      "text": "The waves whisper strange things."
+    },
+    {
+      "id": "bark_neutral_05",
+      "type": "bark",
+      "tags": ["alignment:neutral"],
+      "text": "I don’t trust calm seas anymore."
+    },
+    {
+      "id": "bark_neutral_06",
+      "type": "bark",
+      "tags": ["alignment:neutral"],
+      "text": "At night, the seas are not as quiet as they used to be."
+    },
+    {
+      "id": "bark_neutral_07",
+      "type": "bark",
+      "tags": ["alignment:neutral"],
+      "text": "Better watch out for that scurvy."
+    },
+
 
     {
       "id": "interact_ruthless_merchant_friendly_01",
@@ -26,11 +163,50 @@
       "text": "Leverage is everything. Right now, you're worth keeping close. Let's trade."
     },
     {
+      "id": "interact_merchant_friendly_01",
+      "type": "interact",
+      "tags": ["role:merchant","willingness:friendly"],
+      "text": "For you, I might offer a generous rate."
+    },
+    {
+      "id": "interact_merchant_friendly_02",
+      "type": "interact",
+      "tags": ["role:merchant","willingness:friendly"],
+      "text": "You seem trustworthy. Let us make a deal."
+    },
+    {
+      "id": "interact_merchant_friendly_03",
+      "type": "interact",
+      "tags": ["role:merchant","willingness:friendly"],
+      "text": "It is rare coming across a captain like you. I will offer you a discount."
+    },
+
+
+    {
       "id": "interact_ruthless_merchant_hostile_01",
       "type": "interact",
       "tags": ["alignment:ruthless", "role:merchant", "willingness:hostile"],
       "text": "I don't do charity. Pay up, or get out."
     },
+    {
+      "id": "interact_merchant_hostile_02",
+      "type": "interact",
+      "tags": ["role:merchant","willingness:hostile"],
+      "text": "Watch what you are doing here."
+    },
+    {
+      "id": "interact_merchant_hostile_03",
+      "type": "interact",
+      "tags": ["role:merchant","willingness:hostile"],
+      "text": "Pay upfront, or leave."
+    },
+    {
+      "id": "interact_merchant_hostile_04",
+      "type": "interact",
+      "tags": ["alignment:honorable","role:merchant","willingness:hostile"],
+      "text": "We will trade fairly, or not at all."
+    },
+
 
     {
       "id": "interact_honorable_deckhand_friendly_01",
@@ -39,11 +215,162 @@
       "text": "If you've room aboard, I'll sail with you."
     },
     {
+      "id": "interact_honorable_deckhand_friendly_02",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:deckhand", "willingness:friendly"],
+      "text": "I’ve got your back, Captain."
+    },
+    {
+      "id": "interact_honorable_deckhand_friendly_03",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:deckhand", "willingness:friendly"],
+      "text": "I won’t abandon ship. Not ever."
+    },
+    {
+      "id": "interact_honorable_deckhand_friendly_04",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:deckhand", "willingness:friendly"],
+      "text": "I would rather lose gold than lose a crewmate."
+    },
+    {
+      "id": "interact_honorable_deckhand_friendly_05",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:deckhand", "willingness:friendly"],
+      "text": "No shortcuts that risk the crew."
+    },
+
+
+    {
       "id": "interact_neutral_civilian_neutral_01",
       "type": "interact",
       "tags": ["alignment:neutral", "role:civilian", "willingness:neutral"],
       "text": "Road splits near the palms. Left's safer usually."
     },
+    {
+      "id": "interact_neutral_civilian_friendly_rumor_treasure_01",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:friendly"],
+      "text": "They say the treasure lies buried on an island shaped like a crescent moon."
+    },
+    {
+      "id": "interact_neutral_civilian_friendly_rumor_treasure_02",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:friendly"],
+      "text": "A merchant I met swore a wreck full of silver rests beyond the western fog."
+    },
+    {
+      "id": "interact_neutral_civilian_friendly_rumor_treasure_03",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:friendly"],
+      "text": "Old maps point to treasure buried beneath a fallen lighthouse."
+    },
+    {
+      "id": "interact_neutral_civilian_friendly_rumor_treasure_04",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:friendly"],
+      "text": "A drunken sailor claims the eye of Skull Island glistens with gold at night."
+    },
+    {
+      "id": "interact_honorable_civilian_neutral_rumor_danger_01",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:civilian", "willingness:neutral"],
+      "text": "Ships vanish near the deep trench. Some blame the kraken."
+    },
+    {
+      "id": "interact_honorable_civilian_neutral_rumor_danger_02",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:civilian", "willingness:neutral"],
+      "text": "Merchant ships report whirlpool storms far to the east."
+    },
+    {
+      "id": "interact_honorable_civilian_neutral_rumor_danger_03",
+      "type": "interact",
+      "tags": ["alignment:honorable", "role:civilian", "willingness:neutral"],
+      "text": "Sailors whisper of cursed red waters to the north. Be Safe"
+    },
+    {
+      "id": "interact_neutral_civilian_neutral_rumor_myth_01",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:neutral"],
+      "text": "Offer blood to the waves and the sea god may spare you."
+    },
+    {
+      "id": "interact_neutral_civilian_neutral_rumor_myth_02",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:neutral"],
+      "text": "Some claim an eldritch god stirs at the bottom of the sea on full moons."
+    },
+    {
+      "id": "interact_neutral_civilian_neutral_rumor_myth_03",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:neutral"],
+      "text": "A beautiful choir can be heard beneath the water on clear starry nights."
+    },
+    {
+      "id": "interact_neutral_civilian_neutral_rumor_myth_04",
+      "type": "interact",
+      "tags": ["alignment:neutral", "role:civilian", "willingness:neutral"],
+      "text": "They say the sea itself chooses its favorite captains."
+    },
+    {
+      "id": "interact_ruthless_civilian_rumor_false_01",
+      "type": "interact",
+      "tags": ["alignment:ruthless", "role:civilian"],
+      "text": "A chest of infinite gold lies beyond the eastern edge of the world."
+    },
+    {
+      "id": "interact_ruthless_civilian_rumor_false_02",
+      "type": "interact",
+      "tags": ["alignment:ruthless", "role:civilian"],
+      "text": "Mermaids trade precious secrets totally for free."
+    },
+    {
+      "id": "interact_ruthless_civilian_rumor_false_03",
+      "type": "interact",
+      "tags": ["alignment:ruthless", "role:civilian"],
+      "text": "A ghost ship offers guaranteed glory to anyone who boards it."
+    },
+
+
+    {
+      "id": "interact_deckhand_neutral_01",
+      "type": "interact",
+      "tags": ["role:deckhand","alignment:neutral"],
+      "text": "As long as I get paid, I am in."
+    },
+    {
+      "id": "interact_deckhand_neutral_02",
+      "type": "interact",
+      "tags": ["role:deckhand","alignment:neutral"],
+      "text": "Storm’s coming. Hope this ship holds."
+    },
+    {
+      "id": "interact_deckhand_neutral_03",
+      "type": "interact",
+      "tags": ["role:deckhand","alignment:neutral"],
+      "text": "Just point me where I am needed."
+    },
+
+
+    {
+      "id": "interact_deckhand_ruthless_01",
+      "type": "interact",
+      "tags": ["role:deckhand","alignment:ruthless"],
+      "text": "If someone slows us down, cut them loose."
+    },
+    {
+      "id": "interact_deckhand_ruthless_02",
+      "type": "interact",
+      "tags": ["role:deckhand","alignment:ruthless"],
+      "text": "Coin first. Crew second."
+    },
+    {
+      "id": "interact_deckhand_ruthless_03",
+      "type": "interact",
+      "tags": ["role:deckhand","alignment:ruthless"],
+      "text": "Morals will not save us out here."
+    },
+
 
     {
       "id": "interact_role_merchant_fallback_01",
@@ -51,6 +378,38 @@
       "tags": ["role:merchant"],
       "text": "Buyin' or sellin'?"
     },
+    {
+      "id": "interact_role_merchant_fallback_02",
+      "type": "interact",
+      "tags": ["role:merchant"],
+      "text": "Looking to trade, or just browsing?"
+    },
+    {
+      "id": "interact_role_merchant_fallback_03",
+      "type": "interact",
+      "tags": ["role:merchant"],
+      "text": "Coin speaks louder than words."
+    },
+    {
+      "id": "interact_role_merchant_fallback_04",
+      "type": "interact",
+      "tags": ["role:merchant"],
+      "text": "Looking to collect some bits and bobs?"
+    },
+    {
+      "id": "interact_role_merchant_fallback_05",
+      "type": "interact",
+      "tags": ["role:merchant"],
+      "text": "I may not have the best wares, but I do have the best prices."
+    },
+    {
+      "id": "interact_role_merchant_fallback_06",
+      "type": "interact",
+      "tags": ["role:merchant"],
+      "text": "Ay, what will it be?"
+    },
+
+
     {
       "id": "interact_type_fallback_01",
       "type": "interact",

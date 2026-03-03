@@ -1399,6 +1399,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1104930431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104930433}
+  - component: {fileID: 1104930432}
+  m_Layer: 0
+  m_Name: ChaseSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1104930432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104930431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3633a6fe0e3b5a48b45d5a3dae12a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerShip: {fileID: 1289689917}
+  enemyShipPrefab: {fileID: 2942919959104622449, guid: f161d57a22222c54682d56107f04eb8a, type: 3}
+  boatMovement: {fileID: 1289689912}
+  spawnRadius: 18
+  enemySpeed: 11
+  catchDistance: 3
+  escapeDistance: 20
+  escapeHoldTime: 5
+  maxChaseTime: 25
+  honorDeltaOnEscape: 2
+  honorDeltaOnCaught: -5
+  goldLostOnCaught: 10
+  floatingTextPrefab: {fileID: 4508708029077706253, guid: 3c18d2bfe7a9ffe4e98681638bfaf298, type: 3}
+  encounterCanvas: {fileID: 1768064356}
+  popupOffset: {x: 0, y: 1.5, z: 0}
+--- !u!4 &1104930433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104930431}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.065681, y: 5.397401, z: -0.14777792}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1173650212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,9 +1608,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad7ea07fa678f44ca7d7803d58e1fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1449613462}
+  choiceEncounter: {fileID: 1449613462}
+  chaseEncounter: {fileID: 1104930432}
   checkEvery: 10
   chance: 0.3
+  chaseWeight: 0.4
 --- !u!114 &1449613462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,6 +2163,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8977479901357671448, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: boatSpeed
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2182,3 +2247,4 @@ SceneRoots:
   - {fileID: 126046996}
   - {fileID: 3133305813944813473}
   - {fileID: 1449613460}
+  - {fileID: 1104930433}
