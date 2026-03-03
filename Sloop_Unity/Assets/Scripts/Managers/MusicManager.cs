@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class MusicClip
 {
     public AudioClip clip;
-    [Range(0f, 1f)]
+    [Range(0f, 2f)]
     public float volume = 1f;
 }
 
@@ -35,6 +35,8 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup songGroup;
     [SerializeField] private AudioMixer mixer;
     private Coroutine shantyRoutine;
+    private List<int> fiddleQueue = new List<int>();
+    private int fiddleIndex = 0;
     public void SetMusicVolume(float value)
     {
         mixer.SetFloat("AmbientVolume", Mathf.Log10(value) * 20);
@@ -43,6 +45,24 @@ public class MusicManager : MonoBehaviour
     public void SetEventVolume(float value)
     {
         mixer.SetFloat("SongVolume", Mathf.Log10(value) * 20);
+    }
+
+    private void InitializeFiddleQueue()
+    {
+        fiddleQueue.Clear();
+        for (int i = 0; i < fiddleTunes.Length; i++)
+            fiddleQueue.Add(i);
+
+        // Shuffle the list
+        for (int i = 0; i < fiddleQueue.Count; i++)
+        {
+            int temp = fiddleQueue[i];
+            int randomIndex = Random.Range(i, fiddleQueue.Count);
+            fiddleQueue[i] = fiddleQueue[randomIndex];
+            fiddleQueue[randomIndex] = temp;
+        }
+
+        fiddleIndex = 0;
     }
     void Awake()
     {
@@ -69,6 +89,7 @@ public class MusicManager : MonoBehaviour
         oceanSource.loop = true;
         oceanSource.playOnAwake = false;
         oceanSource.volume = 0.6f;
+        InitializeFiddleQueue();
     }
 
     void Start()
@@ -209,9 +230,15 @@ public class MusicManager : MonoBehaviour
             ambientSource.volume = 0f;
 
             Debug.Log("Playing random shanty");
-            
 
-            MusicClip randomClip = fiddleTunes[Random.Range(0, fiddleTunes.Length)];
+
+            MusicClip randomClip = fiddleTunes[fiddleQueue[fiddleIndex]];
+            fiddleIndex++;
+
+            if (fiddleIndex >= fiddleQueue.Count)
+            {
+                InitializeFiddleQueue();
+            }
 
 
 
