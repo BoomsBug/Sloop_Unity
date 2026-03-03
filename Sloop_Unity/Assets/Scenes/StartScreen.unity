@@ -197,13 +197,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b24b8746d2c2d4b8bfe72d89039121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songfrequency: 15
-  songfrequencyMax: 30
+  songfrequency: 2
+  songfrequencyMax: 5
   mainMenuMusic:
     clip: {fileID: 8300000, guid: d7b45806854a1794a86a60b9553ea57a, type: 3}
     volume: 1
   sailingMusic:
-    clip: {fileID: 8300000, guid: 9855dc299e136b840b1dbe1ddb792bbc, type: 3}
+    clip: {fileID: 8300000, guid: 777c527bf21b6cb45a738cbee76ae9f0, type: 3}
     volume: 0.3
   islandMusic:
     clip: {fileID: 8300000, guid: 1cf1b02f0ba57964b82f3462efb259a3, type: 3}
@@ -211,16 +211,22 @@ MonoBehaviour:
   fiddleTunes:
   - clip: {fileID: 8300000, guid: 3a350980472c81d48af4bd1e7eed5b66, type: 3}
     volume: 1
-  - clip: {fileID: 8300000, guid: c68a6b15a8c2b3a439bc016a13dd68a2, type: 3}
-    volume: 1
+  - clip: {fileID: 8300000, guid: 7a7e90d7ba2126a4baf711884d5f8468, type: 3}
+    volume: 1.284
   - clip: {fileID: 8300000, guid: 6f1448bd2188acc4fa9e3301ebf1850f, type: 3}
     volume: 1
-  - clip: {fileID: 8300000, guid: da6d3eafe284cd3448b7e5ad9c5e6d9e, type: 3}
+  - clip: {fileID: 8300000, guid: 21ce83f99f9d0ee4bb434b717c7e8299, type: 3}
     volume: 1
   - clip: {fileID: 8300000, guid: f48e39da2e4603941b1c16865550dc21, type: 3}
     volume: 1
   - clip: {fileID: 8300000, guid: be4882cd361fbfc46b9204d3465e9225, type: 3}
     volume: 0.402
+  - clip: {fileID: 8300000, guid: f9103772d70d26749888ee3dfc8ed16b, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: e43c6f07d2c381b4e92cc4951ce5a82e, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 3a5d8a83a58787f4b943392f50f58e6e, type: 3}
+    volume: 1
   shanties: []
   oceanClips:
   - {fileID: 8300000, guid: a2c746b9cba7d93439181709184ad377, type: 3}
