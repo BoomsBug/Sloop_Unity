@@ -9,6 +9,8 @@ TagManager:
   - Ocean Tile
   - Merchant
   - Ship
+  - Fish
+  - Loot
   layers:
   - Default
   - TransparentFX
