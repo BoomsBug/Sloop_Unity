@@ -76,6 +76,7 @@ public class DataManager : MonoBehaviour
     {
         // same file path
         string path = Application.persistentDataPath + "/saveData.json";
+        Debug.Log("saved to: " + path);
 
         // check if it exists
         if (File.Exists(path))
