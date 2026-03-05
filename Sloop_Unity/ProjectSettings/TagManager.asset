@@ -43,12 +43,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Water
+    uniqueID: 944284127
+    locked: 0
+  - name: Above Water
+    uniqueID: 2944320005
+    locked: 0
   - name: Land
     uniqueID: 3410418291
     locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Above Water
-    uniqueID: 2944320005
     locked: 0
