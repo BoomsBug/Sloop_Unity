@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: 
   text: Offer up gold
-  cost: 0a000000000000000000000000000000
-  gain: 00000000030000000000000003000000
+  cost: 00e1f50500000000000000000000000000000000
+  gain: 0000000003000000000000000300000003000000
   isGainHidden: 1
   outcome: The spirits jump and dash in the rolling waters around the boat in a hypnotic
     dance, and as they crescendo, the jump into the water and dissapear. A few moments

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 4
   m_EditorClassIdentifier: 
   text: Offer nothing
-  cost: 00000000000000000000000001000000
-  gain: 00000000000000000000000000000000
+  cost: 0000000000000000000000000100000001000000
+  gain: 0000000000000000000000000000000000000000
   isGainHidden: 1
   outcome: You laugh at their request, and order the men to sail on. As you look
     back at the spirits, their expressions are angry, and you get a bad feeling about
