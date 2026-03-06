@@ -5,6 +5,7 @@ using UnityEngine;
 public class EncounterSpawner : MonoBehaviour
 {
     public ShipEncounterController controller;
+    public EncounterSystem encounterSystem;
     public float checkEvery = 10f;
     [Range(0f, 1f)] public float chance = 0.3f;
 
@@ -17,6 +18,10 @@ public class EncounterSpawner : MonoBehaviour
         t = 0f;
 
         if (Random.value < chance)
-            controller.StartEncounter();
+        {
+            // controller.StartEncounter();
+            encounterSystem.LoadEncounter();
+        }
+
     }
 }

@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   text: Offer up food
-  cost: 0000000004000000000000000000000000000000
-  gain: 0000000000000000000000000000000000000000
+  cost:
+  - type: 2
+    amount: 50
+  gain:
+  - type: 4
+    amount: 5
   isGainHidden: 1
   outcome: It is difficult to read their liquid expressions, but they seem to accept
     this offering. Each head bows to you before dipping back under the waves.

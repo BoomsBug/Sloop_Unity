@@ -47,7 +47,9 @@ MonoBehaviour:
   encounterUI: {fileID: 0}
   possibleEncounters:
   - {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
-  nextEncounter: {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
+  - {fileID: 11400000, guid: f108cb998f9877047ab7f72e1876d174, type: 2}
+  - {fileID: 11400000, guid: 0ddd44787b500e64e87b84f845a4ec31, type: 2}
+  curEncounter: {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
   continueButton: {fileID: 0}
   encounterText: {fileID: 0}
   optionPanels:

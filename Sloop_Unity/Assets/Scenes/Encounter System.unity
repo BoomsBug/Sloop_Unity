@@ -453,42 +453,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1343252922}
-    - target: {fileID: 25642053402606412, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChooseOption
-      objectReference: {fileID: 0}
     - target: {fileID: 520466538676114185, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1343252922}
-    - target: {fileID: 520466538676114185, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChooseOption
-      objectReference: {fileID: 0}
     - target: {fileID: 2289329880570764635, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1343252922}
-    - target: {fileID: 2289329880570764635, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChooseOption
-      objectReference: {fileID: 0}
     - target: {fileID: 4259623364480728630, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_Name
       value: Encounter UI
       objectReference: {fileID: 0}
     - target: {fileID: 4313352607118472933, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4313352607118472933, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1343252922}
-    - target: {fileID: 4313352607118472933, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ContinueGame
-      objectReference: {fileID: 0}
     - target: {fileID: 4406300549846717373, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -573,10 +553,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1343252922}
-    - target: {fileID: 4949717459535926423, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChooseOption
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -635,10 +611,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1125061744}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
-      propertyPath: curEncounter
-      value: 
-      objectReference: {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
-    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: encounterText
       value: 
       objectReference: {fileID: 1313136801}
@@ -662,18 +634,6 @@ PrefabInstance:
       propertyPath: optionPanels.Array.data[3]
       value: 
       objectReference: {fileID: 60798665}
-    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
-      propertyPath: possibleEncounters.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
-      propertyPath: possibleEncounters.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: f108cb998f9877047ab7f72e1876d174, type: 2}
-    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
-      propertyPath: possibleEncounters.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 0ddd44787b500e64e87b84f845a4ec31, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager

@@ -7,6 +7,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Sloop.Economy;
 using UnityEngine.UI;
+//using System;
+
+//TODO: Find a way to add custom functions to different options when clicked (ie. minigames, add crew, remove crew, etc...)
 
 public class EncounterSystem : MonoBehaviour
 {
@@ -15,9 +18,9 @@ public class EncounterSystem : MonoBehaviour
     private List<EncounterSO> completedEncounters = new List<EncounterSO>();
     public EncounterSO curEncounter;
     public GameObject continueButton;
-    private bool canContinue;
-    private bool canChoose;
-    private bool isEncounterActive;
+    private bool canContinue = false;
+    private bool canChoose = false;
+    private bool isEncounterActive = false;
 
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
@@ -51,22 +54,11 @@ public class EncounterSystem : MonoBehaviour
 
             //finds the right child object with tmp component and loads in correct text
             panel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = curEncounter.options[i].text;
-            //for each different resource, if that count is >0, adds it to the cost string
-            string cost = $"";
-            if (curEncounter.options[i].cost[0] > 0) cost += $"{curEncounter.options[i].cost[0]}G "; //gold
-            if (curEncounter.options[i].cost[1] > 0) cost += $"{curEncounter.options[i].cost[1]}W "; //wood
-            if (curEncounter.options[i].cost[2] > 0) cost += $"{curEncounter.options[i].cost[2]}F "; //food
-            if (curEncounter.options[i].cost[3] > 0) cost += $"{curEncounter.options[i].cost[3]}P "; //power
-            if (curEncounter.options[i].cost[4] > 0) cost += $"{curEncounter.options[i].cost[4]}H";  //honour
-            string gain = $"";
-            if (curEncounter.options[i].gain[0] > 0) gain += $"{curEncounter.options[i].gain[0]}G "; //gold
-            if (curEncounter.options[i].gain[1] > 0) gain += $"{curEncounter.options[i].gain[1]}W "; //wood
-            if (curEncounter.options[i].gain[2] > 0) gain += $"{curEncounter.options[i].gain[2]}F "; //food
-            if (curEncounter.options[i].gain[3] > 0) gain += $"{curEncounter.options[i].gain[3]}P "; //power
-            if (curEncounter.options[i].gain[4] > 0) gain += $"{curEncounter.options[i].gain[4]}H";  //honour
+            string costString = PrintListOfResources(curEncounter.options[i].cost);
+            string gainString = PrintListOfResources(curEncounter.options[i].gain);
 
-            panel.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cost;
-            panel.transform.Find("Gain").GetComponent<TextMeshProUGUI>().text = gain;
+            panel.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = costString;
+            panel.transform.Find("Gain").GetComponent<TextMeshProUGUI>().text = gainString;
 
             //If option gain is hidden, replaces gain and altered gain with ???
             if (curEncounter.options[i].isGainHidden)
@@ -76,30 +68,20 @@ public class EncounterSystem : MonoBehaviour
             }
 
             //calls functions to calculate altered cost and gain based on hired crew;
-            int[] alteredCost = CalculateAlteredResources(curEncounter.options[i].cost);
-            int[] alteredGain = CalculateAlteredResources(curEncounter.options[i].gain);
-
-            string alteredCostString = $"";
-            if (alteredCost[0] > 0) alteredCostString += $"{alteredCost[0]}G "; //gold
-            if (alteredCost[1] > 0) alteredCostString += $"{alteredCost[1]}G "; //wood
-            if (alteredCost[2] > 0) alteredCostString += $"{alteredCost[2]}G "; //food
-            if (alteredCost[3] > 0) alteredCostString += $"{alteredCost[3]}G "; //power
-            if (alteredCost[4] > 0) alteredCostString += $"{alteredCost[4]}G";  //honour
-            string alteredGainString = $"";
-            if (alteredGain[0] > 0) alteredGainString += $"{alteredGain[0]}G "; //gold
-            if (alteredGain[1] > 0) alteredGainString += $"{alteredGain[1]}G "; //wood
-            if (alteredGain[2] > 0) alteredGainString += $"{alteredGain[2]}G "; //food
-            if (alteredGain[3] > 0) alteredGainString += $"{alteredGain[3]}G "; //power
-            if (alteredGain[4] > 0) alteredGainString += $"{alteredGain[4]}G";  //honour
+            ResourceAmount[] alteredCost = CalculateAlteredCosts(curEncounter.options[i].cost);
+            ResourceAmount[] alteredGain = CalculateAlteredGains(curEncounter.options[i].gain);
             
+            string alteredCostString = PrintListOfResources(alteredCost);
+            string alteredGainString = PrintListOfResources(alteredGain);
+
             panel.transform.Find("Altered Cost").GetComponent<TextMeshProUGUI>().text = alteredCostString;
             panel.transform.Find("Altered Gain").GetComponent<TextMeshProUGUI>().text = alteredGainString;
 
             //Based on altered cost, shades button red if player cannot afford it
-            IEnumerable<ResourceAmount> alteredResourceCosts = BasicCosts2ResourceCosts(alteredCost);
-            if (!ResourceManager.Instance.CanAfford(alteredResourceCosts))
+            if (!ResourceManager.Instance.CanAfford(alteredCost))
             {
                 panel.GetComponent<Image>().color = Color.red;
+                //ocean spirits, player has enough honour to choose option 4, and game lets them, but still colours red
             }
         }
     }
@@ -109,16 +91,13 @@ public class EncounterSystem : MonoBehaviour
         if (!canChoose) return;
 
         //Detects if player has enough resources to choose this option
-        int[] optionCosts = curEncounter.options[option-1].cost;
+        ResourceAmount[] optionCosts = curEncounter.options[option-1].cost;
 
         //(re)calculates altered cost based on hired crew (same as above)
-        optionCosts = CalculateAlteredResources(optionCosts);
-
-        //then converts int[] to IEnumrable<ResourceAmount>
-        IEnumerable<ResourceAmount> resourceCosts = BasicCosts2ResourceCosts(optionCosts);
+        optionCosts = CalculateAlteredCosts(optionCosts);
 
         //if cant afford option, then return
-        if (!ResourceManager.Instance.CanAfford(resourceCosts)) {
+        if (!ResourceManager.Instance.CanAfford(optionCosts)) {
             return;
         }
 
@@ -131,13 +110,12 @@ public class EncounterSystem : MonoBehaviour
         }
 
         //Takes resources away from player
-        ResourceManager.Instance.TrySpend(resourceCosts);
+        ResourceManager.Instance.TrySpend(optionCosts);
 
         //Adds gained resources to player (also calculate altered gains)
-        int[] optionGains = curEncounter.options[option-1].gain;
-        optionGains = CalculateAlteredResources(optionGains);
-        IEnumerable<ResourceAmount> resourceGains = BasicCosts2ResourceCosts(optionGains);
-        ResourceManager.Instance.Add(resourceGains);
+        ResourceAmount[] optionGains = curEncounter.options[option-1].gain;
+        optionGains = CalculateAlteredGains(optionGains);
+        ResourceManager.Instance.Add(optionGains);
 
         //Enables continue button
         continueButton.SetActive(true);
@@ -169,24 +147,36 @@ public class EncounterSystem : MonoBehaviour
         isEncounterActive = false;
     }
 
-    private IEnumerable<ResourceAmount> BasicCosts2ResourceCosts(int[] costs)
-    {
-        //list of resources: [gold, wood, food, power, honour]
-        ResourceAmount[] cost =
-        {  
-            new ResourceAmount{type=Resource.Gold, amount=costs[0]},
-            new ResourceAmount{type=Resource.Wood, amount=costs[1]},
-            new ResourceAmount{type=Resource.Food, amount=costs[2]},
-            new ResourceAmount{type=Resource.Power, amount=costs[3]},
-            new ResourceAmount{type=Resource.Honour, amount=costs[4]}
-        };
-        return cost;
-    }
-
-    private int[] CalculateAlteredResources(int[] baseResources)
+    private ResourceAmount[] CalculateAlteredCosts(ResourceAmount[] baseCosts)
     {
         //TODO
-        return baseResources;
+        return baseCosts;
+        //For each crewmember hired, call their resource function and pass baseResources
+        //Each crewmember will add or subtract to each resource type
+    }
+    private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains)
+    {
+        //TODO
+        return baseGains;
+        //For each crewmember hired, call their resource function and pass baseResources
+        //Each crewmember will add or subtract to each resource type
+    }
+
+    //Takes an array of ResourceAmount (which is type and amount), iterates through and constructs a string
+    // the string takes the form "<amount><first letter of type> ..."
+    private string PrintListOfResources(ResourceAmount[] list)
+    {
+        if (list.Count() <= 0 || list == null) return "";
+
+        string str = "";
+        for (int i = 0; i < list.Length; i ++)
+        {
+            Resource type = list[i].type;
+            int amount = list[i].amount;
+            if (amount > 0) str += $"{amount}{type.ToString().ToCharArray()[0]}";
+            if (i < list.Length - 1) str += " ";
+        }
+        return str;
     }
 
     void Update()
@@ -199,9 +189,4 @@ public class EncounterSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C)) LoadEncounter();
         if (Input.GetKeyDown(KeyCode.Space)) ContinueGame();
     } 
-
-    void Start()
-    {
-        LoadEncounter();
-    }
 }

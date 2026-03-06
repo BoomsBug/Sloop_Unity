@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   text: Shoot them
-  cost: 0000000000000000010000000300000003000000
-  gain: 0000000000000000000000000000000000000000
+  cost:
+  - type: 3
+    amount: 50
+  - type: 4
+    amount: 20
+  gain: []
   isGainHidden: 1
   outcome: Nobody demands anything from you! You bark the orders to man the cannons
     and in an instant, the crew comes alive. The spirits have barely any time to
