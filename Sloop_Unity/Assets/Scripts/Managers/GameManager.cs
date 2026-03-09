@@ -140,6 +140,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // Updates boat states (for save and load manager)
+    public void UpdateBoatState(Vector3 position, Vector2 velocity)
+    {
+        boatPosition = position;
+        boatVelocity = velocity;
+        hasBoatState = true;
+    }
+
 
 
 }
