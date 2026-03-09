@@ -7,12 +7,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Sloop.Economy;
 using UnityEngine.UI;
-//using System;
+using System;
 
 //TODO: Find a way to add custom functions to different options when clicked (ie. minigames, add crew, remove crew, etc...)
+//TODO: Move encounterManager to start screen and make it DontDestroyOnLoad
+    //only if doesn't maintain completedEncounters between loading port scenes
+
+//TODO: Test encounter option crew hiring function
 
 public class EncounterSystem : MonoBehaviour
 {
+    public static EncounterSystem Instance;
     public GameObject encounterUI;
     public List<EncounterSO> possibleEncounters;
     private List<EncounterSO> completedEncounters = new List<EncounterSO>();
@@ -25,6 +30,19 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
+
+    void Awake()
+    {
+        // Singleton pattern
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void LoadEncounter()
     {
@@ -57,15 +75,12 @@ public class EncounterSystem : MonoBehaviour
             string costString = PrintListOfResources(curEncounter.options[i].cost);
             string gainString = PrintListOfResources(curEncounter.options[i].gain);
 
-            panel.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = costString;
-            panel.transform.Find("Gain").GetComponent<TextMeshProUGUI>().text = gainString;
+            panel.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = $"({costString})";
+            panel.transform.Find("Gain").GetComponent<TextMeshProUGUI>().text = $"({gainString})";
 
-            //If option gain is hidden, replaces gain and altered gain with ???
-            if (curEncounter.options[i].isGainHidden)
-            {
-                panel.transform.Find("Gain").GetComponent<TextMeshProUGUI>().text = "???";
-                panel.transform.Find("Altered Gain").GetComponent<TextMeshProUGUI>().text = "???";
-            }
+            //make base cost and gain text darker
+            panel.transform.Find("Cost").GetComponent<TextMeshProUGUI>().alpha = 0.5f;
+            panel.transform.Find("Gain").GetComponent<TextMeshProUGUI>().alpha = 0.5f;
 
             //calls functions to calculate altered cost and gain based on hired crew;
             ResourceAmount[] alteredCost = CalculateAlteredCosts(curEncounter.options[i].cost);
@@ -83,6 +98,13 @@ public class EncounterSystem : MonoBehaviour
                 panel.GetComponent<Image>().color = Color.red;
                 //ocean spirits, player has enough honour to choose option 4, and game lets them, but still colours red
             }
+
+            //If option gain is hidden, replaces gain and altered gain with ???
+            if (curEncounter.options[i].isGainHidden)
+            {
+                panel.transform.Find("Gain").GetComponent<TextMeshProUGUI>().text = "???";
+                panel.transform.Find("Altered Gain").GetComponent<TextMeshProUGUI>().text = "???";
+            }
         }
     }
 
@@ -90,8 +112,10 @@ public class EncounterSystem : MonoBehaviour
     {
         if (!canChoose) return;
 
+        EncounterOptionSO selectedOption = curEncounter.options[option-1];
+
         //Detects if player has enough resources to choose this option
-        ResourceAmount[] optionCosts = curEncounter.options[option-1].cost;
+        ResourceAmount[] optionCosts = selectedOption.cost;
 
         //(re)calculates altered cost based on hired crew (same as above)
         optionCosts = CalculateAlteredCosts(optionCosts);
@@ -101,7 +125,7 @@ public class EncounterSystem : MonoBehaviour
             return;
         }
 
-        encounterText.text = curEncounter.options[option - 1].outcome;
+        encounterText.text = selectedOption.outcome;
         //disables and hides option panels
         foreach (GameObject panel in optionPanels)
         {
@@ -113,9 +137,13 @@ public class EncounterSystem : MonoBehaviour
         ResourceManager.Instance.TrySpend(optionCosts);
 
         //Adds gained resources to player (also calculate altered gains)
-        ResourceAmount[] optionGains = curEncounter.options[option-1].gain;
+        ResourceAmount[] optionGains = selectedOption.gain;
         optionGains = CalculateAlteredGains(optionGains);
         ResourceManager.Instance.Add(optionGains);
+
+
+        CallOptionFunctions(selectedOption);
+
 
         //Enables continue button
         continueButton.SetActive(true);
@@ -130,7 +158,7 @@ public class EncounterSystem : MonoBehaviour
             possibleEncounters = new List<EncounterSO>(completedEncounters);
             completedEncounters = new List<EncounterSO>();
         }
-        curEncounter = possibleEncounters[Random.Range(0, possibleEncounters.Count)];
+        curEncounter = possibleEncounters[UnityEngine.Random.Range(0, possibleEncounters.Count)];
 
     }
 
@@ -149,17 +177,37 @@ public class EncounterSystem : MonoBehaviour
 
     private ResourceAmount[] CalculateAlteredCosts(ResourceAmount[] baseCosts)
     {
-        //TODO
-        return baseCosts;
         //For each crewmember hired, call their resource function and pass baseResources
         //Each crewmember will add or subtract to each resource type
+        List<Crewmate> hiredCrew = CrewManager.Instance.hiredCrew;
+
+        //make copy of baseCosts
+        ResourceAmount[] alteredCosts = new ResourceAmount[baseCosts.Length];
+        Array.Copy(baseCosts, alteredCosts, baseCosts.Length);
+
+        foreach (Crewmate crew in hiredCrew)
+        {
+            crew.AlteredCost(alteredCosts);
+        }
+        
+        return alteredCosts;
     }
     private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains)
     {
-        //TODO
-        return baseGains;
         //For each crewmember hired, call their resource function and pass baseResources
         //Each crewmember will add or subtract to each resource type
+        List<Crewmate> hiredCrew = CrewManager.Instance.hiredCrew;
+
+        //make copy of baseGains
+        ResourceAmount[] alteredGains = new ResourceAmount[baseGains.Length];
+        Array.Copy(baseGains, alteredGains, baseGains.Length);
+
+        foreach (Crewmate crew in hiredCrew)
+        {
+            crew.AlteredGain(alteredGains);
+        }
+
+        return alteredGains;
     }
 
     //Takes an array of ResourceAmount (which is type and amount), iterates through and constructs a string
@@ -177,6 +225,27 @@ public class EncounterSystem : MonoBehaviour
             if (i < list.Length - 1) str += " ";
         }
         return str;
+    }
+
+    public void CallOptionFunctions(EncounterOptionSO option)
+    {
+        // Given the selected option, calls relevant specific functions specified by the encounter option SO
+        // for example, if the option says that the fishing minigame should be loaded, call it here
+        if (option.callAddCrewmate)
+            CrewManager.Instance.HireCrew(option.crewToAdd);
+
+        if (option.callRemoveCrewmate)
+        {
+            UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
+            int randomIndex = UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count);
+            CrewManager.Instance.RemoveCrew(CrewManager.Instance.hiredCrew[randomIndex]);
+        }
+
+        if (option.loadMinigame)
+        {
+            //TODO: load scene of name $"{option.minigameName}"
+            //  make sure it saves everything properly
+        }
     }
 
     void Update()

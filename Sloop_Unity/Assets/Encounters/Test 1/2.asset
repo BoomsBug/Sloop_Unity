@@ -10,30 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 1
+  m_Name: 2
   m_EditorClassIdentifier: 
-  text: the first option
+  text: Hire crew
   cost:
   - type: 0
-    amount: 1
+    amount: 0
   - type: 1
-    amount: 0
+    amount: 100
   - type: 2
-    amount: 0
+    amount: 50
   - type: 3
     amount: 0
   - type: 4
-    amount: 1
+    amount: 0
   gain:
   - type: 0
     amount: 0
   - type: 1
     amount: 0
   - type: 2
-    amount: 1
+    amount: 0
   - type: 3
-    amount: 1
+    amount: 10
   - type: 4
     amount: 0
   isGainHidden: 0
-  outcome: yay!
+  outcome: Crewmate joined your crew
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 1
+  crewToAdd: {fileID: 1899626176828711203, guid: b144d18a769e2194594b8f59ff2dd544, type: 3}
+  callRemoveCrewmate: 0
+  callTeleportShip: 0
