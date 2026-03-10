@@ -14,16 +14,19 @@ public class Crewmate : MonoBehaviour
     public MoralAlignment alignment;
     public NPCRole role;
     public int npcIndex;
+    // crew mates can have certain encounters that are only added to the possibleEncounter list when they are hired
+    public EncounterSO crewEncounter;
 
-    public virtual void AlteredCost(ResourceAmount[] baseCosts)
+    public virtual ResourceAmount[] AlteredCost(ResourceAmount[] baseCosts)
     {
-        
+        return baseCosts;
     }
 
-    public virtual void AlteredGain(ResourceAmount[] baseGains)
+    public virtual ResourceAmount[] AlteredGain(ResourceAmount[] baseGains)
     {
-        
+        return baseGains;
     }
+
     public virtual void HiredDialogue()
     {
         

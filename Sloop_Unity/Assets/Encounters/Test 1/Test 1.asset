@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Test 1
   m_EditorClassIdentifier: 
   encounterName: 
-  text: Test 1
+  text: You encounter a man floating on a raft nearby, he asks for help and to join
+    your crew
   options:
   - {fileID: 11400000, guid: ce87373de1eca884696866a13f3d9097, type: 2}
+  - {fileID: 11400000, guid: c3dde9bca740c724fa8d79d97253632f, type: 2}
+  oneTime: 1

@@ -9,11 +9,8 @@ using Sloop.Economy;
 using UnityEngine.UI;
 using System;
 
-//TODO: Find a way to add custom functions to different options when clicked (ie. minigames, add crew, remove crew, etc...)
 //TODO: Move encounterManager to start screen and make it DontDestroyOnLoad
     //only if doesn't maintain completedEncounters between loading port scenes
-
-//TODO: Test encounter option crew hiring function
 
 public class EncounterSystem : MonoBehaviour
 {
@@ -21,6 +18,7 @@ public class EncounterSystem : MonoBehaviour
     public GameObject encounterUI;
     public List<EncounterSO> possibleEncounters;
     private List<EncounterSO> completedEncounters = new List<EncounterSO>();
+    public bool cycleEncounters;
     public EncounterSO curEncounter;
     public GameObject continueButton;
     private bool canContinue = false;
@@ -96,7 +94,7 @@ public class EncounterSystem : MonoBehaviour
             if (!ResourceManager.Instance.CanAfford(alteredCost))
             {
                 panel.GetComponent<Image>().color = Color.red;
-                //ocean spirits, player has enough honour to choose option 4, and game lets them, but still colours red
+                //TODO: ocean spirits, player has enough honour to choose option 4, and game lets them, but still colours red
             }
 
             //If option gain is hidden, replaces gain and altered gain with ???
@@ -152,14 +150,17 @@ public class EncounterSystem : MonoBehaviour
         //Decides what next encounter is
         completedEncounters.Add(curEncounter);
         possibleEncounters.Remove(curEncounter);
-        //If all possible encounters used up, replenish list with completed encounters
-        if (possibleEncounters.Count <= 0)
+
+        //If all possible encounters used up, replenish list with completed encounters that aren't one time use
+        if (cycleEncounters && possibleEncounters.Count <= 0)
         {
-            possibleEncounters = new List<EncounterSO>(completedEncounters);
+            foreach (EncounterSO completedEncounter in completedEncounters)
+            {
+                if (!completedEncounter.oneTime) possibleEncounters.Add(completedEncounter);
+            }
             completedEncounters = new List<EncounterSO>();
         }
         curEncounter = possibleEncounters[UnityEngine.Random.Range(0, possibleEncounters.Count)];
-
     }
 
     public void ContinueGame()
@@ -187,7 +188,7 @@ public class EncounterSystem : MonoBehaviour
 
         foreach (Crewmate crew in hiredCrew)
         {
-            crew.AlteredCost(alteredCosts);
+            alteredCosts = crew.AlteredCost(alteredCosts);
         }
         
         return alteredCosts;
@@ -204,7 +205,7 @@ public class EncounterSystem : MonoBehaviour
 
         foreach (Crewmate crew in hiredCrew)
         {
-            crew.AlteredGain(alteredGains);
+            alteredGains = crew.AlteredGain(alteredGains);
         }
 
         return alteredGains;

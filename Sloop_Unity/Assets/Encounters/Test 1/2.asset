@@ -12,34 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  text: Hire crew
+  text: Take him aboard
   cost:
   - type: 0
-    amount: 0
-  - type: 1
-    amount: 100
-  - type: 2
     amount: 50
-  - type: 3
-    amount: 0
-  - type: 4
-    amount: 0
-  gain:
-  - type: 0
-    amount: 0
-  - type: 1
-    amount: 0
-  - type: 2
-    amount: 0
-  - type: 3
-    amount: 10
-  - type: 4
-    amount: 0
+  gain: []
   isGainHidden: 0
-  outcome: Crewmate joined your crew
+  outcome: You welcome him aboard. Hyuk Hyuk
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 1
-  crewToAdd: {fileID: 1899626176828711203, guid: b144d18a769e2194594b8f59ff2dd544, type: 3}
+  crewToAdd: {fileID: 4395761589881249859, guid: d26f9544d9badc143ae80588a40699af, type: 3}
   callRemoveCrewmate: 0
   callTeleportShip: 0

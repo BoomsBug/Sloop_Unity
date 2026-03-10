@@ -8,65 +8,75 @@ using System.Resources;
 [Serializable]
 public class TestCrew : Crewmate
 {
-
-    public override void AlteredCost(ResourceAmount[] baseCosts)
+    //adds 5 to every gain
+    public override ResourceAmount[] AlteredCost(ResourceAmount[] baseCosts)
     {
+        int gold = 0;
+        int food = 0;
+        int wood = 0;
+        int power = 0;
+        int honour = 0;
+
         for (int i = 0; i < baseCosts.Length; i ++)
         {
             Resource resource = baseCosts[i].type;
-            int amount = baseCosts[i].amount;
-
-            if (resource == Resource.Gold)
-            {
-                baseCosts[i].amount = Sloop.Economy.ResourceManager.Instance.GetAmount(Resource.Gold);
-            }
-            if (resource == Resource.Wood)
-            {
-                
-            }
-            if (resource == Resource.Food)
-            {
-                
-            }
-            if (resource == Resource.Power)
-            {
-                
-            }
-            if (resource == Resource.Honour)
-            {
-                
-            }
-            
+            if (resource == Resource.Gold) gold = baseCosts[i].amount;
+            if (resource == Resource.Wood) wood = baseCosts[i].amount;
+            if (resource == Resource.Food) food = baseCosts[i].amount;
+            if (resource == Resource.Power) power = baseCosts[i].amount;
+            if (resource == Resource.Honour) honour = baseCosts[i].amount;
         }
+        
+        // ---------------- MAKE COST MODIFIERS HERE ----------------
+        //ie. gold += 10, if (wood >= 10) food -= 5, etc...
+
+        //-----------------------------------------------------------
+
+        ResourceAmount[] alteredCosts = {
+            new ResourceAmount {type=Resource.Gold, amount = gold},
+            new ResourceAmount {type=Resource.Food, amount = food},
+            new ResourceAmount {type=Resource.Wood, amount = wood},
+            new ResourceAmount {type=Resource.Power, amount = power},
+            new ResourceAmount {type=Resource.Honour, amount = honour}
+        };
+
+        return alteredCosts;
     }
-    public override void AlteredGain(ResourceAmount[] baseGains)
+    public override ResourceAmount[] AlteredGain(ResourceAmount[] baseGains)
     {
+        int gold = 0;
+        int food = 0;
+        int wood = 0;
+        int power = 0;
+        int honour = 0;
+
         for (int i = 0; i < baseGains.Length; i ++)
         {
             Resource resource = baseGains[i].type;
-            int amount = baseGains[i].amount;
-
-            if (resource == Resource.Gold)
-            {
-                
-            }
-            if (resource == Resource.Wood)
-            {
-                
-            }
-            if (resource == Resource.Food)
-            {
-                
-            }
-            if (resource == Resource.Power)
-            {
-                
-            }
-            if (resource == Resource.Honour)
-            {
-                
-            }
+            if (resource == Resource.Gold) gold = baseGains[i].amount;
+            if (resource == Resource.Wood) wood = baseGains[i].amount;
+            if (resource == Resource.Food) food = baseGains[i].amount;
+            if (resource == Resource.Power) power = baseGains[i].amount;
+            if (resource == Resource.Honour) honour = baseGains[i].amount;
         }
+        
+        // ---------------- MAKE GAIN MODIFIERS HERE ----------------
+        gold += 5;
+        food += 5;
+        wood += 5;
+        power += 5;
+        honour += 5;
+        //-----------------------------------------------------------
+
+        ResourceAmount[] alteredGains = {
+            new ResourceAmount {type=Resource.Gold, amount = gold},
+            new ResourceAmount {type=Resource.Food, amount = food},
+            new ResourceAmount {type=Resource.Wood, amount = wood},
+            new ResourceAmount {type=Resource.Power, amount = power},
+            new ResourceAmount {type=Resource.Honour, amount = honour}
+        };
+
+        return alteredGains;
     }
     public override void HiredDialogue()
     {

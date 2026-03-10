@@ -12,28 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  text: the first option
+  text: Leave him
   cost:
-  - type: 0
-    amount: 1
-  - type: 1
-    amount: 0
-  - type: 2
-    amount: 0
-  - type: 3
-    amount: 0
   - type: 4
-    amount: 1
-  gain:
-  - type: 0
-    amount: 0
-  - type: 1
-    amount: 0
-  - type: 2
-    amount: 1
-  - type: 3
-    amount: 1
-  - type: 4
-    amount: 0
+    amount: 10
+  gain: []
   isGainHidden: 0
-  outcome: yay!
+  outcome: He'll be fine...
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 0
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 0
+  callTeleportShip: 0

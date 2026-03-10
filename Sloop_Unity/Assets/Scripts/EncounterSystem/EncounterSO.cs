@@ -10,4 +10,5 @@ public class EncounterSO : ScriptableObject
     public string text;
 
     public List<EncounterOptionSO> options;
+    public bool oneTime;
 }

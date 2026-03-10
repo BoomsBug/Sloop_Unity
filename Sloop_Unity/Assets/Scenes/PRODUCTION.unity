@@ -1460,6 +1460,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2004008522}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: cycleEncounters
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: optionPanels.Array.data[0]
       value: 
       objectReference: {fileID: 2004008520}
@@ -1475,6 +1479,10 @@ PrefabInstance:
       propertyPath: optionPanels.Array.data[3]
       value: 
       objectReference: {fileID: 2004008516}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleEncounters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager

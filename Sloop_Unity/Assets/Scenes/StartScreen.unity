@@ -978,9 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f667919494072924c89da99baa684d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hiredCrew:
-  - {fileID: 4327313998667810847, guid: a398e56e72673b94fa1690e0bf15be80, type: 3}
-  - {fileID: 4395761589881249859, guid: d26f9544d9badc143ae80588a40699af, type: 3}
+  hiredCrew: []
 --- !u!4 &736024675
 Transform:
   m_ObjectHideFlags: 0
@@ -1029,6 +1027,14 @@ MonoBehaviour:
   startingResources:
   - type: 0
     amount: 200
+  - type: 1
+    amount: 20
+  - type: 2
+    amount: 20
+  - type: 3
+    amount: 20
+  - type: 4
+    amount: 50
 --- !u!4 &778783914
 Transform:
   m_ObjectHideFlags: 0

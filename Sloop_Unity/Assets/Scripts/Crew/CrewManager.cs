@@ -7,6 +7,7 @@ public class CrewManager : MonoBehaviour
 {
     /*
         Manages what crew the player has hired. Contains functions to add and remove crew
+        TODO: Hook up to NPC stuff on islands so you can hire crew there
     */
     public static CrewManager Instance;
     public List<Crewmate> hiredCrew;
@@ -51,6 +52,15 @@ public class CrewManager : MonoBehaviour
             Debug.Log("Cannot hire a crewmate twice");
             return;
         }
+
+        //if new crew has their own encounter, add it to possibleEncounter list
+        if (newCrewmate.crewEncounter != null)
+        {
+            EncounterSystem encounterSystem = FindObjectOfType<EncounterSystem>();
+            if (encounterSystem != null)
+                encounterSystem.possibleEncounters.Add(newCrewmate.crewEncounter);
+        }
+
         hiredCrew.Add(newCrewmate);
         newCrewmate.HiredDialogue();
     }
