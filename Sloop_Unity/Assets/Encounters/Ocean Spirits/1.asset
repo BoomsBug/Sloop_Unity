@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  text: Offer up gold
+  cost:
+  - type: 0
+    amount: 50
+  gain:
+  - type: 2
+    amount: 30
+  - type: 4
+    amount: 10
+  isGainHidden: 1
+  outcome: The spirits jump and dash in the rolling waters around the boat in a hypnotic
+    dance, and as they crescendo, the jump into the water and dissapear. A few moments
+    later, as the trance wears off, you notice a pile of fish and crab, still flopping
+    around on the deck.
