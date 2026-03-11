@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+
 // used info from https://www.youtube.com/watch?v=wJhMaLkeEuY for initial skeleton
 // used Chat GPT for assistance and debugging help after I identified what needed to be saved
 
 public class DataManager : MonoBehaviour
 {
 
-    public Transform playerTransform;
 
     // save game function
     public void SaveGame()
@@ -43,17 +43,11 @@ public class DataManager : MonoBehaviour
 
         // Island data
         data.currentIslandID = GameManager.Instance.currentIslandID;
-        data.currentIsalndMorality = GameManager.Instance.currentIslandMorality;
+        data.currentIslandMorality = GameManager.Instance.currentIslandMorality;
 
 
 
-        // Player data
-        data.playerPosition = new float[]
-        {
-            playerTransform.position.x,
-            playerTransform.position.y,
-            playerTransform.position.z
-        };
+
 
         ///
 
@@ -82,6 +76,7 @@ public class DataManager : MonoBehaviour
     {
         // same file path
         string path = Application.persistentDataPath + "/saveData.json";
+        Debug.Log("saved to: " + path);
 
         // check if it exists
         if (File.Exists(path))
@@ -116,17 +111,8 @@ public class DataManager : MonoBehaviour
 
             // Island data loaded back in
             GameManager.Instance.currentIslandID = loadedData.currentIslandID;
-            GameManager.Instance.currentIslandMorality = loadedData.currentIsalndMorality;
+            GameManager.Instance.currentIslandMorality = loadedData.currentIslandMorality;
 
-
-
-            // Player data loaded back in
-            Vector3 loadedPosition = new Vector3 (
-            loadedData.playerPosition[0],
-            loadedData.playerPosition[1],
-            loadedData.playerPosition[2]
-            );
-            playerTransform.position = loadedPosition;
 
             ///
 

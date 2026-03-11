@@ -894,10 +894,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad7ea07fa678f44ca7d7803d58e1fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1356123724}
-  encounterSystem: {fileID: 1751350463}
+  choiceEncounter: {fileID: 0}
+  chaseEncounter: {fileID: 0}
   checkEvery: 12
   chance: 0.5
+  chaseWeight: 0.4
 --- !u!4 &1356123726
 Transform:
   m_ObjectHideFlags: 0
@@ -1963,7 +1964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609237003617239293, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Ship
       objectReference: {fileID: 0}
     - target: {fileID: 2528239645457004898, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalScale.x

@@ -41,6 +41,8 @@ public class ShipEncounterController : MonoBehaviour
     PlayerHonor honor;
     PlayerResources resources;
     bool running;
+    public bool IsRunning => running;
+
 
     Vector2 savedVel;
     Rigidbody2D playerRb;
