@@ -854,7 +854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1356123724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 1503474913}
   - component: {fileID: 1503474912}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Encounter Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1225,7 +1225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!223 &1663847822
 Canvas:
   m_ObjectHideFlags: 0
@@ -2098,6 +2098,7 @@ SceneRoots:
   - {fileID: 775250869}
   - {fileID: 1190726692}
   - {fileID: 1616681898}
+  - {fileID: 1751350462}
   - {fileID: 37159622}
   - {fileID: 1887803209}
   - {fileID: 2022496503}
@@ -2107,4 +2108,3 @@ SceneRoots:
   - {fileID: 1268790919}
   - {fileID: 1580227447}
   - {fileID: 1503474911}
-  - {fileID: 1751350462}
