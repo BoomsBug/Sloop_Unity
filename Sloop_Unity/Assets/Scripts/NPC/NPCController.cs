@@ -1,5 +1,7 @@
 using UnityEngine;
 using Sloop.NPC.Dialogue;
+using System;
+using System.Reflection;
 
 namespace Sloop.NPC
 {
@@ -269,7 +271,11 @@ namespace Sloop.NPC
                 {
                     ui.SetLine("You hired the deckhand. (stub)");
                     ui.HideChoices();
-                    // TODO: call CrewManager.AddCrew(data), deduct gold, etc.
+                    
+                    if (data.subclassIndex != -1)
+                        CrewManager.Instance.HireCrew(data.subclassIndex, data);
+                    else
+                        Debug.Log("Invalid crewmember: missing subclass");
                 },
                 "Maybe Later",
                 () =>
