@@ -5,6 +5,7 @@ namespace Sloop.Economy
         Gold,
         Wood,
         Food,
-        Power
+        Power,
+        Honour
     }
 }

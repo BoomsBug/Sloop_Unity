@@ -11,6 +11,8 @@ TagManager:
   - Ship
   - Fish
   - Loot
+  - Ocean
+  - Keg
   layers:
   - Default
   - TransparentFX

@@ -125,6 +125,11 @@ public class BoatMovement : MonoBehaviour
     
         boatAnimator.SetInteger("direction", currentDirection);
 
+
+
+        GameManager.Instance.UpdateBoatState(transform.position, boatRigidbody.velocity);
+
+
     }
 
     // This function returns the wind vector direction based on the direction chosen

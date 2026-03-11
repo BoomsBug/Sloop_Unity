@@ -18,10 +18,8 @@ public class DataStorage
 
     // Island data
     public int currentIslandID;
-    public string currentIsalndMorality;
+    public string currentIslandMorality;
 
-    // Player data
-    public float[] playerPosition;
 
 
 }
