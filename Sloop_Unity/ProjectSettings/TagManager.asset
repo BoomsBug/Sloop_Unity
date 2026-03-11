@@ -9,6 +9,8 @@ TagManager:
   - Ocean Tile
   - Merchant
   - Ship
+  - Ocean
+  - Keg
   layers:
   - Default
   - TransparentFX
