@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Treasure.unity
     guid: 75b6f3898412fed45964dc137ebddea5
+  - enabled: 1
+    path: Assets/Scenes/CannonPractice.unity
+    guid: dca31379e00a3d342bf2180c29fbf58f
   m_configObjects: {}
