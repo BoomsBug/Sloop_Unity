@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3383232512509865018}
   - component: {fileID: 5747907252497119421}
+  - component: {fileID: 6438795557056657569}
   m_Layer: 0
   m_Name: EncounterManager
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
   - {fileID: 11400000, guid: f108cb998f9877047ab7f72e1876d174, type: 2}
   - {fileID: 11400000, guid: 0ddd44787b500e64e87b84f845a4ec31, type: 2}
+  cycleEncounters: 0
   curEncounter: {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
   continueButton: {fileID: 0}
   encounterText: {fileID: 0}
@@ -57,3 +59,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &6438795557056657569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6189032163039647756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad7ea07fa678f44ca7d7803d58e1fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterSystem: {fileID: 5747907252497119421}
+  checkEvery: 10
+  chance: 0.3

@@ -9,8 +9,7 @@ using Sloop.Economy;
 using UnityEngine.UI;
 using System;
 
-//TODO: Move encounterManager to start screen and make it DontDestroyOnLoad
-    //only if doesn't maintain completedEncounters between loading port scenes
+//TODO: Make possibleEncounters and completedEncounters persist when loading to island scene and back
 
 public class EncounterSystem : MonoBehaviour
 {
@@ -28,19 +27,6 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
-
-    void Awake()
-    {
-        // Singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 
     public void LoadEncounter()
     {
