@@ -15,6 +15,7 @@ public class WorldGen : MonoBehaviour
 
         TODO:
         - Eventually hook up island reference to some manager somewheres
+        - Make treasure island garunteed to not be on ocean tile
     */
 
     private TreeNode root;

@@ -346,11 +346,11 @@ namespace Sloop.NPC
                 {
                     if (band == WillingnessBand.Friendly || band == WillingnessBand.Neutral)
                     {
-                        ui.SetLine("I heard of ancient treasure due East (True)");
+                        ui.SetLine($"I heard of ancient treasure due {GameManager.Instance.directionToTreasure} (True)");
                     }
                     else
                     {
-                        ui.SetLine("I heard of ancient treasure due West (False)");
+                        ui.SetLine($"I heard of ancient treasure due {GameManager.Instance.directionToTreasure} (True)");
                     }
                     ui.HideChoices();
                 },
