@@ -787,7 +787,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1743104788}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EncounterUI, Assembly-CSharp
         m_MethodName: ClickPay
         m_Mode: 1
@@ -1104,6 +1104,8 @@ MonoBehaviour:
   hasBoatState: 0
   currentIslandID: -1
   currentIslandMorality: 
+  directionToTreasure: 
+  randomDirection: 
 --- !u!4 &1621310198
 Transform:
   m_ObjectHideFlags: 0
@@ -1243,7 +1245,6 @@ GameObject:
   - component: {fileID: 1743104791}
   - component: {fileID: 1743104790}
   - component: {fileID: 1743104789}
-  - component: {fileID: 1743104788}
   m_Layer: 5
   m_Name: EncounterPanel
   m_TagString: Untagged
@@ -1251,19 +1252,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1743104788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743104787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b751b6c632eea4643b9c755bd64f7c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 1743104787}
 --- !u!114 &1743104789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1616,7 +1604,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1743104788}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EncounterUI, Assembly-CSharp
         m_MethodName: ClickEngage
         m_Mode: 1
@@ -1931,11 +1919,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.42
+      value: -1.04
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.66
+      value: -1.68
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.z
