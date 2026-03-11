@@ -13,6 +13,8 @@ TagManager:
   - Loot
   - Ocean
   - Keg
+  - Ground
+  - Barrel
   layers:
   - Default
   - TransparentFX

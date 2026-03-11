@@ -30,7 +30,7 @@ public class TopDownPlayerMovement : MonoBehaviour
     // Track what we're near
     private bool isNearNPC = false;
     private bool isNearItem = false;
-    private bool isNearMerchant = false;
+    // private bool isNearMerchant = false;
     private bool isNearShip = false;
 
     private PlayerResources playerResources;
