@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public string currentIslandMorality;
 
     public string directionToTreasure;
+    public string randomDirection;
 
 
     // GameManager instance to grab from anywhere in game

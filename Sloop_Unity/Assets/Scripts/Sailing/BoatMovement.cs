@@ -210,11 +210,15 @@ public class BoatMovement : MonoBehaviour
             WorldGen worldGen = FindObjectOfType<WorldGen>();
             Island treasureIsland = worldGen.islands[worldGen.treasureIsland];
             //  calculate the direction between that island and the player location,
-            float angle = Vector2.Angle(gameObject.transform.position, treasureIsland.tileCoordinates);
+            float angle = Vector2.SignedAngle(treasureIsland.tileCoordinates, gameObject.transform.position);
+            Debug.Log(treasureIsland.tileCoordinates);
             //  turn that angle into a cardinal direction, and give that string to GameManager.
             string cardinalDirection = AngleToDirection(angle);
+            Random.InitState(GameManager.Instance.worldSeed);
+            string randomDirection = AngleToDirection(Random.Range(0,360));
             //  GameManager will use it in the island scene to tell the player which way to head  
             GameManager.Instance.directionToTreasure = cardinalDirection;
+            GameManager.Instance.randomDirection = randomDirection;
 
             int worldSeed = worldGen != null ? worldGen.seed : 0;
 
@@ -273,8 +277,15 @@ public class BoatMovement : MonoBehaviour
 
     private string AngleToDirection(float angle)
     {
+        Debug.Log(angle);
         //TODO: offset angle so direction is more accurate
         //takes a float representing the angle between two vectors in degrees and returns a cardinal direction (E, SE, N, etc...)
+
+        if (angle < 0) angle += 360; //turns range from -180 -> 180 to 0 -> 360
+        angle += 15;
+        if (angle > 360) angle %= 360; //turns 361 into just 1
+        Debug.Log(angle);
+
         if (angle < 45) return "west";
         if (angle < 90) return "north west";
         if (angle < 135) return "north";

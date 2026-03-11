@@ -350,7 +350,7 @@ namespace Sloop.NPC
                     }
                     else
                     {
-                        ui.SetLine($"I heard of ancient treasure due {GameManager.Instance.directionToTreasure} (True)");
+                        ui.SetLine($"I heard of ancient treasure due {GameManager.Instance.randomDirection} (Possibly false)");
                     }
                     ui.HideChoices();
                 },
