@@ -207,7 +207,7 @@ MonoBehaviour:
     volume: 0.3
   islandMusic:
     clip: {fileID: 8300000, guid: 1cf1b02f0ba57964b82f3462efb259a3, type: 3}
-    volume: 0.857
+    volume: 0.997
   fiddleTunes:
   - clip: {fileID: 8300000, guid: 3a350980472c81d48af4bd1e7eed5b66, type: 3}
     volume: 1.273
