@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Having Fun
+  m_EditorClassIdentifier: 
+  encounterName: Having Fun
+  text: The gulls are singing overhead and the ocean breeze carries in a sweet scent.
+    The clouds part and the sun shines warmly on the bustling and laughing crew.
+    Things are going pretty sweet. One of your deckhands apporaches and asks if the
+    crew can play a quick game, he invites you to join.
+  options:
+  - {fileID: 11400000, guid: 57518696736126f4b8b2e2b1926eff16, type: 2}
+  - {fileID: 11400000, guid: 93e26557e9f49ff40b3ef7fa30998639, type: 2}
+  - {fileID: 11400000, guid: c306dead0693a104283c453e8951aaa6, type: 2}
+  oneTime: 0
