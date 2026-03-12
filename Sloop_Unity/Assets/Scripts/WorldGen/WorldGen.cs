@@ -14,7 +14,10 @@ public class WorldGen : MonoBehaviour
         Move that object to the middle of the cell (+- a seeded random offset)
 
         TODO:
-        - Eventually hook up island reference to some manager somewheres
+        - Make treasure island garunteed to not be on ocean tile
+        - Make player spawn garunteed to not be on island
+        - Make island center accurate
+        - Make port spawn actually on the island, a random point along the collider, then moved a bit towards island center
     */
 
     private TreeNode root;

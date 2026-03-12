@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sloop.World;
+using UnityEngine.Animations;
 
 
 public class BoatMovement : MonoBehaviour
@@ -205,7 +206,21 @@ public class BoatMovement : MonoBehaviour
                 return;
             }
 
+            //TODO: test this
+            //When player docks at a port, find the island that has the treasure, 
             WorldGen worldGen = FindObjectOfType<WorldGen>();
+            Island treasureIsland = worldGen.islands[worldGen.treasureIsland];
+            //  calculate the direction between that island and the player location,
+            float angle = Vector2.SignedAngle(gameObject.transform.right, treasureIsland.tileCoordinates - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y));
+            Debug.Log(treasureIsland.tileCoordinates);
+            //  turn that angle into a cardinal direction, and give that string to GameManager.
+            string cardinalDirection = AngleToDirection(angle);
+            Random.InitState(GameManager.Instance.worldSeed);
+            string randomDirection = AngleToDirection(Random.Range(0,360));
+            //  GameManager will use it in the island scene to tell the player which way to head  
+            GameManager.Instance.directionToTreasure = cardinalDirection;
+            GameManager.Instance.randomDirection = randomDirection;
+
             int worldSeed = worldGen != null ? worldGen.seed : 0;
 
             // Save context for port scene NPC generation
@@ -259,6 +274,28 @@ public class BoatMovement : MonoBehaviour
             }
         }
         
+    }
+
+    private string AngleToDirection(float angle)
+    {
+        Debug.Log(angle);
+        //TODO: offset angle so direction is more accurate
+        //takes a float representing the angle between two vectors in degrees and returns a cardinal direction (E, SE, N, etc...)
+
+        if (angle < 0) angle += 360; //turns range from -180 -> 180 to 0 -> 360
+        angle += 22.5f;
+        if (angle > 360) angle %= 360; //turns 361 into just 1
+        Debug.Log(angle);
+
+        if (angle < 45) return "east";
+        if (angle < 90) return "north east";
+        if (angle < 135) return "north";
+        if (angle < 180) return "north west";
+        if (angle < 225) return "west";
+        if (angle < 270) return "south west";
+        if (angle < 315) return "south";
+        if (angle < 360) return "south east";
+        else return "INVALID DIRECTION";
     }
 
     // When the ship enters a new ocean tile, set curIsland to that tile
