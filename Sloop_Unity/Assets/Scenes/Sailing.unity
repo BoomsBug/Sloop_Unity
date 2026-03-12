@@ -1330,7 +1330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b751b6c632eea4643b9c755bd64f7c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 865802797}
 --- !u!1 &1066871888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,21 +1427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3633a6fe0e3b5a48b45d5a3dae12a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerShip: {fileID: 1289689917}
-  enemyShipPrefab: {fileID: 2942919959104622449, guid: f161d57a22222c54682d56107f04eb8a, type: 3}
-  boatMovement: {fileID: 1289689912}
-  spawnRadius: 18
-  enemySpeed: 11
-  catchDistance: 3
-  escapeDistance: 20
-  escapeHoldTime: 5
-  maxChaseTime: 25
-  honorDeltaOnEscape: 2
-  honorDeltaOnCaught: -5
-  goldLostOnCaught: 10
-  floatingTextPrefab: {fileID: 4508708029077706253, guid: 3c18d2bfe7a9ffe4e98681638bfaf298, type: 3}
-  encounterCanvas: {fileID: 1768064356}
-  popupOffset: {x: 0, y: 1.5, z: 0}
 --- !u!4 &1104930433
 Transform:
   m_ObjectHideFlags: 0
@@ -1542,22 +1526,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 234210560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &1289689912 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8977479901357671448, guid: b422367889da544439dac250a0adea90, type: 3}
-  m_PrefabInstance: {fileID: 2300539568901995252}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52542b5935f03147b1d3a493d501ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1289689917 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
-  m_PrefabInstance: {fileID: 2300539568901995252}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1338917191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,11 +1678,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad7ea07fa678f44ca7d7803d58e1fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  choiceEncounter: {fileID: 1449613462}
-  chaseEncounter: {fileID: 1104930432}
+  encounterSystem: {fileID: 0}
   checkEvery: 10
   chance: 0.3
-  chaseWeight: 0.4
 --- !u!114 &1449613462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1727,21 +1693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82a963cece2df4429711c6ea2f5b703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerShip: {fileID: 1289689917}
-  boatMovement: {fileID: 1289689912}
-  enemyShipPrefab: {fileID: 2942919959104622449, guid: f161d57a22222c54682d56107f04eb8a, type: 3}
-  ui: {fileID: 865802801}
-  spawnRadius: 14
-  approachDistance: 3
-  approachSpeed: 3
-  crewCostIfPay: 1
-  honorDeltaIfPay: -10
-  powerCostIfEngage: 10
-  goldLootIfEngage: 25
-  honorDeltaIfEngage: 3
-  floatingTextPrefab: {fileID: 4508708029077706253, guid: 3c18d2bfe7a9ffe4e98681638bfaf298, type: 3}
-  popupOffset: {x: 0, y: 1.5, z: 0}
-  encounterCanvas: {fileID: 1768064356}
 --- !u!1 &1587024856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,7 +2074,7 @@ PrefabInstance:
     - target: {fileID: 25642053402606412, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1152716629}
+      objectReference: {fileID: 0}
     - target: {fileID: 25642053402606412, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
@@ -2131,7 +2082,7 @@ PrefabInstance:
     - target: {fileID: 520466538676114185, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1152716629}
+      objectReference: {fileID: 0}
     - target: {fileID: 520466538676114185, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
@@ -2139,7 +2090,7 @@ PrefabInstance:
     - target: {fileID: 2289329880570764635, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1152716629}
+      objectReference: {fileID: 0}
     - target: {fileID: 2289329880570764635, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
@@ -2155,7 +2106,7 @@ PrefabInstance:
     - target: {fileID: 4313352607118472933, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1152716629}
+      objectReference: {fileID: 0}
     - target: {fileID: 4313352607118472933, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ContinueGame
@@ -2243,7 +2194,7 @@ PrefabInstance:
     - target: {fileID: 4949717459535926423, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1152716629}
+      objectReference: {fileID: 0}
     - target: {fileID: 4949717459535926423, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
@@ -2253,50 +2204,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
---- !u!1 &1831241996 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7526879564186653555, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-  m_PrefabInstance: {fileID: 1831241995}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1831241997 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4406300549846717373, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-  m_PrefabInstance: {fileID: 1831241995}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1831241998 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8465840694038865982, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-  m_PrefabInstance: {fileID: 1831241995}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1831241999 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6461845456816342151, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-  m_PrefabInstance: {fileID: 1831241995}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1831242000 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4337361200075770681, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-  m_PrefabInstance: {fileID: 1831241995}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1831242001 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9115484767290892374, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-  m_PrefabInstance: {fileID: 1831241995}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1831242002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3931295237191138405, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
-  m_PrefabInstance: {fileID: 1831241995}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1831242003 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4259623364480728630, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
   m_PrefabInstance: {fileID: 1831241995}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1933896960808361909
@@ -2411,6 +2321,14 @@ PrefabInstance:
     - target: {fileID: 609237003617239293, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_Name
       value: Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800789494762986374, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800789494762986374, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1722652257
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2537,3 +2455,4 @@ SceneRoots:
   - {fileID: 3133305813944813473}
   - {fileID: 1449613460}
   - {fileID: 1104930433}
+  - {fileID: 1338917192}
