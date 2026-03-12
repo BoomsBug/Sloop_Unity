@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8136305172649963412}
-  - component: {fileID: 1899626176828711203}
+  - component: {fileID: 7378446691858167259}
   m_Layer: 0
-  m_Name: TestCrew
+  m_Name: GoodCrewC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1899626176828711203
+--- !u!114 &7378446691858167259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,3 +49,4 @@ MonoBehaviour:
   alignment: 0
   role: 0
   npcIndex: 0
+  crewEncounter: {fileID: 0}

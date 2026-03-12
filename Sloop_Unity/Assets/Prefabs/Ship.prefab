@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1556120282000706483}
   m_Layer: 0
   m_Name: Ship
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.42, y: 2.49, z: -0.22336312}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.0716}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5622780341552447475}
@@ -126,8 +126,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1350647291
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 2084197120, guid: 566f4486103447244a80115d1a02ede7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -152,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52542b5935f03147b1d3a493d501ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boatSpeed: 6
-  dockCheckRadius: 0
+  boatSpeed: 0.5
+  dockCheckRadius: 0.5
   windDirection: 5
-  windStrength: 1.5
+  windStrength: 0.1
   curOceanTile: {fileID: 0}
 --- !u!114 &7337992143010466721
 MonoBehaviour:
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 2646932021696356324}
   - component: {fileID: 4769526640029642552}
   m_Layer: 6
-  m_Name: rain_01
+  m_Name: Rain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,8 +256,8 @@ Transform:
   m_GameObject: {fileID: 3422650049915344475}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0016999971, y: -0.0013030008, z: 10.223363}
-  m_LocalScale: {x: 0.055316467, y: 0.022884645, z: 1}
+  m_LocalPosition: {x: 0.002, y: 0.002, z: 10.223363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748470426102158761}
@@ -300,9 +300,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1350647291
+  m_SortingLayer: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 91837bde00ada2047a251a3a38d3da91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -377,6 +377,7 @@ GameObject:
   - component: {fileID: 7748470426102158761}
   - component: {fileID: 6635720673327538025}
   - component: {fileID: 5873369641152789525}
+  - component: {fileID: 6259655479840087230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -393,8 +394,8 @@ Transform:
   m_GameObject: {fileID: 8079765471882660851}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 3.0799994, y: 6.073675, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -136}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2528239645457004898}
@@ -435,7 +436,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 14.950694
+  orthographic size: 0.6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -459,3 +460,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8079765471882660851}
   m_Enabled: 1
+--- !u!114 &6259655479840087230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079765471882660851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60934326820b6a248a1d7dcddfe165af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 6635720673327538025}
+  scrollSensitivity: 0.4
+  maxZoom: 2
+  minZoom: 0.2
+  rain: {fileID: 2528239645457004898}

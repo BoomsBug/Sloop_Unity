@@ -81,6 +81,7 @@ public class EncounterSystem : MonoBehaviour
             {
                 panel.GetComponent<Image>().color = Color.red;
                 //TODO: ocean spirits, player has enough honour to choose option 4, and game lets them, but still colours red
+                //      Honour is unaffected by encounter choices
             }
 
             //If option gain is hidden, replaces gain and altered gain with ???
@@ -126,6 +127,7 @@ public class EncounterSystem : MonoBehaviour
         ResourceManager.Instance.Add(optionGains);
 
 
+        //Checks each bool in option to see if it should call a specific function
         CallOptionFunctions(selectedOption);
 
 
@@ -221,7 +223,7 @@ public class EncounterSystem : MonoBehaviour
         if (option.callAddCrewmate)
             CrewManager.Instance.HireCrew(option.crewToAdd);
 
-        if (option.callRemoveCrewmate)
+        if (option.callRemoveCrewmate && CrewManager.Instance.hiredCrew.Count > 0)
         {
             UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
             int randomIndex = UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count);
@@ -232,6 +234,11 @@ public class EncounterSystem : MonoBehaviour
         {
             //TODO: load scene of name $"{option.minigameName}"
             //  make sure it saves everything properly
+        }
+
+        if (option.callAddEncounter && option.encounterToAdd != null)
+        {
+            possibleEncounters.Add(option.encounterToAdd);
         }
     }
 

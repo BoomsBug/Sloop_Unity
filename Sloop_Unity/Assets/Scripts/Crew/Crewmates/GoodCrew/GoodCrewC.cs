@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Sloop.Economy;
 using UnityEngine;
 using System;
+using System.Resources;
 
 [Serializable]
-public class Template : Crewmate
+public class GoodCrewC : Crewmate
 {
-
+    //adds 5 to every gain
     public override ResourceAmount[] AlteredCost(ResourceAmount[] baseCosts)
     {
         int gold = 0;
@@ -28,9 +29,7 @@ public class Template : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
-        
 
-        
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -62,9 +61,11 @@ public class Template : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        
-
-
+        gold += 5;
+        food += 5;
+        wood += 5;
+        power += 5;
+        honour += 5;
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {
@@ -80,7 +81,7 @@ public class Template : Crewmate
     public override void HiredDialogue()
     {
         //bring up text box and character portrait, say dialogue, and wait for player to click continue
-        Debug.Log("Arrgh. I am a pirate");
+        Debug.Log("Arrgh. I am a pirate. You just spent all your gold!!");
     }
     public override void FiredDialogue()
     {

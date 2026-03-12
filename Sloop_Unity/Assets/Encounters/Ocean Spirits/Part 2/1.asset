@@ -12,15 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  text: Feed Hyuk Hyuk Harry
+  text: Kneel before their terrible power
   cost:
+  - type: 0
+    amount: 20
+  - type: 1
+    amount: 20
   - type: 2
-    amount: 10
+    amount: 20
   gain:
   - type: 4
-    amount: 5
+    amount: 20
   isGainHidden: 0
-  outcome: He walks away happy, hyuk hyuking to himself. He is satiated... for now
+  outcome: The chaos stops as you surrender yourself to them. They slowly retreat,
+    and you understand that they accept your humble apologies. You feel a weight
+    off your back and a lighter concious because of it
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 0
