@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Sloop.Economy;
 using Sloop.Player;
+using Sloop.Time;
 
 namespace Sloop.UI
 {
@@ -17,7 +18,8 @@ namespace Sloop.UI
         [SerializeField] private TMP_Text foodText;
         [SerializeField] private TMP_Text powerText;
         [SerializeField] private TMP_Text honorText;
-
+        [SerializeField] private TMP_Text timeText;
+        [SerializeField] private TMP_Text dateText;
 
         [Header("Persist across scenes")]
         [SerializeField] private bool dontDestroyOnLoad = true;
@@ -43,6 +45,7 @@ namespace Sloop.UI
 
             HookResourceManager();
             HookPlayerStateManager();
+            HookTimeManager();
 
             RefreshAll();
         }
@@ -53,6 +56,7 @@ namespace Sloop.UI
 
             UnhookResourceManager();
             UnhookPlayerStateManager();
+            UnhookTimeManager();
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -60,9 +64,11 @@ namespace Sloop.UI
             // Re-hook in case managers were created/destroyed due to scene order.
             UnhookResourceManager();
             UnhookPlayerStateManager();
+            UnhookTimeManager();
 
             HookResourceManager();
             HookPlayerStateManager();
+            HookTimeManager();
 
             RefreshAll();
         }
@@ -94,6 +100,18 @@ namespace Sloop.UI
                 PlayerStateManager.Instance.OnHonorChanged -= OnHonorChanged;
         }
 
+        private void HookTimeManager()
+        {
+            if (GameTimeManager.Instance != null)
+                GameTimeManager.Instance.OnTimeChanged += OnTimeChanged;
+        }
+
+        private void UnhookTimeManager()
+        {
+            if (GameTimeManager.Instance != null)
+                GameTimeManager.Instance.OnTimeChanged -= OnTimeChanged;
+        }
+
         // -----------------------------
         // Events
         // -----------------------------
@@ -113,6 +131,19 @@ namespace Sloop.UI
             SetText(honorText, $"Honor: {newHonor}");
         }
 
+        private void OnTimeChanged(int day, int hour, int minute)
+        {
+            string period = hour >= 12 ? "pm" : "am";
+
+            int displayHour = hour % 12;
+            if (displayHour == 0)
+                displayHour = 12;
+
+            SetText(timeText, $"{displayHour}{period}");
+
+            var tm = GameTimeManager.Instance;
+            SetText(dateText, $"{tm.Month:00}/{tm.Day:00}/{tm.Year}");
+        }
         // -----------------------------
         // Refresh
         // -----------------------------
@@ -120,6 +151,7 @@ namespace Sloop.UI
         {
             RefreshResources();
             RefreshHonor();
+            RefreshTime();
         }
 
         private void RefreshResources()
@@ -150,6 +182,27 @@ namespace Sloop.UI
             }
 
             SetText(honorText, $"Honor: {ps.Honor}");
+        }
+
+        private void RefreshTime()
+        {
+            var tm = GameTimeManager.Instance;
+
+            if (tm == null)
+            {
+                SetText(timeText, "(no time)");
+                SetText(dateText, "(no date)");
+                return;
+            }
+
+            string period = tm.Hour >= 12 ? "pm" : "am";
+
+            int displayHour = tm.Hour % 12;
+            if (displayHour == 0)
+                displayHour = 12;
+
+            SetText(timeText, $"{displayHour}{period}");
+            SetText(dateText, $"{tm.Month:00}/{tm.Day:00}/{tm.Year}");
         }
 
         private static void SetText(TMP_Text t, string value)
