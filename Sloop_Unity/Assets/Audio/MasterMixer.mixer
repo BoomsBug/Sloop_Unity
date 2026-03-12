@@ -58,6 +58,7 @@ AudioMixerController:
     - 73e31fa15bb76424da24f58e66e9e593
     - 8ebc126cc5d09f54b9a2c8cc05de289e
     - 53a6b9cef7204a34b9297e3a9897571f
+    - 90a15399cb5ada8468d93077a8fd942f
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -73,6 +74,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: 8995162661986297739}
   - {fileID: -7483368657854400914}
+  - {fileID: 2003737435400825593}
   m_Volume: a50d4fca11a4a6b488d5086a3fd58ee1
   m_Pitch: fce23033aa6e7574c80050e2a07cd6ee
   m_Send: 00000000000000000000000000000000
@@ -108,6 +110,39 @@ AudioMixerSnapshotController:
   m_FloatValues:
     fb1e7444837ec3a498444c4830a9b3bb: -0.08374829
   m_TransitionOverrides: {}
+--- !u!244 &1927027305740072176
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 1af50eb860ff91d40aef8ceb585c80ea
+  m_EffectName: Attenuation
+  m_MixLevel: 6369eaee8f0da2c4aab14d6b9a71b86d
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &2003737435400825593
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ocean
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 90a15399cb5ada8468d93077a8fd942f
+  m_Children: []
+  m_Volume: cac7ec60166673244b38b385b731ef36
+  m_Pitch: 247671682bf47d2499b9f985a336dd24
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 1927027305740072176}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &6516732773281480823
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
