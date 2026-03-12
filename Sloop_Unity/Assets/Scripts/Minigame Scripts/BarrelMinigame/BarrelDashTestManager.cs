@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement; // <-- Required for scene loading
 
 public class BarrelDashTestManager : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class BarrelDashTestManager : MonoBehaviour
     public float maxSpeed = 12f;
     public float speedIncreaseRate = 0.1f;
     public int goldPerPoint = 1;
+
+    [Header("Scene Management")]
+    public string sailingSceneName = "Production"; // Name of the main sailing scene
 
     private bool gameActive = false;
     private float currentSpeed;
@@ -45,14 +49,11 @@ public class BarrelDashTestManager : MonoBehaviour
         resultText.text = "";
         scoreText.text = "Score: 0";
 
-        // Reset player using its method
         player.ResetPlayer();
         player.gameObject.SetActive(true);
 
-        // Reset spawner
         spawner.StartSpawning();
 
-        // Reset speed & score
         currentSpeed = baseSpeed;
         score = 0;
     }
@@ -87,11 +88,8 @@ public class BarrelDashTestManager : MonoBehaviour
 
     void CloseGame()
     {
-        startButton.gameObject.SetActive(true);
-        closeButton.gameObject.SetActive(true);
-        resultText.text = "";
-        player.gameObject.SetActive(false);
-        spawner.StopSpawning();
+        // Return to the sailing scene
+        SceneManager.LoadScene(sailingSceneName);
     }
 
     public void AddCoinScore(int coinValue)
