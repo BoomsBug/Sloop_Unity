@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public int currentIslandID = -1;
     public string currentIslandMorality;
 
+    public string directionToTreasure;
+    public string randomDirection;
+
 
     // GameManager instance to grab from anywhere in game
     public static GameManager Instance { get; private set; }
@@ -75,6 +78,9 @@ public class GameManager : MonoBehaviour
             case GameState.LossMenu:
                 HandleLossMenu();
                 break;
+            case GameState.CannonPractice:
+                HandleCannonPractice();
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
 
@@ -124,6 +130,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("LossMenu");
     }
 
+    private void HandleCannonPractice()
+    {
+        SceneManager.LoadScene("CannonPractice");
+    }
+
 
     public void DockOnIsland()
     {
@@ -161,6 +172,7 @@ public enum GameState
     NIslandPort,
     RIslandPort,
     VictoryMenu,
-    LossMenu
+    LossMenu,
+    CannonPractice
 }
 

@@ -27,6 +27,7 @@ namespace Sloop.NPC
                 throw new InvalidOperationException("NPCGenerator: No NPCDatabase assigned.");
 
             var rng = new System.Random(seed);
+            UnityEngine.Random.InitState(seed);
             int traitCount = rng.Next(database.minTraits, database.maxTraits + 1);
 
             var npc = new NPCData
@@ -38,7 +39,8 @@ namespace Sloop.NPC
                 alignment = alignment,
                 islandID = islandID,
                 npcIndex = npcIndex,
-                traits = PickUnique(database.traits, traitCount, rng)
+                traits = PickUnique(database.traits, traitCount, rng),
+                subclassIndex = PickSubclassIndex(alignment)
             };                                                           
 
             if (logGeneratedNPC)
@@ -100,7 +102,28 @@ namespace Sloop.NPC
             return new List<string>(database.names);
         }
 
-
+        public int PickSubclassIndex(MoralAlignment moral)
+        {
+            //Randomly pick subclass from appropriate pool based on alignment
+            if (moral == MoralAlignment.Honorable)
+            {
+                List<Crewmate> crewList = CrewManager.Instance.goodCrew;
+                if (crewList.Count <= 0) return -1;
+                return UnityEngine.Random.Range(0, crewList.Count);
+            }
+            if (moral == MoralAlignment.Neutral)
+            {
+                List<Crewmate> crewList = CrewManager.Instance.neutralCrew;
+                if (crewList.Count <= 0) return -1;
+                return UnityEngine.Random.Range(0, crewList.Count);
+            }
+            else
+            {
+                List<Crewmate> crewList = CrewManager.Instance.evilCrew;
+                if (crewList.Count <= 0) return -1;
+                return UnityEngine.Random.Range(0, crewList.Count);
+            }
+        }
 
         // NPC: Type: Crewmember, merchant, civ
         // 
