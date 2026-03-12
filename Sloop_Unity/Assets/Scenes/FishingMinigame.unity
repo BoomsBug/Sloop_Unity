@@ -680,8 +680,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topY: 3
   bottomY: -5
-  downTime: 0.12
-  upTime: 0.18
+  downTime: 0.17
+  upTime: 0.2
   cooldown: 0.1
 --- !u!212 &1094128776
 SpriteRenderer:
