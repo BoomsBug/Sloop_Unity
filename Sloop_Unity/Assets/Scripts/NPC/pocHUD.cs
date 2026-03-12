@@ -44,7 +44,7 @@ namespace Sloop.UI
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             HookResourceManager();
-            HookPlayerStateManager();
+            //HookPlayerStateManager();
             HookTimeManager();
 
             RefreshAll();
@@ -55,7 +55,7 @@ namespace Sloop.UI
             SceneManager.sceneLoaded -= OnSceneLoaded;
 
             UnhookResourceManager();
-            UnhookPlayerStateManager();
+            //UnhookPlayerStateManager();
             UnhookTimeManager();
         }
 
@@ -63,11 +63,11 @@ namespace Sloop.UI
         {
             // Re-hook in case managers were created/destroyed due to scene order.
             UnhookResourceManager();
-            UnhookPlayerStateManager();
+            //UnhookPlayerStateManager();
             UnhookTimeManager();
 
             HookResourceManager();
-            HookPlayerStateManager();
+            //HookPlayerStateManager();
             HookTimeManager();
 
             RefreshAll();
@@ -88,17 +88,17 @@ namespace Sloop.UI
                 ResourceManager.Instance.OnResourceChanged -= OnResourceChanged;
         }
 
-        private void HookPlayerStateManager()
-        {
-            if (PlayerStateManager.Instance != null)
-                PlayerStateManager.Instance.OnHonorChanged += OnHonorChanged;
-        }
+        // private void HookPlayerStateManager()
+        // {
+        //     if (PlayerStateManager.Instance != null)
+        //         PlayerStateManager.Instance.OnHonorChanged += OnHonorChanged;
+        // }
 
-        private void UnhookPlayerStateManager()
-        {
-            if (PlayerStateManager.Instance != null)
-                PlayerStateManager.Instance.OnHonorChanged -= OnHonorChanged;
-        }
+        // private void UnhookPlayerStateManager()
+        // {
+        //     if (PlayerStateManager.Instance != null)
+        //         PlayerStateManager.Instance.OnHonorChanged -= OnHonorChanged;
+        // }
 
         private void HookTimeManager()
         {
@@ -123,13 +123,14 @@ namespace Sloop.UI
                 case Resource.Wood:  SetText(woodText,  $"Wood: {newAmount}"); break;
                 case Resource.Food:  SetText(foodText,  $"Food: {newAmount}"); break;
                 case Resource.Power: SetText(powerText, $"Power: {newAmount}"); break;
+                case Resource.Honour: SetText(powerText, $"Honour: {newAmount}"); break;
             }
         }
 
-        private void OnHonorChanged(int newHonor)
-        {
-            SetText(honorText, $"Honor: {newHonor}");
-        }
+        // private void OnHonorChanged(int newHonor)
+        // {
+        //     SetText(honorText, $"Honor: {newHonor}");
+        // }
 
         private void OnTimeChanged(int day, int hour, int minute)
         {
@@ -150,7 +151,7 @@ namespace Sloop.UI
         private void RefreshAll()
         {
             RefreshResources();
-            RefreshHonor();
+            //RefreshHonor();
             RefreshTime();
         }
 
@@ -170,19 +171,20 @@ namespace Sloop.UI
             SetText(woodText,  $"Wood: {rm.GetAmount(Resource.Wood)}");
             SetText(foodText,  $"Food: {rm.GetAmount(Resource.Food)}");
             SetText(powerText, $"Power: {rm.GetAmount(Resource.Power)}");
+            SetText(powerText, $"Honour: {rm.GetAmount(Resource.Honour)}");
         }
 
-        private void RefreshHonor()
-        {
-            var ps = PlayerStateManager.Instance;
-            if (ps == null)
-            {
-                SetText(honorText, "Honor: (no PS)");
-                return;
-            }
+        // private void RefreshHonor()
+        // {
+        //     var ps = PlayerStateManager.Instance;
+        //     if (ps == null)
+        //     {
+        //         SetText(honorText, "Honor: (no PS)");
+        //         return;
+        //     }
 
-            SetText(honorText, $"Honor: {ps.Honor}");
-        }
+        //     SetText(honorText, $"Honor: {ps.Honor}");
+        // }
 
         private void RefreshTime()
         {
