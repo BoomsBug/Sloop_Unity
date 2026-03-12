@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 1
+  m_Name: 2
   m_EditorClassIdentifier: 
-  text: Feed Hyuk Hyuk Harry
+  text: Refuse
   cost:
-  - type: 2
-    amount: 10
-  gain:
   - type: 4
     amount: 5
+  gain:
+  - type: 2
+    amount: 5
   isGainHidden: 0
-  outcome: He walks away happy, hyuk hyuking to himself. He is satiated... for now
+  outcome: You must conserve your rations, and as punishment for Harry's greed, you
+    dock his portion of the daily meal.
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 0

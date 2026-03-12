@@ -26,4 +26,12 @@ MonoBehaviour:
     the air as every cannon on the side of the ship goes off into the four spirits.
     During the barrage, you make out that one of spirits got hit, but another flexed
     their oceanly muscles and ripped one of your crew off your ship. As the black
-    smoke settles, they are gone, as is your crewmate.
+    smoke settles, they are gone, as is one of your crewmates.
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 0
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 1
+  callTeleportShip: 0
+  callAddEncounter: 1
+  encounterToAdd: {fileID: 11400000, guid: b77d7a88484e44141847a89d418f182a, type: 2}

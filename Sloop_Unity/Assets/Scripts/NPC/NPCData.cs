@@ -21,6 +21,10 @@ namespace Sloop.NPC
 
         public int islandID;
         public int npcIndex;
+        //cs script that the encounters use to calculate costs and gains based on hired crew
+        //Randomly generated from NPCGenerator based on alignment of crew
+        //stores it as the index of that alignment's list of subclasses, CrewManager.HireCrew() takes the int and assigns it the correct subclass
+        public int subclassIndex;
 
         public override string ToString()
         {

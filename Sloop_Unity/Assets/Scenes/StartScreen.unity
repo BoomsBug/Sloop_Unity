@@ -1120,6 +1120,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hiredCrew: []
+  goodCrew:
+  - {fileID: 8221732269888114513, guid: 735e628da1321ee4fa93ddbcdb14ba72, type: 3}
+  - {fileID: 8084961224721467656, guid: 3fa73daee0d73a248ae292c9953c9c79, type: 3}
+  - {fileID: 7378446691858167259, guid: b144d18a769e2194594b8f59ff2dd544, type: 3}
+  neutralCrew: []
+  evilCrew:
+  - {fileID: 4327313998667810847, guid: a398e56e72673b94fa1690e0bf15be80, type: 3}
 --- !u!4 &736024675
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,11 +1176,11 @@ MonoBehaviour:
   - type: 0
     amount: 200
   - type: 1
-    amount: 20
+    amount: 100
   - type: 2
-    amount: 20
+    amount: 100
   - type: 3
-    amount: 20
+    amount: 100
   - type: 4
     amount: 50
 --- !u!4 &778783914
@@ -3820,6 +3827,8 @@ MonoBehaviour:
   hasBoatState: 0
   currentIslandID: -1
   currentIslandMorality: 
+  directionToTreasure: 
+  randomDirection: 
 --- !u!4 &1902412251
 Transform:
   m_ObjectHideFlags: 0

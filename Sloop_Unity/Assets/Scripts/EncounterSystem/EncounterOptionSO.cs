@@ -10,8 +10,8 @@ public class EncounterOptionSO : ScriptableObject
 {
         //list of resources: [gold, wood, food, power, honour]
     [TextArea] public string text;
-    public ResourceAmount[] cost = new ResourceAmount[5];
-    public ResourceAmount[] gain = new ResourceAmount[5];
+    public ResourceAmount[] cost;
+    public ResourceAmount[] gain;
     public bool isGainHidden;
     [TextArea] public string outcome;
 
@@ -24,5 +24,7 @@ public class EncounterOptionSO : ScriptableObject
     public Crewmate crewToAdd;
     public bool callRemoveCrewmate; //can't specify which crewmate to remove, will remove one at random
     public bool callTeleportShip;
+    public bool callAddEncounter; //Does selecting this option add an encounter to the pool?
+    public EncounterSO encounterToAdd;
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Template : Crewmate
+public class GoodCrewB : Crewmate
 {
 
     public override ResourceAmount[] AlteredCost(ResourceAmount[] baseCosts)
@@ -28,9 +28,9 @@ public class Template : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
-        
+        food += 5;
+        honour -= 2;
 
-        
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -62,9 +62,7 @@ public class Template : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        
-
-
+        gold -= 5;
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {
