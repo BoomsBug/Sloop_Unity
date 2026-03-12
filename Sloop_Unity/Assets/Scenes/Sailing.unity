@@ -156,7 +156,7 @@ MonoBehaviour:
   rainTimeRange: {x: 3, y: 8}
   rainSpeedMultiplier: 0.7
   rainWindMultiplier: 2
-  gustStrength: 0.5
+  gustStrength: 0.3
   gustChangeRate: 2
 --- !u!4 &126046996
 Transform:
