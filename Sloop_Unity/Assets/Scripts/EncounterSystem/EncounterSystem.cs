@@ -8,6 +8,7 @@ using UnityEngine;
 using Sloop.Economy;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 //TODO: Make possibleEncounters and completedEncounters persist when loading to island scene and back
 
@@ -27,6 +28,12 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
+
+    void Start()
+    {
+        UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
+        curEncounter = possibleEncounters[UnityEngine.Random.Range(0, possibleEncounters.Count)];
+    }
 
     public void LoadEncounter()
     {
@@ -225,7 +232,6 @@ public class EncounterSystem : MonoBehaviour
 
         if (option.callRemoveCrewmate && CrewManager.Instance.hiredCrew.Count > 0)
         {
-            UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
             int randomIndex = UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count);
             CrewManager.Instance.RemoveCrew(CrewManager.Instance.hiredCrew[randomIndex]);
         }
@@ -234,6 +240,10 @@ public class EncounterSystem : MonoBehaviour
         {
             //TODO: load scene of name $"{option.minigameName}"
             //  make sure it saves everything properly
+
+            Time.timeScale = 1.0f; //temorary, should have better state save system
+            PauseManager.Paused = false;
+            SceneManager.LoadScene(option.minigameName);
         }
 
         if (option.callAddEncounter && option.encounterToAdd != null)

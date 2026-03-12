@@ -1795,12 +1795,16 @@ PrefabInstance:
       objectReference: {fileID: 2004008516}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleEncounters.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleEncounters.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: b77d7a88484e44141847a89d418f182a, type: 2}
+      objectReference: {fileID: 11400000, guid: 6f83dfb001e9e6d498cc2dcf7cc38866, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleEncounters.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: a72d3ab3b0d6045418fd68394a1b0571, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager
@@ -2185,6 +2189,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
       objectReference: {fileID: 0}
+    - target: {fileID: 3931295237191138405, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4259623364480728630, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_Name
       value: Encounter UI
@@ -2200,6 +2208,10 @@ PrefabInstance:
     - target: {fileID: 4313352607118472933, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ContinueGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4337361200075770681, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4406300549846717373, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_Pivot.x
@@ -2288,6 +2300,18 @@ PrefabInstance:
     - target: {fileID: 4949717459535926423, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
+      objectReference: {fileID: 0}
+    - target: {fileID: 6461845456816342151, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7526879564186653555, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465840694038865982, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
