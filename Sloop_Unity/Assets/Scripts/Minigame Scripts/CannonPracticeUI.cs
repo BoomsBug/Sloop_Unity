@@ -9,4 +9,11 @@ public class CannonPracticeUI : MonoBehaviour
         GameManager.Instance.UpdateGameState(GameState.CannonPractice);
     }
 
+    public void Return()
+    {
+        GameManager.Instance.UpdateGameState(GameState.Sailing);
+    }
+
+
+
 }
