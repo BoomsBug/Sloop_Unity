@@ -28,7 +28,9 @@ public class Template : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
+        
 
+        
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -61,6 +63,8 @@ public class Template : Crewmate
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
         
+
+
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {

@@ -79,7 +79,7 @@ public class FishSpawner : MonoBehaviour
         }
 
         var sr = go.GetComponent<SpriteRenderer>();
-        if (sr) sr.flipX = !fromLeft;
+        if (sr) sr.flipX = fromLeft;
 
         //Debug.Log($"Spawned {prefab.name} at x={x}, y={laneY}, destroyX={destroyX}, speed={mover?.speed}");
 

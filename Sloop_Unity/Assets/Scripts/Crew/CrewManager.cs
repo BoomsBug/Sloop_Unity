@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sloop.NPC;
+using System;
 
 public class CrewManager : MonoBehaviour
 {
     /*
         Manages what crew the player has hired. Contains functions to add and remove crew
-        TODO: Hook up to NPC stuff on islands so you can hire crew there
     */
     public static CrewManager Instance;
     public List<Crewmate> hiredCrew;
+
+    [Header("Possible crew subclasses for random NPCs")]
+    public List<Crewmate> goodCrew;
+    public List<Crewmate> neutralCrew;
+    public List<Crewmate> evilCrew;
 
     void Awake()
     {
@@ -25,16 +30,32 @@ public class CrewManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void HireCrew(NPCData newCrewmateData)
+    //Takes NPC Data which has traits etc... but also has a Crewmate subclass, this makes the new Crewmate have the functionality of passed subclass
+    //NPCGenerator will give the random NPC a random subclass drawn from a list of generic ones
+    public void HireCrew(int crewSubclassIndex, NPCData newCrewmateData)
     {
-        //construct crewmate using npc data
-        Crewmate newCrewmate = new Crewmate {
-            name = newCrewmateData.name,
-            traits = newCrewmateData.traits,
-            alignment = newCrewmateData.alignment,
-            role = newCrewmateData.role,
-            npcIndex = newCrewmateData.npcIndex
-        };
+        if (crewSubclassIndex == -1)
+        {
+            Debug.Log("Error: Trying to hire a crewmate with null subclass. Is list of that crew's alignment empty?");
+        }
+        Debug.Log(crewSubclassIndex);
+        Debug.Log(newCrewmateData.name);
+
+        //construct crewmate using npc data, specify which subclass to use given the crew's alignment and given subclass index
+        //subclass index is a random value that corresponds to what subclass from that alignment's list
+        Crewmate newCrewmate;
+        if (newCrewmateData.alignment == MoralAlignment.Honorable)
+            newCrewmate = goodCrew[crewSubclassIndex];
+        else if (newCrewmateData.alignment == MoralAlignment.Neutral)
+            newCrewmate = neutralCrew[crewSubclassIndex];
+        else
+            newCrewmate = evilCrew[crewSubclassIndex];
+
+        newCrewmate.crewName = newCrewmateData.name;
+        newCrewmate.traits = newCrewmateData.traits;
+        newCrewmate.alignment = newCrewmateData.alignment;
+        newCrewmate.role = newCrewmateData.role;
+        newCrewmate.npcIndex = newCrewmateData.npcIndex;
     
         if (hiredCrew.Contains(newCrewmate))
         {
@@ -45,6 +66,8 @@ public class CrewManager : MonoBehaviour
         newCrewmate.HiredDialogue();
     }
 
+    //This has same functionality of above method, but is given a handmade NPC that can only be hired from random encounters
+    //No randomness for these crew
     public void HireCrew(Crewmate newCrewmate)
     {
         if (hiredCrew.Contains(newCrewmate))

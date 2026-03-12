@@ -8,6 +8,7 @@ using UnityEngine;
 using Sloop.Economy;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 //TODO: Make possibleEncounters and completedEncounters persist when loading to island scene and back
 
@@ -27,6 +28,12 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
+
+    void Start()
+    {
+        UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
+        curEncounter = possibleEncounters[UnityEngine.Random.Range(0, possibleEncounters.Count)];
+    }
 
     public void LoadEncounter()
     {
@@ -81,6 +88,7 @@ public class EncounterSystem : MonoBehaviour
             {
                 panel.GetComponent<Image>().color = Color.red;
                 //TODO: ocean spirits, player has enough honour to choose option 4, and game lets them, but still colours red
+                //      Honour is unaffected by encounter choices
             }
 
             //If option gain is hidden, replaces gain and altered gain with ???
@@ -126,6 +134,7 @@ public class EncounterSystem : MonoBehaviour
         ResourceManager.Instance.Add(optionGains);
 
 
+        //Checks each bool in option to see if it should call a specific function
         CallOptionFunctions(selectedOption);
 
 
@@ -221,9 +230,8 @@ public class EncounterSystem : MonoBehaviour
         if (option.callAddCrewmate)
             CrewManager.Instance.HireCrew(option.crewToAdd);
 
-        if (option.callRemoveCrewmate)
+        if (option.callRemoveCrewmate && CrewManager.Instance.hiredCrew.Count > 0)
         {
-            UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
             int randomIndex = UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count);
             CrewManager.Instance.RemoveCrew(CrewManager.Instance.hiredCrew[randomIndex]);
         }
@@ -232,6 +240,15 @@ public class EncounterSystem : MonoBehaviour
         {
             //TODO: load scene of name $"{option.minigameName}"
             //  make sure it saves everything properly
+
+            Time.timeScale = 1.0f; //temorary, should have better state save system
+            PauseManager.Paused = false;
+            SceneManager.LoadScene(option.minigameName);
+        }
+
+        if (option.callAddEncounter && option.encounterToAdd != null)
+        {
+            possibleEncounters.Add(option.encounterToAdd);
         }
     }
 

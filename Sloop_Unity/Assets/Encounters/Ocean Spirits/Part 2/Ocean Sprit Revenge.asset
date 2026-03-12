@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Ocean Sprit Revenge
+  m_EditorClassIdentifier: 
+  encounterName: Ocean Spirit Revenge
+  text: The clouds block out the sun with supernatural speed. The world darkens around
+    you and the wind disappears from your sails. For what feels like forever, the
+    ocean around you is utterly silent and still. You hold your breath. Suddenly,
+    the water erupts from all sides of the ship and the three ocean spirits from
+    before bear their watery fangs and come crashing down upon the ship...
+  options:
+  - {fileID: 11400000, guid: abf965169bc55e54eb54fd66bbd2df7b, type: 2}
+  - {fileID: 11400000, guid: 8260531fa216ae84b87ce9e8f459420b, type: 2}
+  oneTime: 1
