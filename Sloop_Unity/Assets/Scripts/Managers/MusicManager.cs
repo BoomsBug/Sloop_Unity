@@ -26,8 +26,10 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private MusicClip[] shanties;
     public AudioClip[] oceanClips;
     public AudioClip[] shoreClips;
+    public AudioClip[] dockClips;
     private AudioSource oceanSource;
     private AudioSource ambientSource;
+    private AudioSource ambientSource2;
     private AudioSource songSource;
     private MusicClip currentClip;
     private bool isInSailingScene = false;
@@ -79,6 +81,10 @@ public class MusicManager : MonoBehaviour
         ambientSource = gameObject.AddComponent<AudioSource>();
         ambientSource.loop = true;
         ambientSource.playOnAwake = false;
+        
+        ambientSource2 = gameObject.AddComponent<AudioSource>();
+        ambientSource2.loop = true;
+        ambientSource2.playOnAwake = false;
 
         songSource = gameObject.AddComponent<AudioSource>();
         songSource.loop = false;
@@ -118,21 +124,25 @@ public class MusicManager : MonoBehaviour
             case "PRODUCTION":
                 newClip = sailingMusic;
                 oceanSource.clip = oceanClips[Random.Range(0, oceanClips.Length)];
+                ambientSource2.clip = null;
                 break;
 
             case "R-IslandPort":
                 newClip = islandMusic;
                 oceanSource.clip = shoreClips[Random.Range(0, shoreClips.Length)];
+                ambientSource2.clip = dockClips[Random.Range(0, dockClips.Length)];
                 break;
 
             case "H-IslandPort":
                 newClip = islandMusic;
                 oceanSource.clip = shoreClips[Random.Range(0, shoreClips.Length)];
+                ambientSource2.clip = dockClips[Random.Range(0, dockClips.Length)];
                 break;
 
             case "N-IslandPort":
                 newClip = islandMusic;
                 oceanSource.clip = shoreClips[Random.Range(0, shoreClips.Length)];
+                ambientSource2.clip = dockClips[Random.Range(0, dockClips.Length)];
                 break;
 
         }
@@ -141,6 +151,14 @@ public class MusicManager : MonoBehaviour
             Debug.Log("Playing ocean for scene: " + sceneName);
             oceanSource.volume = 1f;
             oceanSource.Play();
+                if (ambientSource2.clip != null)
+                {
+                  ambientSource2.volume = 1.0f;
+                    ambientSource2.Play();
+            }
+            else { 
+                ambientSource2.Stop();
+            }
         }
 
         if (newClip != null && newClip != currentClip)
@@ -215,6 +233,7 @@ public class MusicManager : MonoBehaviour
         Debug.Log("RandomShantyRoutine started");
         while (isInSailingScene)
         {
+
             float waitTime = Random.Range(songfrequency, songfrequencyMax);
             Debug.Log("Waiting " + waitTime + " seconds before next shanty");
             yield return new WaitForSeconds(waitTime);
@@ -247,6 +266,7 @@ public class MusicManager : MonoBehaviour
             songSource.Play();
 
             yield return new WaitForSeconds(randomClip.clip.length);
+            
             startVolume = ambientSource.volume;
             time = 0f;
 
