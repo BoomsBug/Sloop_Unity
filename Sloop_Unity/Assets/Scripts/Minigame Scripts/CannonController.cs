@@ -21,7 +21,7 @@ public class CannonController : MonoBehaviour
 
     public Transform FirePoint;
 
-    public float FireSpeed = 17f;
+    public float FireSpeed = 18f;
     public float FireCooldown = 0.75f;
     private float NextFireTime = 0f;
 
@@ -53,7 +53,17 @@ public class CannonController : MonoBehaviour
     public Transform SpawnBorderB;  // border for target spawn
     public int MaxTargets = 8;
     public int MinTargets = 5;
-  
+
+
+    [Header("AudioStuff")]
+    public AudioSource CannonAudioSource;
+    public AudioClip CannonAudioClip;
+    public AudioClip ExplosionClip;
+
+
+    public int activeCannonballs = 0; // counts cannonballs in flight
+    private bool roundEnded = false;  // flag so we only calculate once
+
 
 
 
@@ -84,15 +94,15 @@ public class CannonController : MonoBehaviour
 
         if (CurrentScore >= 50)
         {
-            StartCoroutine(WaitForEndOfCannonShot());
+            StartCoroutine(WaitForEndOfCannonShot(1.5f));
             
         }
     }
 
     // Wait for 1.5 seconds so that last cannonball doesn't affect spawned in targets
-    IEnumerator WaitForEndOfCannonShot()
+    IEnumerator WaitForEndOfCannonShot(float delay)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(delay);
         ResetTargets();
     }
 
@@ -143,8 +153,11 @@ public class CannonController : MonoBehaviour
         if (TimeLeft < 0)
         {
             timerText.text = "Time Remaining: 0 Seconds";
+            roundEnded = true;
 
-            ResetButton.SetActive(true);
+            //ResetButton.SetActive(true);
+        }
+        if (roundEnded && activeCannonballs == 0) {
 
             if (TotalScore > 100)
             {
@@ -224,5 +237,11 @@ public class CannonController : MonoBehaviour
 
         // Apply force
         rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
+
+
+        CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
+
+        activeCannonballs++;
+
     }
 }

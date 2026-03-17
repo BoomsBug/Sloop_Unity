@@ -22,11 +22,14 @@ public class CannonBallScript : MonoBehaviour
         if ( collision.gameObject.CompareTag("Ocean"))
         {
             Destroy(gameObject);
+            
         }
 
         if (collision.gameObject.CompareTag("Keg"))
         {
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+
+            CannonController.Instance.CannonAudioSource.PlayOneShot(CannonController.Instance.ExplosionClip, 1f); // Play 1 second of explosion sound upon keg hit
 
             Rigidbody2D kegRb = collision.gameObject.GetComponent<Rigidbody2D>();
             
@@ -41,7 +44,13 @@ public class CannonBallScript : MonoBehaviour
             //collision.gameObject.SetActive(false); // hide hit target
             Destroy(collision.gameObject);
             Destroy(gameObject);
+            
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        CannonController.Instance.activeCannonballs--;
     }
 }

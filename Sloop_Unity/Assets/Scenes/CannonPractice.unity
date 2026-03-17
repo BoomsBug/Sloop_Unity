@@ -770,7 +770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &407496556
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1797,6 +1797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 962565791}
   - component: {fileID: 962565790}
+  - component: {fileID: 962565792}
   m_Layer: 10
   m_Name: Cannon
   m_TagString: Untagged
@@ -1821,7 +1822,7 @@ MonoBehaviour:
   CannonShotPrefab: {fileID: 1866340339429422740, guid: e345f5088864ef240abbb5e2d0d42911, type: 3}
   SmokePrefab: {fileID: 5719360742748918301, guid: 974c36b53a1beec478f30f578123f4cc, type: 3}
   FirePoint: {fileID: 960972680}
-  FireSpeed: 17
+  FireSpeed: 18
   FireCooldown: 0.75
   MaxShots: 10
   ammoText: {fileID: 33297412}
@@ -1836,6 +1837,10 @@ MonoBehaviour:
   SpawnBorderB: {fileID: 1971645711}
   MaxTargets: 8
   MinTargets: 5
+  CannonAudioSource: {fileID: 962565792}
+  CannonAudioClip: {fileID: 8300000, guid: 4bcbd86f5bf36df4b8fcd34fe21eb677, type: 3}
+  ExplosionClip: {fileID: 8300000, guid: 8bc12b628a49b5b449edc7888d6f56b4, type: 3}
+  activeCannonballs: 0
 --- !u!4 &962565791
 Transform:
   m_ObjectHideFlags: 0
@@ -1852,6 +1857,102 @@ Transform:
   - {fileID: 960972680}
   m_Father: {fileID: 868189374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &962565792
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962565789}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &985273783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3513,7 +3614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time Remaining: 30 Seconds'
+  m_text: 'Time Remaining: 60 Seconds'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
