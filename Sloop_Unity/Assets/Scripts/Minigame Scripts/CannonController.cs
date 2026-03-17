@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 // Used Chat GPT to help me construct this script
 
@@ -22,6 +23,21 @@ public class CannonController : MonoBehaviour
 
     Vector3 mousePos;
 
+    public int MaxShots = 8;
+    private int ShotsLeft;
+
+    public TextMeshProUGUI ammoText;
+
+    private void Start()
+    {
+        ShotsLeft = MaxShots;
+        UpdateAmmoMenu();
+    }
+
+    void UpdateAmmoMenu()
+    {
+        ammoText.text = "Ammo: " + ShotsLeft;
+    }
 
     void Update()
     {
@@ -33,8 +49,13 @@ public class CannonController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time >= NextFireTime)
             // If click left mouse and fire cooldown is over
         {
-            Fire();
-            NextFireTime = Time.time + FireCooldown; // Set next cooldown
+            if (ShotsLeft > 0) {
+                Fire();
+                NextFireTime = Time.time + FireCooldown; // Set next cooldown
+
+                ShotsLeft--;
+                UpdateAmmoMenu();
+            }
         }
     }
 
@@ -56,10 +77,12 @@ public class CannonController : MonoBehaviour
         GameObject cannonBall = Instantiate(cannonBallPrefab, FirePoint.position, Quaternion.identity);
 
         // Fire from cannon muzzle
-        Instantiate(CannonShotPrefab, transform.position, Quaternion.identity);
+        GameObject muzzleflash = Instantiate(CannonShotPrefab, FirePoint.position, Quaternion.identity);
+        muzzleflash.transform.parent = cannonBall.transform;
 
         // Smoke from cannon fire
         Instantiate(SmokePrefab, transform.position, Quaternion.identity);
+        
 
         // Get Rigidbody to apply physics
         Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
