@@ -1411,9 +1411,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannonBallPrefab: {fileID: 5435130605775365945, guid: a67f5d98a64026f409e949dbf2c2bf5c, type: 3}
+  CannonShotPrefab: {fileID: 1866340339429422740, guid: e345f5088864ef240abbb5e2d0d42911, type: 3}
+  SmokePrefab: {fileID: 3950014342211899571, guid: 974c36b53a1beec478f30f578123f4cc, type: 3}
   FirePoint: {fileID: 960972680}
   FireSpeed: 25
-  FireCooldown: 0.5
+  FireCooldown: 0.75
 --- !u!4 &962565791
 Transform:
   m_ObjectHideFlags: 0
@@ -1423,7 +1425,7 @@ Transform:
   m_GameObject: {fileID: 962565789}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.041999947, y: -0.06733333, z: -0.00796369}
+  m_LocalPosition: {x: 0.056, y: -0.073, z: -0.00796369}
   m_LocalScale: {x: 0.06666667, y: 0.06666667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

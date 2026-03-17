@@ -7,7 +7,13 @@ using UnityEngine;
 
 public class CannonController : MonoBehaviour
 {
+    // Prefabs to be loaded in
     public GameObject cannonBallPrefab;
+
+    // Particle system prefabs
+    public GameObject CannonShotPrefab;
+    public GameObject SmokePrefab;
+
     public Transform FirePoint;
 
     public float FireSpeed = 10f;
@@ -48,6 +54,12 @@ public class CannonController : MonoBehaviour
     {
         // Make a cannonball from firepoint
         GameObject cannonBall = Instantiate(cannonBallPrefab, FirePoint.position, Quaternion.identity);
+
+        // Fire from cannon muzzle
+        Instantiate(CannonShotPrefab, transform.position, Quaternion.identity);
+
+        // Smoke from cannon fire
+        Instantiate(SmokePrefab, transform.position, Quaternion.identity);
 
         // Get Rigidbody to apply physics
         Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
