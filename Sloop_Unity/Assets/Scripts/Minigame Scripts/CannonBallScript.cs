@@ -9,6 +9,7 @@ using UnityEngine;
 public class CannonBallScript : MonoBehaviour
 {
     public GameObject ExplosionPrefab;
+    public int PointsPerBarrel = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,10 @@ public class CannonBallScript : MonoBehaviour
             // Apply impulse force in force dir
             kegRb.AddForce(forceDir * 100f, ForceMode2D.Impulse);
 
+            CannonController.Instance.AddScore(PointsPerBarrel);
+
+            //collision.gameObject.SetActive(false); // hide hit target
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }
 
