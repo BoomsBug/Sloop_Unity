@@ -15,6 +15,7 @@ TagManager:
   - Keg
   - Ground
   - Barrel
+  - FlyingCannon
   layers:
   - Default
   - TransparentFX
