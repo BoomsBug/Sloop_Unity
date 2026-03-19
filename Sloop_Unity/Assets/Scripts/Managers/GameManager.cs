@@ -26,7 +26,21 @@ public class GameManager : MonoBehaviour
     public string currentIslandMorality;
 
     public string directionToTreasure;
+
+    [Header("Global Variables")]
     public string randomDirection;
+    public bool worldAlreadyLoaded = false;
+
+    [Header("World Gen")]
+    public List<GameObject> islands;
+
+    // [Header("Encounters")]
+    // public List<EncounterSO> possibleSailingEncounters;
+    // [HideInInspector] public List<EncounterSO> completedSailingEncounters;
+    // public List<EncounterSO> possibleIslandEncounters;
+    // [HideInInspector] public List<EncounterSO> completedIslandEncounters;
+    // public EncounterSO curSailingEncounter;
+    // public EncounterSO curIslandEncounter;
 
 
     // GameManager instance to grab from anywhere in game
