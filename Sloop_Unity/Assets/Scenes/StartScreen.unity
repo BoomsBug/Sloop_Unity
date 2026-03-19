@@ -925,6 +925,10 @@ PrefabInstance:
       propertyPath: possibleEncounters.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: a72d3ab3b0d6045418fd68394a1b0571, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleEncounters.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: a72d3ab3b0d6045418fd68394a1b0571, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager
