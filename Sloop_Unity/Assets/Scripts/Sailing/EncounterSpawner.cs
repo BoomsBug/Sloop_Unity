@@ -11,6 +11,13 @@ public class EncounterSpawner : MonoBehaviour
 
     private float t;
 
+    void Start()
+    {
+        encounterSystem = GameObject.FindObjectOfType<EncounterSystem>();
+        if (encounterSystem == null)
+            Debug.Log("Missing encounter system");
+    }
+
     void Update()
     {
         // Don't start anything if one is already active

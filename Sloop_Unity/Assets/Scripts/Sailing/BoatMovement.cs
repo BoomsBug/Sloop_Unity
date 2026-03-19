@@ -209,7 +209,7 @@ public class BoatMovement : MonoBehaviour
             //TODO: test this
             //When player docks at a port, find the island that has the treasure, 
             WorldGen worldGen = FindObjectOfType<WorldGen>();
-            Island treasureIsland = worldGen.islands[worldGen.treasureIsland];
+            Island treasureIsland = worldGen.islands[worldGen.treasureIsland].GetComponent<Island>();
             //  calculate the direction between that island and the player location,
             float angle = Vector2.SignedAngle(gameObject.transform.right, treasureIsland.tileCoordinates - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y));
             Debug.Log(treasureIsland.tileCoordinates);

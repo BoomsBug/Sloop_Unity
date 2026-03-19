@@ -31,7 +31,7 @@ public class WorldGen : MonoBehaviour
     public int resolution;
     public Transform islandParent;
     private int islandCounter = 0;
-    public List<Island> islands;
+    public List<GameObject> islands;
     public int treasureIsland;
 
 
@@ -45,6 +45,35 @@ public class WorldGen : MonoBehaviour
 
     void Start()
     {
+        // if (!GameManager.Instance.worldAlreadyLoaded)
+        // {
+        //     GenerateWorld();
+        //     GameManager.Instance.worldAlreadyLoaded = true;
+        //     GameManager.Instance.islands = islands;
+        // }
+        // else
+        // {
+        //     LoadWorld();
+        // }
+        GenerateWorld();
+    }
+
+    public void LoadWorld()
+    {
+        //takes stored island list and instantiates each island at it's correct tile coordinates
+        islands = GameManager.Instance.islands;
+        foreach (GameObject island in islands)
+        {
+            Island islandScript = island.GetComponent<Island>();
+            GameObject newIsland = Instantiate(island, islandScript.tileCoordinates, Quaternion.identity);
+            newIsland.transform.SetParent(islandParent);
+        }
+    }
+
+    public void GenerateWorld()
+    {
+        Debug.Log("Generating World");
+        Debug.Log($"worldAlreadyGenerated: {GameManager.Instance.worldAlreadyLoaded}");
         seed = GameManager.Instance.worldSeed;
         Debug.Log($"World Seed: {seed}");
         Random.InitState(seed);
@@ -67,7 +96,7 @@ public class WorldGen : MonoBehaviour
 
         //decide which island will have the treasure
         treasureIsland = Random.Range(0, islands.Count);
-        islands[treasureIsland].hasTreasure = true;
+        islands[treasureIsland].GetComponent<Island>().hasTreasure = true;
         // CircleCollider2D treasureCollider = islands[treasureIsland].AddComponent<CircleCollider2D>();
         // treasureCollider.isTrigger = true;
         // treasureCollider.
@@ -153,7 +182,7 @@ public class WorldGen : MonoBehaviour
             newIsland.transform.SetParent(islandParent);
             islandCounter ++;
             //add newIsland to manager list here
-            islands.Add(newIsland.GetComponent<Island>());
+            islands.Add(newIsland);
         }
     }
 }

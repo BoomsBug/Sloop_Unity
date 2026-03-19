@@ -25,7 +25,7 @@ public class Island : MonoBehaviour
     {
         WorldGen worldGen = FindObjectOfType<WorldGen>();
         int worldSeed = worldGen.seed;
-        List<Island> islands = worldGen.islands;
+        List<GameObject> islands = worldGen.islands;
     }
 
     // Update is called once per frame
