@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro; 
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class FishingGameManager : MonoBehaviour
 {
@@ -11,74 +10,115 @@ public class FishingGameManager : MonoBehaviour
     public int foodPerFish = 2;
     public int goldPerSack = 15;
 
-    [Header("Streak Bonus (optional)")]
-    public int streak = 0;
-    public int streakFoodBonusEvery = 3; // every 3 catches give +1 food
+    [Header("Goal")]
+    public int targetFish = 10;
+    public float timeLimit = 30f;
 
-    public TMP_Text fishCounterText;      // top text 
-    public RectTransform uiRoot;          // Canvas 
-    public GameObject floatingTextPrefab; // floating text prefab 
+    [Header("UI")]
+    public TMP_Text goalText;   // "Fish: x / target"
+    public TMP_Text timerText;  // "Time: xx"
+    public GameObject resultPanel;      // optional
+    public TMP_Text resultText;         // optional
+
+    [Header("End")]
+    public string returnSceneName = "PRODUCTION"; // or use GameManager later
 
     int fishCaught = 0;
-
+    float timeLeft;
+    bool ended = false;
 
     void Awake()
     {
         if (!resources) resources = FindObjectOfType<PlayerResources>();
-        UpdateFishCounter();
+    }
+
+    void Start()
+    {
+        timeLeft = timeLimit;
+        UpdateGoalUI();
+        UpdateTimerUI();
+        if (resultPanel) resultPanel.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (ended) return;
+
+        timeLeft -= Time.deltaTime;
+        if (timeLeft < 0f) timeLeft = 0f;
+        UpdateTimerUI();
+
+        if (timeLeft <= 0f)
+        {
+            // Time's up => win if met target
+            if (fishCaught >= targetFish) Win();
+            else Lose();
+        }
+    }
+
+    void UpdateGoalUI()
+    {
+        if (goalText) goalText.text = $"Fish: {fishCaught} / {targetFish}";
+    }
+
+    void UpdateTimerUI()
+    {
+        if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(timeLeft)}";
     }
 
     public void CatchFish(GameObject fish)
     {
+        if (ended) return;
+
         Destroy(fish);
 
-        streak++;
-        int food = foodPerFish;
-
-        if (streakFoodBonusEvery > 0 && streak % streakFoodBonusEvery == 0)
-            food += 1;
-
-        if (resources) resources.AddFood(food);
-        Debug.Log($"Caught fish! +{food} food");
-
         fishCaught++;
-        UpdateFishCounter();
-        Popup("Caught!", fish.transform.position);
+        UpdateGoalUI();
+
+        int food = foodPerFish;
+        if (resources) resources.AddFood(food);
+
+        // Instant win if you reach target before time ends
+        if (fishCaught >= targetFish)
+            Win();
     }
 
     public void CatchGold(GameObject loot)
     {
+        if (ended) return;
+
         Destroy(loot);
-
-        streak++;
         if (resources) resources.AddGold(goldPerSack);
-        Debug.Log($"Got gold sack! +{goldPerSack} gold");
-
-        Popup("Gold!", loot.transform.position);
     }
 
     public void Miss()
     {
-        streak = 0;
-        Debug.Log("Miss!");
+        // optional: nothing
     }
 
-    void UpdateFishCounter()
+    void Win()
     {
-        if (fishCounterText != null)
-            fishCounterText.text = $"Count: {fishCaught}";
+        ended = true;
+        ShowResult($"You win!\nCaught {fishCaught}/{targetFish} fish.");
+        Invoke(nameof(ReturnToSailing), 1.5f);
     }
 
-    void Popup(string msg, Vector3 worldPos)
+    void Lose()
     {
-        if (!floatingTextPrefab || !uiRoot || Camera.main == null) return;
+        ended = true;
+        ShowResult($"You lose!\nCaught {fishCaught}/{targetFish} fish.");
+        Invoke(nameof(ReturnToSailing), 1.5f);
+    }
 
-        var go = Instantiate(floatingTextPrefab, uiRoot);
-        var rt = go.GetComponent<RectTransform>();
-        if (rt != null)
-            rt.position = Camera.main.WorldToScreenPoint(worldPos);
+    void ShowResult(string msg)
+    {
+        Debug.Log(msg);
+        if (resultPanel) resultPanel.SetActive(true);
+        if (resultText) resultText.text = msg;
+    }
 
-        var ft = go.GetComponent<FloatingTextPopup>();
-        if (ft != null) ft.Show(msg);
+    void ReturnToSailing()
+    {
+        SceneManager.LoadScene(returnSceneName);
     }
 }
