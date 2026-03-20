@@ -136,7 +136,8 @@ public class IslandGen : MonoBehaviour
                 {
                     // x,y / resolution SHOULD be right?? ahhhhhhhhhhg! the formula makes sense and should work!! fml
                     // will have to do for now, they are all in the right general area but definitely not exact
-                    Instantiate(port, (new Vector2(x, y) / resolution) + tile - (0.5f* new Vector2(xCenter/resolution, yCenter/resolution)), Quaternion.identity);
+                    GameObject newPort = Instantiate(port, (new Vector2(x, y) / resolution) + tile - (0.5f* new Vector2(xCenter/resolution, yCenter/resolution)), Quaternion.identity);
+                    newPort.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
                     //Debug.Log($"Res: {resolution}, x: {x}, y: {y}, placed at: {(new Vector2(x, y) / resolution) + tile}");
                     hasPort = true;
                 }

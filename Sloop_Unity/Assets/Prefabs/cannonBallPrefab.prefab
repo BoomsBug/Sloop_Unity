@@ -162,3 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionPrefab: {fileID: 2380508188649842589, guid: 718eb84ccedb231418738af6c94c21aa, type: 3}
+  PointsPerBarrel: 10
+  ExplosionSource: {fileID: 0}
+  ExplosionClip: {fileID: 8300000, guid: 8bc12b628a49b5b449edc7888d6f56b4, type: 3}

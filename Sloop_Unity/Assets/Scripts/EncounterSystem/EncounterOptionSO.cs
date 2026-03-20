@@ -23,7 +23,6 @@ public class EncounterOptionSO : ScriptableObject
     public bool callAddCrewmate;
     public Crewmate crewToAdd;
     public bool callRemoveCrewmate; //can't specify which crewmate to remove, will remove one at random
-    public bool callTeleportShip;
     public bool callAddEncounter; //Does selecting this option add an encounter to the pool?
     public EncounterSO encounterToAdd;
 

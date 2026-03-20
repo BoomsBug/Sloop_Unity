@@ -15,6 +15,7 @@ TagManager:
   - Keg
   - Ground
   - Barrel
+  - FlyingCannon
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Island
   - Port
   - 
-  - 
+  - ShipMinigame
   - 
   - 
   - 
@@ -49,12 +50,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Sky
+    uniqueID: 3373686417
+    locked: 0
+  - name: Water
+    uniqueID: 944284127
+    locked: 0
+  - name: Above Water
+    uniqueID: 2944320005
+    locked: 0
   - name: Land
     uniqueID: 3410418291
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Above Water
-    uniqueID: 2944320005
+  - name: Player
+    uniqueID: 2572315039
     locked: 0

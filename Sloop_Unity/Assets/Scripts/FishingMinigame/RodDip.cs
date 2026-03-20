@@ -4,7 +4,7 @@ using UnityEngine;
 public class RodDip : MonoBehaviour
 {
     public float topY = 1.0f;        // resting position
-    public float bottomY = -3.0f;    // how deep it dips
+    public float bottomY = -4.3f;    // how deep it dips
     public float downTime = 0.12f;   // dip speed down
     public float upTime = 0.18f;     // return speed up
     public float cooldown = 0.25f;   // delay before next dip

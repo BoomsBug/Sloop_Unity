@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
-    public float speed = 5f;
+    public static float GlobalSpeed = 5f;  // Set by manager
+
     private bool moving = true;
     private bool hasLanded = false;
     private Rigidbody2D rb;
@@ -12,21 +13,18 @@ public class Barrel : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // Rigidbody should be Dynamic in the prefab (set in Inspector)
     }
 
     void Update()
     {
         if (moving && hasLanded)
         {
-            // Apply constant leftward velocity while preserving vertical motion
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            rb.velocity = new Vector2(-GlobalSpeed, rb.velocity.y);
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Detect first contact with ground to start rolling
         if (collision.gameObject.CompareTag("Ground") && !hasLanded)
         {
             hasLanded = true;

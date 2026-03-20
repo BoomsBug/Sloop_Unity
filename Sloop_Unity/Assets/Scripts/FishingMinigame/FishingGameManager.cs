@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class FishingGameManager : MonoBehaviour
 {
@@ -10,41 +10,115 @@ public class FishingGameManager : MonoBehaviour
     public int foodPerFish = 2;
     public int goldPerSack = 15;
 
-    [Header("Streak Bonus (optional)")]
-    public int streak = 0;
-    public int streakFoodBonusEvery = 3; // every 3 catches give +1 food
+    [Header("Goal")]
+    public int targetFish = 10;
+    public float timeLimit = 30f;
+
+    [Header("UI")]
+    public TMP_Text goalText;   // "Fish: x / target"
+    public TMP_Text timerText;  // "Time: xx"
+    public GameObject resultPanel;      // optional
+    public TMP_Text resultText;         // optional
+
+    [Header("End")]
+    public string returnSceneName = "PRODUCTION"; // or use GameManager later
+
+    int fishCaught = 0;
+    float timeLeft;
+    bool ended = false;
 
     void Awake()
     {
         if (!resources) resources = FindObjectOfType<PlayerResources>();
     }
 
+    void Start()
+    {
+        timeLeft = timeLimit;
+        UpdateGoalUI();
+        UpdateTimerUI();
+        if (resultPanel) resultPanel.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (ended) return;
+
+        timeLeft -= Time.deltaTime;
+        if (timeLeft < 0f) timeLeft = 0f;
+        UpdateTimerUI();
+
+        if (timeLeft <= 0f)
+        {
+            // Time's up => win if met target
+            if (fishCaught >= targetFish) Win();
+            else Lose();
+        }
+    }
+
+    void UpdateGoalUI()
+    {
+        if (goalText) goalText.text = $"Fish: {fishCaught} / {targetFish}";
+    }
+
+    void UpdateTimerUI()
+    {
+        if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(timeLeft)}";
+    }
+
     public void CatchFish(GameObject fish)
     {
+        if (ended) return;
+
         Destroy(fish);
 
-        streak++;
+        fishCaught++;
+        UpdateGoalUI();
+
         int food = foodPerFish;
-
-        if (streakFoodBonusEvery > 0 && streak % streakFoodBonusEvery == 0)
-            food += 1;
-
         if (resources) resources.AddFood(food);
-        Debug.Log($"Caught fish! +{food} food");
+
+        // Instant win if you reach target before time ends
+        if (fishCaught >= targetFish)
+            Win();
     }
 
     public void CatchGold(GameObject loot)
     {
-        Destroy(loot);
+        if (ended) return;
 
-        streak++;
+        Destroy(loot);
         if (resources) resources.AddGold(goldPerSack);
-        Debug.Log($"Got gold sack! +{goldPerSack} gold");
     }
 
     public void Miss()
     {
-        streak = 0;
-        Debug.Log("Miss!");
+        // optional: nothing
+    }
+
+    void Win()
+    {
+        ended = true;
+        ShowResult($"You win!\nCaught {fishCaught}/{targetFish} fish.");
+        Invoke(nameof(ReturnToSailing), 1.5f);
+    }
+
+    void Lose()
+    {
+        ended = true;
+        ShowResult($"You lose!\nCaught {fishCaught}/{targetFish} fish.");
+        Invoke(nameof(ReturnToSailing), 1.5f);
+    }
+
+    void ShowResult(string msg)
+    {
+        Debug.Log(msg);
+        if (resultPanel) resultPanel.SetActive(true);
+        if (resultText) resultText.text = msg;
+    }
+
+    void ReturnToSailing()
+    {
+        SceneManager.LoadScene(returnSceneName);
     }
 }

@@ -374,37 +374,37 @@
 
     {
       "id": "interact_role_merchant_fallback_01",
-      "type": "interact",
+      "type": "bark",
       "tags": ["role:merchant"],
       "text": "Buyin' or sellin'?"
     },
     {
       "id": "interact_role_merchant_fallback_02",
-      "type": "interact",
+      "type": "bark",
       "tags": ["role:merchant"],
       "text": "Looking to trade, or just browsing?"
     },
     {
       "id": "interact_role_merchant_fallback_03",
-      "type": "interact",
+      "type": "bark",
       "tags": ["role:merchant"],
       "text": "Coin speaks louder than words."
     },
     {
       "id": "interact_role_merchant_fallback_04",
-      "type": "interact",
+      "type": "bark",
       "tags": ["role:merchant"],
       "text": "Looking to collect some bits and bobs?"
     },
     {
       "id": "interact_role_merchant_fallback_05",
-      "type": "interact",
+      "type": "bark",
       "tags": ["role:merchant"],
       "text": "I may not have the best wares, but I do have the best prices."
     },
     {
       "id": "interact_role_merchant_fallback_06",
-      "type": "interact",
+      "type": "bark",
       "tags": ["role:merchant"],
       "text": "Ay, what will it be?"
     },

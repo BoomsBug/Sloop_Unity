@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using Sloop.Economy; // <-- Required for ResourceManager and Resource enum
 
 public class BarrelDashTestManager : MonoBehaviour
 {
+    public enum GameMode { Easy, Hard }
+
     [Header("UI References")]
     public GameObject gamePanel;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI resultText;
-    public Button startButton;
+    public Button easyButton;
+    public Button hardButton;
     public Button closeButton;
 
     [Header("Game Objects")]
@@ -24,35 +29,50 @@ public class BarrelDashTestManager : MonoBehaviour
     public float speedIncreaseRate = 0.1f;
     public int goldPerPoint = 1;
 
+    [Header("Mode Settings")]
+    public float easyCannonProbability = 0f;   // No cannons in Easy
+    public float hardCannonProbability = 0.5f;  // Cannons in Hard
+
+    [Header("Scene Management")]
+    public string sailingSceneName = "Production";
+
     private bool gameActive = false;
     private float currentSpeed;
     private int score;
+    private bool hasAwardedGold = false;
 
     void Start()
     {
-        startButton.onClick.AddListener(StartGame);
+        easyButton.onClick.AddListener(() => StartGameWithMode(GameMode.Easy));
+        hardButton.onClick.AddListener(() => StartGameWithMode(GameMode.Hard));
         closeButton.onClick.AddListener(CloseGame);
 
         gamePanel.SetActive(true);
         player.gameObject.SetActive(false);
     }
 
-    void StartGame()
+    void StartGameWithMode(GameMode mode)
     {
+        // Set spawner's cannon probability based on mode
+        if (mode == GameMode.Easy)
+            spawner.cannonSpawnProbability = easyCannonProbability;
+        else
+            spawner.cannonSpawnProbability = hardCannonProbability;
+
+        // Start the game
         gameActive = true;
-        startButton.gameObject.SetActive(false);
+        hasAwardedGold = false;
+        easyButton.gameObject.SetActive(false);
+        hardButton.gameObject.SetActive(false);
         closeButton.gameObject.SetActive(false);
         resultText.text = "";
         scoreText.text = "Score: 0";
 
-        // Reset player using its method
         player.ResetPlayer();
         player.gameObject.SetActive(true);
 
-        // Reset spawner
         spawner.StartSpawning();
 
-        // Reset speed & score
         currentSpeed = baseSpeed;
         score = 0;
     }
@@ -63,11 +83,9 @@ public class BarrelDashTestManager : MonoBehaviour
 
         currentSpeed = Mathf.Min(currentSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
 
-        foreach (GameObject barrelObj in GameObject.FindGameObjectsWithTag("Barrel"))
-        {
-            Barrel barrel = barrelObj.GetComponent<Barrel>();
-            barrel.speed = currentSpeed;
-        }
+        // Update global speed for all barrels and cannons
+        Barrel.GlobalSpeed = currentSpeed;
+        FlyingCannon.GlobalSpeed = currentSpeed;
 
         score += Mathf.RoundToInt(currentSpeed * Time.deltaTime);
         scoreText.text = "Score: " + score;
@@ -75,29 +93,50 @@ public class BarrelDashTestManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (!gameActive) return;
         gameActive = false;
         spawner.StopSpawning();
         player.gameObject.SetActive(false);
 
         int goldReward = score * goldPerPoint;
+
+        if (!hasAwardedGold)
+        {
+            var rm = ResourceManager.Instance;
+            if (rm != null)
+            {
+                rm.Add(Resource.Gold, goldReward);
+                Debug.Log($"Awarded {goldReward} gold.");
+            }
+            else
+            {
+                Debug.LogWarning("ResourceManager not found – gold not awarded.");
+            }
+            hasAwardedGold = true;
+        }
+
         resultText.text = $"You scored {score}!\nEarned {goldReward} Gold.";
-        startButton.gameObject.SetActive(true);
+        easyButton.gameObject.SetActive(true);
+        hardButton.gameObject.SetActive(true);
         closeButton.gameObject.SetActive(true);
     }
 
     void CloseGame()
     {
-        startButton.gameObject.SetActive(true);
-        closeButton.gameObject.SetActive(true);
-        resultText.text = "";
-        player.gameObject.SetActive(false);
-        spawner.StopSpawning();
+        SceneManager.LoadScene(sailingSceneName);
     }
 
     public void AddCoinScore(int coinValue)
     {
         if (!gameActive) return;
         score += coinValue;
+        scoreText.text = "Score: " + score;
+    }
+
+    public void AddParryScore(int value)
+    {
+        if (!gameActive) return;
+        score += value;
         scoreText.text = "Score: " + score;
     }
 }
