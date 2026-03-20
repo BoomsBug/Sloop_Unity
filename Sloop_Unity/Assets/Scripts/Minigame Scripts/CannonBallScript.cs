@@ -9,6 +9,7 @@ using UnityEngine;
 public class CannonBallScript : MonoBehaviour
 {
     public GameObject ExplosionPrefab;
+    public int PointsPerBarrel = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +22,14 @@ public class CannonBallScript : MonoBehaviour
         if ( collision.gameObject.CompareTag("Ocean"))
         {
             Destroy(gameObject);
+            
         }
 
         if (collision.gameObject.CompareTag("Keg"))
         {
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+
+            CannonController.Instance.CannonAudioSource.PlayOneShot(CannonController.Instance.ExplosionClip, 1f); // Play 1 second of explosion sound upon keg hit
 
             Rigidbody2D kegRb = collision.gameObject.GetComponent<Rigidbody2D>();
             
@@ -35,8 +39,20 @@ public class CannonBallScript : MonoBehaviour
             // Apply impulse force in force dir
             kegRb.AddForce(forceDir * 100f, ForceMode2D.Impulse);
 
+            CannonController.Instance.AddScore(PointsPerBarrel);
+
+            //collision.gameObject.SetActive(false); // hide hit target
+            Destroy(collision.gameObject);
             Destroy(gameObject);
+
+            CannonController.Instance.shotsHit++;
+            
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        CannonController.Instance.activeCannonballs--;
     }
 }

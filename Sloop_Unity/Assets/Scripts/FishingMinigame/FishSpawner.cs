@@ -6,7 +6,7 @@ public class FishSpawner : MonoBehaviour
     public GameObject goldSackPrefab;
 
     //public float laneY = -2.5f;
-    public float[] laneYs = new float[] { -3f, -2f, -1f, 0f };
+    public float[] laneYs = new float[] { -3f, -2f, -1f, -4f };
     public float spawnX = 25f;
     public float destroyX = 35f;
 

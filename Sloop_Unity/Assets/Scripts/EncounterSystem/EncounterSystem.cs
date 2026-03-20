@@ -15,7 +15,7 @@ using UnityEngine.SceneManagement;
 public class EncounterSystem : MonoBehaviour
 {
     public static EncounterSystem Instance;
-    public GameObject encounterUI;
+    public GameObject encounterUIprefab;
     public List<EncounterSO> possibleEncounters;
     private List<EncounterSO> completedEncounters = new List<EncounterSO>();
     public bool cycleEncounters;
@@ -28,6 +28,19 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
+
+    void Awake()
+    {
+        // Singleton pattern
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
@@ -43,7 +56,7 @@ public class EncounterSystem : MonoBehaviour
         //Pauses game and enable encounter UI
         Time.timeScale = 0.0f;
         PauseManager.Paused = true;
-        encounterUI.SetActive(true);
+        encounterUIprefab.SetActive(true);
 
         isEncounterActive = true;
         canChoose = true;
@@ -165,7 +178,7 @@ public class EncounterSystem : MonoBehaviour
         //Disables encounter UI and unpause game
         Time.timeScale = 1.0f;
         PauseManager.Paused = false;
-        encounterUI.SetActive(false);
+        encounterUIprefab.SetActive(false);
 
         //allows another encounter to happen
         isEncounterActive = false;
