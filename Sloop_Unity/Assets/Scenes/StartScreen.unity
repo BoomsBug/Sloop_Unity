@@ -197,8 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b24b8746d2c2d4b8bfe72d89039121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songfrequency: 20
-  songfrequencyMax: 40
+  songfrequency: 15
+  songfrequencyMax: 20
   mainMenuMusic:
     clip: {fileID: 8300000, guid: d7b45806854a1794a86a60b9553ea57a, type: 3}
     volume: 1
@@ -924,7 +924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleEncounters.Array.size
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleEncounters.Array.data[2]
@@ -937,7 +937,15 @@ PrefabInstance:
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleEncounters.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: a72d3ab3b0d6045418fd68394a1b0571, type: 2}
+      objectReference: {fileID: 11400000, guid: 2ee107ebbf240b4409411f1b00e86e9e, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleEncounters.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: fb9242251c2f0874ca05690b8815b567, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleEncounters.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 988b232f48952ad4294c5192e797962c, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager

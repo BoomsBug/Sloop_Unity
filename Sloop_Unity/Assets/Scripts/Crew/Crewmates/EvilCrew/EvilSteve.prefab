@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crewName: 
   traits: []
-  alignment: 0
+  alignment: 2
   role: 0
   npcIndex: 0
+  crewEncounter: {fileID: 0}
