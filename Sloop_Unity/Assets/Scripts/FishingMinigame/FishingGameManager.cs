@@ -27,11 +27,11 @@ public class FishingGameManager : MonoBehaviour
     [Range(0f, 1f)]
     public float catchVolume = 1f;
 
-    [Range(0.8f, 1.2f)]
-    public float catchPitchMin = 0.9f;
+    [Range(2.2f, 3f)]
+    public float catchPitchMin = 2.3f;
 
-    [Range(0.8f, 1.2f)]
-    public float catchPitchMax = 1.1f;
+    [Range(2.2f, 3)]
+    public float catchPitchMax = 2.9f;
 
     private AudioSource audioSource;
 
