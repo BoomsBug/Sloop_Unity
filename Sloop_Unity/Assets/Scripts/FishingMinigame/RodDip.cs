@@ -11,6 +11,31 @@ public class RodDip : MonoBehaviour
 
     public bool IsDipping { get; private set; }
 
+    [Header("Fishing Audio")]
+    public AudioClip dipSound;
+    [Range(0f, 1f)]
+    public float volume = 1f;
+
+    [Range(0.8f, 1.2f)]
+    public float pitchMin = 0.9f;
+
+    [Range(0.8f, 1.2f)]
+    public float pitchMax = 1.1f;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    void PlayDipSound()
+    {
+        if (dipSound != null && audioSource != null)
+        {
+            audioSource.pitch = Random.Range(pitchMin, pitchMax);
+            audioSource.PlayOneShot(dipSound, volume);
+        }
+    }
     void Start()
     {
         // snap to top at start
@@ -22,7 +47,10 @@ public class RodDip : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !IsDipping)
+        {
+            PlayDipSound();
             StartCoroutine(Dip());
+        }
     }
 
     IEnumerator Dip()
@@ -31,7 +59,7 @@ public class RodDip : MonoBehaviour
 
         // move down
         yield return MoveY(topY, bottomY, downTime);
-
+        
         // move up
         yield return MoveY(bottomY, topY, upTime);
 

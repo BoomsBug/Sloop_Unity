@@ -20,6 +20,22 @@ public class FishingGameManager : MonoBehaviour
     public GameObject resultPanel;      // optional
     public TMP_Text resultText;         // optional
 
+
+    [Header("Audio")]
+    public AudioClip catchFishSound;
+
+    [Range(0f, 1f)]
+    public float catchVolume = 1f;
+
+    [Range(2.2f, 3f)]
+    public float catchPitchMin = 2.3f;
+
+    [Range(2.2f, 3)]
+    public float catchPitchMax = 2.9f;
+
+    private AudioSource audioSource;
+
+
     [Header("End")]
     public string returnSceneName = "PRODUCTION"; // or use GameManager later
 
@@ -30,6 +46,15 @@ public class FishingGameManager : MonoBehaviour
     void Awake()
     {
         if (!resources) resources = FindObjectOfType<PlayerResources>();
+        audioSource = GetComponent<AudioSource>();
+    }
+    void PlayCatchSound()
+    {
+        if (catchFishSound != null && audioSource != null)
+        {
+            audioSource.pitch = Random.Range(catchPitchMin, catchPitchMax);
+            audioSource.PlayOneShot(catchFishSound, catchVolume);
+        }
     }
 
     void Start()
@@ -69,6 +94,8 @@ public class FishingGameManager : MonoBehaviour
     public void CatchFish(GameObject fish)
     {
         if (ended) return;
+
+        PlayCatchSound();
 
         Destroy(fish);
 
