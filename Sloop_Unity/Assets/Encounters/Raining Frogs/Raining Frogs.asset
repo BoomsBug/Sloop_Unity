@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Raining Frogs
+  m_EditorClassIdentifier: 
+  encounterName: Raining Frogs
+  text: 'A greenish cloud is in the sky above you. You see small objects start to
+    fall towards the sea. As they hit the ship''s deck and explode you see that they
+    are frogs. '
+  options:
+  - {fileID: 11400000, guid: d7a3314ced3b5044aaea9567d5a769d2, type: 2}
+  - {fileID: 11400000, guid: 5fe69d5973dff9945a99498e96e4f1fe, type: 2}
+  - {fileID: 11400000, guid: 568b9a703c1950d4e918584767d71bb8, type: 2}
+  oneTime: 0

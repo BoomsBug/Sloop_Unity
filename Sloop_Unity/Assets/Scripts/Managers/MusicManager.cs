@@ -274,13 +274,14 @@ public class MusicManager : MonoBehaviour
 
             float waitTime = Random.Range(songfrequency, songfrequencyMax);
             Debug.Log("Waiting " + waitTime + " seconds before next shanty");
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSecondsRealtime(waitTime);
             float startVolume = ambientSource.volume;
+            float originalVolume = startVolume;
             float time = 0f;
 
             while (time < 1f)
             {
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 ambientSource.volume = Mathf.Lerp(startVolume, 0f, time / 1f);
                 yield return null;
             }
@@ -303,15 +304,14 @@ public class MusicManager : MonoBehaviour
             songSource.volume = randomClip.volume;
             songSource.Play();
 
-            yield return new WaitForSeconds(randomClip.clip.length);
+            yield return new WaitForSecondsRealtime(randomClip.clip.length);
             
             startVolume = ambientSource.volume;
             time = 0f;
-
             while (time < 1f)
             {
-                time += Time.deltaTime;
-                ambientSource.volume = Mathf.Lerp(startVolume, 0.4f, time / 1f);
+                time += Time.unscaledDeltaTime;
+                ambientSource.volume = Mathf.Lerp(startVolume, originalVolume, time / 1f);
                 yield return null;
             }
 
