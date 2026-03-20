@@ -198,7 +198,7 @@ namespace Sloop.NPC
                 return;
             }
 
-            ui.ShowForNPC(this);
+            ui.OpenForNPC(this);
         }
 
         public void UI_BarkPressed(NPCDialogueUI ui)

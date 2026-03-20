@@ -4,10 +4,9 @@ using UnityEngine.UI;
 
 namespace Sloop.NPC.Dialogue
 {
-    public class NPCDialogueUI : MonoBehaviour
+    public class NPCDialogueUI : Sloop.UI.UIPanel
     {
         [Header("UI Refs")]
-        [SerializeField] private GameObject root;
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text bodyText;
 
@@ -25,34 +24,37 @@ namespace Sloop.NPC.Dialogue
 
         private Sloop.NPC.NPCController currentNPC;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Hide();
         }
 
-        public void ShowForNPC(Sloop.NPC.NPCController npc)
+        public void OpenForNPC(Sloop.NPC.NPCController npc)
         {
             currentNPC = npc;
-            root.SetActive(true);
-            subChoicesRoot.SetActive(false);
 
+            Sloop.UI.UIManager.Instance.OpenPanel(this);
+            subChoicesRoot.SetActive(false);
             titleText.text = npc.GetDisplayName();
             bodyText.text = "...";
+            SetupButtons();
+        }
 
+        private void SetupButtons()
+        {
             barkButton.onClick.RemoveAllListeners();
             interactButton.onClick.RemoveAllListeners();
             closeButton.onClick.RemoveAllListeners();
 
-            barkButton.onClick.AddListener(() => npc.UI_BarkPressed(this));
-            interactButton.onClick.AddListener(() => npc.UI_InteractPressed(this));
-            closeButton.onClick.AddListener(Hide);
+            barkButton.onClick.AddListener(() => currentNPC.UI_BarkPressed(this));
+            interactButton.onClick.AddListener(() => currentNPC.UI_InteractPressed(this));
+            closeButton.onClick.AddListener(() => CloseDialogue());
         }
 
-        public void Hide()
+        public void CloseDialogue()
         {
-            root.SetActive(false);
-            subChoicesRoot.SetActive(false);
-            currentNPC = null;
+            Sloop.UI.UIManager.Instance.CloseTopPanel();
         }
 
         public void SetLine(string text)
@@ -78,5 +80,6 @@ namespace Sloop.NPC.Dialogue
         {
             subChoicesRoot.SetActive(false);
         }
+
     }
 }
