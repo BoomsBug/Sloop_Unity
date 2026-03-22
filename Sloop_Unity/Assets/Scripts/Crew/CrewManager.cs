@@ -81,7 +81,10 @@ public class CrewManager : MonoBehaviour
         {
             EncounterSystem encounterSystem = FindObjectOfType<EncounterSystem>();
             if (encounterSystem != null)
-                encounterSystem.possibleEncounters.Add(newCrewmate.crewEncounter);
+            {
+                if (newCrewmate.crewEncounter.landEncounter) encounterSystem.possibleLandEncounters.Add(newCrewmate.crewEncounter);    
+                else if (!newCrewmate.crewEncounter.landEncounter) encounterSystem.possibleSeaEncounters.Add(newCrewmate.crewEncounter);
+            }
         }
 
         hiredCrew.Add(newCrewmate);

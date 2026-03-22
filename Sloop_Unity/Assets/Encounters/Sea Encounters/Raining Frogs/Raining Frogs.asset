@@ -20,4 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d7a3314ced3b5044aaea9567d5a769d2, type: 2}
   - {fileID: 11400000, guid: 5fe69d5973dff9945a99498e96e4f1fe, type: 2}
   - {fileID: 11400000, guid: 568b9a703c1950d4e918584767d71bb8, type: 2}
-  oneTime: 0
+  oneTime: 1
+  landEncounter: 0
