@@ -18,12 +18,6 @@ public class CannonBattleScript : MonoBehaviour
     public GameObject CannonShotPrefab;
     public GameObject SmokePrefab;
 
-    public Transform FirePoint;
-
-    public float FireSpeed = 20f;
-    public float FireCooldown = 0.75f;
-    private float NextFireTime = 0f;
-
     Vector3 mousePos;
 
     private bool roundEnded = false;  // flag so we only calculate once
@@ -43,10 +37,18 @@ public class CannonBattleScript : MonoBehaviour
     public TextMeshProUGUI PlayerHealthText;
     public TextMeshProUGUI EnemyHealthText;
 
+    [Header("Player")]
+    public float FireSpeed = 20f;
+    public float FireCooldown = 0.75f;
+    private float NextFireTime = 0f;
+    public Transform FirePoint;
+    public Transform PlayerTransform;
 
-    [Header("TimerSettings")]
-    public float RoundTime = 60f;  // 30 seconds
-    private float TimeLeft;
+
+    [Header("Enemy")]
+    public Transform EnemyFirePoint;
+    public float EnemyFireCooldown = 1.5f;
+    private float NextEnemyFireTime = 0f;
 
 
     [Header("AudioStuff")]
@@ -58,7 +60,6 @@ public class CannonBattleScript : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        TimeLeft = RoundTime;
         UpdateHealthUI();
     }
 
@@ -100,6 +101,12 @@ public class CannonBattleScript : MonoBehaviour
         mousePos.z = 0f; // 2D so z must be 0
 
         Aim();  // Rotate cannon to face mouse position at every update (constantly)
+
+        if (!roundEnded && Time.time >= NextEnemyFireTime)
+        {
+            EnemyFire();
+            NextEnemyFireTime = Time.time + EnemyFireCooldown;
+        }
 
         if (!roundEnded && Input.GetMouseButtonDown(0) && Time.time >= NextFireTime)
         // If click left mouse and fire cooldown is over, and round not ended
@@ -146,6 +153,36 @@ public class CannonBattleScript : MonoBehaviour
 
         CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
 
+    }
+
+    void EnemyFire()
+    {
+        GameObject cannonBall = Instantiate(cannonBallPrefab, EnemyFirePoint.position, Quaternion.identity);
+
+        // Fire from cannon muzzle
+        GameObject muzzleflash = Instantiate(CannonShotPrefab, EnemyFirePoint.position, Quaternion.identity);
+        muzzleflash.transform.parent = cannonBall.transform;
+
+        // Smoke from cannon fire
+        Instantiate(SmokePrefab, EnemyFirePoint.position, Quaternion.identity);
+
+
+        // Get Rigidbody to apply physics
+        Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
+
+        // Get dir from firepoint to destination (player)
+        Vector2 direction = (PlayerTransform.position - EnemyFirePoint.position).normalized;
+        direction.y += 0.4f; // Add lift b/c cannonball arcs and this doesn't take that into account
+
+        // Throws off direction so enemy is not a perfect shot
+        direction += new Vector2(Random.Range(-.3f, .3f), Random.Range(-.3f, .3f));
+
+        // Apply force
+        rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
+
+
+        CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
 
     }
+
 }
