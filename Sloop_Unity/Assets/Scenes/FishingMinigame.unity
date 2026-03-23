@@ -403,8 +403,8 @@ MonoBehaviour:
   resultText: {fileID: 1287766744}
   catchFishSound: {fileID: 8300000, guid: 8492340f51cb5da409db24418c884121, type: 3}
   catchVolume: 1
-  catchPitchMin: 1.2
-  catchPitchMax: 1.2
+  catchPitchMin: 2.2
+  catchPitchMax: 2.2
   returnSceneName: PRODUCTION
 --- !u!4 &483264495
 Transform:
@@ -430,7 +430,7 @@ AudioSource:
   m_GameObject: {fileID: 483264493}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -259439785937762563, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1062,7 +1062,7 @@ AudioSource:
   m_GameObject: {fileID: 1094128773}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -259439785937762563, guid: 9e3ec527c16a3c4498c79bdf555e8993, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

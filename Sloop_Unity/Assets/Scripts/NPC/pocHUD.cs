@@ -123,7 +123,7 @@ namespace Sloop.UI
                 case Resource.Wood:  SetText(woodText,  $"Wood: {newAmount}"); break;
                 case Resource.Food:  SetText(foodText,  $"Food: {newAmount}"); break;
                 case Resource.Power: SetText(powerText, $"Power: {newAmount}"); break;
-                case Resource.Honour: SetText(powerText, $"Honour: {newAmount}"); break;
+                case Resource.Honour: SetText(honorText, $"Honor: {newAmount}"); break;
             }
         }
 
@@ -171,7 +171,7 @@ namespace Sloop.UI
             SetText(woodText,  $"Wood: {rm.GetAmount(Resource.Wood)}");
             SetText(foodText,  $"Food: {rm.GetAmount(Resource.Food)}");
             SetText(powerText, $"Power: {rm.GetAmount(Resource.Power)}");
-            SetText(powerText, $"Honour: {rm.GetAmount(Resource.Honour)}");
+            SetText(honorText, $"Honor: {rm.GetAmount(Resource.Honour)}");
         }
 
         // private void RefreshHonor()
