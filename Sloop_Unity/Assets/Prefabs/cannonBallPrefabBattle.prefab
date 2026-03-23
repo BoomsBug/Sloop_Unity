@@ -161,5 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c4784cc6aff6b4fa71123657507b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionPrefab: {fileID: 2380508188649842589, guid: 718eb84ccedb231418738af6c94c21aa, type: 3}
-  PointsPerBarrel: 10
+  ExplosionPrefab: {fileID: 5236696788672696486, guid: 28d9bdcda9a17d447bcc0b6aaa3e3df7, type: 3}
+  DamagePerHit: 10

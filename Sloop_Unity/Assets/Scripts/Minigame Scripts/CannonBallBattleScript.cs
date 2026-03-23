@@ -31,10 +31,10 @@ public class CannonBallBattleScript : MonoBehaviour
             CannonBattleScript.Instance.PlayerHealth -= DamagePerHit;
             CannonBattleScript.Instance.UpdateHealthUI();
 
-            Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+            GameObject Explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             CannonBattleScript.Instance.CannonAudioSource.PlayOneShot(CannonBattleScript.Instance.ExplosionClip, 1f); // Play 1 second of explosion sound upon keg hit
 
-
+            Destroy(Explosion, 3f);
             Destroy(gameObject);
 
         }
@@ -44,11 +44,13 @@ public class CannonBallBattleScript : MonoBehaviour
             CannonBattleScript.Instance.EnemyHealth -= DamagePerHit;
             CannonBattleScript.Instance.UpdateHealthUI();
 
-            Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+            GameObject Explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             CannonBattleScript.Instance.CannonAudioSource.PlayOneShot(CannonBattleScript.Instance.ExplosionClip, 1f); // Play 1 second of explosion sound upon keg hit
 
 
+            Destroy(Explosion, 3f);
             Destroy(gameObject);
+
 
         }
 

@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 564450892}
   - component: {fileID: 564450891}
   - component: {fileID: 564450893}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: EnemyShip
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -951,7 +951,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 681835626}
+  - {fileID: 1985006592}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &564450893
@@ -986,7 +986,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0018915236, y: 0.022698097}
+  m_Offset: {x: 0.0128625855, y: 0.022698104}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -997,137 +997,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1920479, y: 0.44328326}
+  m_Size: {x: 0.16253968, y: 0.44328326}
   m_EdgeRadius: 0
---- !u!1 &681835625
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 681835626}
-  - component: {fileID: 681835627}
-  m_Layer: 10
-  m_Name: Cannon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &681835626
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681835625}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.065, y: -0.061, z: -0.00796369}
-  m_LocalScale: {x: 0.06666667, y: 0.06666667, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1985006592}
-  m_Father: {fileID: 564450892}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &681835627
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681835625}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &708637714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,7 +1368,7 @@ GameObject:
   - component: {fileID: 832022351}
   - component: {fileID: 832022350}
   - component: {fileID: 832022349}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1565,7 +1436,7 @@ GameObject:
   - component: {fileID: 868189374}
   - component: {fileID: 868189373}
   - component: {fileID: 868189375}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1694,7 +1565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960972680}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,7 +1598,7 @@ GameObject:
   - component: {fileID: 962565791}
   - component: {fileID: 962565792}
   - component: {fileID: 962565793}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1861,9 +1732,6 @@ MonoBehaviour:
   cannonBallPrefab: {fileID: 5435130605775365945, guid: f2f2be956dbbf1a46949cf9320261b48, type: 3}
   CannonShotPrefab: {fileID: 1866340339429422740, guid: e345f5088864ef240abbb5e2d0d42911, type: 3}
   SmokePrefab: {fileID: 5719360742748918301, guid: 974c36b53a1beec478f30f578123f4cc, type: 3}
-  FirePoint: {fileID: 960972680}
-  FireSpeed: 20
-  FireCooldown: 0.75
   WinLossText: {fileID: 815114272}
   WinLossTextObj: {fileID: 815114270}
   ResetButton: {fileID: 407496555}
@@ -1872,7 +1740,12 @@ MonoBehaviour:
   EnemyHealth: 100
   PlayerHealthText: {fileID: 181404038}
   EnemyHealthText: {fileID: 2084974424}
-  RoundTime: 60
+  FireSpeed: 20
+  FireCooldown: 0.75
+  FirePoint: {fileID: 960972680}
+  PlayerTransform: {fileID: 868189374}
+  EnemyFirePoint: {fileID: 1985006592}
+  EnemyFireCooldown: 1.5
   CannonAudioSource: {fileID: 962565792}
   CannonAudioClip: {fileID: 8300000, guid: 4bcbd86f5bf36df4b8fcd34fe21eb677, type: 3}
   ExplosionClip: {fileID: 8300000, guid: 8bc12b628a49b5b449edc7888d6f56b4, type: 3}
@@ -2018,7 +1891,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1985006592}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2034,11 +1907,11 @@ Transform:
   m_GameObject: {fileID: 1985006591}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.04, z: 0.00796369}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.09000001, y: -0.078, z: 0}
+  m_LocalScale: {x: 0.06666667, y: 0.06666667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 681835626}
+  m_Father: {fileID: 564450892}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2084974422
 GameObject:
