@@ -17,7 +17,7 @@ public class Island : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(islandCenter, 0.1f);
+        Gizmos.DrawWireSphere(transform.TransformPoint(islandCenter), 0.1f);
     }
 
     // Start is called before the first frame update
@@ -26,11 +26,13 @@ public class Island : MonoBehaviour
         WorldGen worldGen = FindObjectOfType<WorldGen>();
         int worldSeed = worldGen.seed;
         List<GameObject> islands = worldGen.islands;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (isIsland)
+        {
+            //Place port
+            Vector2[] points = GetComponent<PolygonCollider2D>().points;
+            GameObject newPort = Instantiate(port, transform.TransformPoint(points[Random.Range(0,points.Length)]), Quaternion.identity);
+            newPort.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        }
     }
 }

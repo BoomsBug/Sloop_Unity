@@ -1,20 +1,6 @@
-//using System;
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.Mathematics;
-
-//using Unity.Mathematics;
 using UnityEngine;
-
-/*
-    TODO:
-    - ?Add textures?
-        - animated water texture can easily be added by just having it underneath the generated world (since water has .5 opacity)
-
-    - ?Add zero to three small brown blobs to be buildings?
-        - Or just add it after proc gen
-
-*/
 
 public class IslandGen : MonoBehaviour
 {
@@ -129,18 +115,6 @@ public class IslandGen : MonoBehaviour
                     (noiseHeight - level < beachLevel) ? 0.5f : 1.0f // if water, make semi transparent so unity can generate a collider
                 );
                 pix[(int)y * noiseTex.width + (int)x] = pixColor;
-
-                //if island is not small and sample is forest, place a port there (temporary?)
-                // place at x / noiseTex.width, y / noiseTex.height?
-                if (!hasPort && extraLevel >= 0 && noiseHeight + level > forestLevel)
-                {
-                    // x,y / resolution SHOULD be right?? ahhhhhhhhhhg! the formula makes sense and should work!! fml
-                    // will have to do for now, they are all in the right general area but definitely not exact
-                    GameObject newPort = Instantiate(port, (new Vector2(x, y) / resolution) + tile - (0.5f* new Vector2(xCenter/resolution, yCenter/resolution)), Quaternion.identity);
-                    newPort.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
-                    //Debug.Log($"Res: {resolution}, x: {x}, y: {y}, placed at: {(new Vector2(x, y) / resolution) + tile}");
-                    hasPort = true;
-                }
             }
         }
         // Copy the pixel data to the texture and load it into the GPU.
@@ -182,7 +156,7 @@ public class IslandGen : MonoBehaviour
         islandScript.islandID = islandCounter;
         islandScript.tileCoordinates = tile;
         islandScript.isIsland = !noIsland;
-        islandScript.islandCenter = (center / resolution) + tile; //how tf do i convert the center (pixels) into world space??
+        islandScript.islandCenter = Vector2.zero;
 
         //determine island morality
         int morality = Random.Range(0, 1000) % 3;
@@ -194,8 +168,22 @@ public class IslandGen : MonoBehaviour
 
         //generate and give collider
         if (!noIsland)
+        {
             islandObject.AddComponent<PolygonCollider2D>();
             islandObject.layer = LayerMask.NameToLayer("Island");
+
+            if (!islandObject.GetComponent<PolygonCollider2D>()) return islandObject;
+            //Calculate center point of island by finding average point in polygon collider
+            Vector2[] points = islandObject.GetComponent<PolygonCollider2D>().points;
+            Vector2 sum = Vector2.zero;
+            for (int i = 0; i < points.Length; i ++)
+            {
+                sum += points[i];
+            }
+            Vector2 pointCenter = sum / points.Length;
+            islandScript.islandCenter = pointCenter;
+            islandScript.port = port;
+        }
 
         return islandObject;
     }
