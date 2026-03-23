@@ -16,6 +16,7 @@ TagManager:
   - Ground
   - Barrel
   - FlyingCannon
+  - Enemy
   layers:
   - Default
   - TransparentFX
