@@ -122,17 +122,17 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: barrel assets
+  - name: barrel_1
     originalName: 
     pivot: {x: 0.54347825, y: -0.030674849}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 3
       y: 4
-      width: 138
-      height: 163
+      width: 50
+      height: 50
     spriteID: 93d394fea655d984f936a77b51514524
     spriteBone: []
     spriteOutline: []
