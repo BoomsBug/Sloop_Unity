@@ -44,6 +44,8 @@ public class CannonBallScript : MonoBehaviour
             //collision.gameObject.SetActive(false); // hide hit target
             Destroy(collision.gameObject);
             Destroy(gameObject);
+
+            CannonController.Instance.shotsHit++;
             
         }
 

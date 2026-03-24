@@ -206,7 +206,6 @@ public class BoatMovement : MonoBehaviour
                 return;
             }
 
-            //TODO: test this
             //When player docks at a port, find the island that has the treasure, 
             WorldGen worldGen = FindObjectOfType<WorldGen>();
             Island treasureIsland = worldGen.islands[worldGen.treasureIsland].GetComponent<Island>();
@@ -268,9 +267,14 @@ public class BoatMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) 
         {
             Collider2D islandCollider = Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Island"));
-            if (islandCollider && islandCollider.gameObject.GetComponent<Island>().hasTreasure)
+            if (islandCollider && !islandCollider.isTrigger && islandCollider.gameObject.GetComponent<Island>().hasTreasure)
             {
                 SceneManager.LoadScene("Treasure");
+            }
+            else if (islandCollider && !islandCollider.isTrigger)
+            {
+                Debug.Log(islandCollider.gameObject.name);
+                EncounterSystem.Instance.LoadEncounter(true); //true means it loads land encounters
             }
         }
         
@@ -279,7 +283,6 @@ public class BoatMovement : MonoBehaviour
     private string AngleToDirection(float angle)
     {
         Debug.Log(angle);
-        //TODO: offset angle so direction is more accurate
         //takes a float representing the angle between two vectors in degrees and returns a cardinal direction (E, SE, N, etc...)
 
         if (angle < 0) angle += 360; //turns range from -180 -> 180 to 0 -> 360

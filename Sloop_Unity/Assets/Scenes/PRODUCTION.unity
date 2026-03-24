@@ -756,9 +756,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overlay: {fileID: 613313498}
   dayColor: {r: 0, g: 0, b: 0, a: 0}
-  sunsetColor: {r: 1, g: 0.3, b: 0, a: 0.4}
+  sunsetColor: {r: 0.9339623, g: 0.2541399, b: 0.013216423, a: 0.31764707}
   nightColor: {r: 0.039215688, g: 0.078431375, b: 0.15686275, a: 0.6313726}
-  fadeSpeed: 1.5
+  fadeSpeed: 1
 --- !u!1001 &775250869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2076,22 +2076,6 @@ PrefabInstance:
     - target: {fileID: 609237003617239293, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_Name
       value: Ship (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528239645457004898, guid: b422367889da544439dac250a0adea90, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528239645457004898, guid: b422367889da544439dac250a0adea90, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800789494762986374, guid: b422367889da544439dac250a0adea90, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800789494762986374, guid: b422367889da544439dac250a0adea90, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1722652257
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalPosition.x

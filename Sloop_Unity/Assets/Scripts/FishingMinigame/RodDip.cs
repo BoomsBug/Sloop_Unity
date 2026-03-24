@@ -4,13 +4,38 @@ using UnityEngine;
 public class RodDip : MonoBehaviour
 {
     public float topY = 1.0f;        // resting position
-    public float bottomY = -3.0f;    // how deep it dips
+    public float bottomY = -4.3f;    // how deep it dips
     public float downTime = 0.12f;   // dip speed down
     public float upTime = 0.18f;     // return speed up
     public float cooldown = 0.25f;   // delay before next dip
 
     public bool IsDipping { get; private set; }
 
+    [Header("Fishing Audio")]
+    public AudioClip dipSound;
+    [Range(0f, 1f)]
+    public float volume = 1f;
+
+    [Range(0.8f, 1.2f)]
+    public float pitchMin = 0.9f;
+
+    [Range(0.8f, 1.2f)]
+    public float pitchMax = 1.1f;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    void PlayDipSound()
+    {
+        if (dipSound != null && audioSource != null)
+        {
+            audioSource.pitch = Random.Range(pitchMin, pitchMax);
+            audioSource.PlayOneShot(dipSound, volume);
+        }
+    }
     void Start()
     {
         // snap to top at start
@@ -22,7 +47,10 @@ public class RodDip : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !IsDipping)
+        {
+            PlayDipSound();
             StartCoroutine(Dip());
+        }
     }
 
     IEnumerator Dip()
@@ -31,7 +59,7 @@ public class RodDip : MonoBehaviour
 
         // move down
         yield return MoveY(topY, bottomY, downTime);
-
+        
         // move up
         yield return MoveY(bottomY, topY, upTime);
 

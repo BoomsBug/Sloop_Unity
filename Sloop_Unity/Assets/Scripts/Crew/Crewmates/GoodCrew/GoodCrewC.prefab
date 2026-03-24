@@ -49,4 +49,6 @@ MonoBehaviour:
   alignment: 0
   role: 0
   npcIndex: 0
+  sprite: {fileID: -7359962188882910793, guid: 9e9e60d593d327b4c80e5018b30fdca9, type: 3}
+  description: +5 to all gain
   crewEncounter: {fileID: 0}

@@ -31,6 +31,11 @@ public class CannonController : MonoBehaviour
     private int ShotsLeft;
     private int TotalScore = 0;
     private int CurrentScore = 0;
+    private int shotsFired = 0;
+    public int shotsHit = 0;
+    float accuracy = 0f;
+    int finalAccuracy;
+
 
     [Header("UI")]
     public TextMeshProUGUI ammoText;
@@ -164,25 +169,65 @@ public class CannonController : MonoBehaviour
                 ReturnButton.SetActive(true);
             }
 
-            if (TotalScore < 100)
+            if (shotsFired > 0)
             {
-                WinLossText.text = "Lets Try That Again";
+                accuracy = (float)shotsHit / shotsFired * 100;
+            }
+            finalAccuracy = Mathf.RoundToInt(accuracy);
+
+
+
+            // Score texts
+
+            if (TotalScore < 25)
+            {
+                WinLossText.text = "Arr... ye shoot like the cannon's pointed backwards!";
             }
 
-            else if (TotalScore >= 100 && TotalScore < 200)
+            else if (TotalScore >= 25 && TotalScore < 50)
             {
-                WinLossText.text = "You're A Deadshot!";
+                WinLossText.text = "I've seen cannonballs roll straighter than that!";
             }
 
-            else if (TotalScore > 200)
+            else if (TotalScore >= 50 && TotalScore < 75)
             {
-                WinLossText.text = "You're The Best Pirate There Ever Was!";
+                WinLossText.text = "Had a bit too much rum, aye?";
             }
+
+            else if (TotalScore >= 75 && TotalScore < 100)
+            {
+                WinLossText.text = "Yer gettin’ there… don’t lose yer sea legs now!";
+            }
+
+            else if (TotalScore >= 100 && TotalScore < 150)
+            {
+                WinLossText.text = "Aye, not bad shootin' Cap'n!";
+            }
+
+            else if (TotalScore >= 150 && TotalScore < 200)
+            {
+                WinLossText.text = "Deadly aim, matey!";
+            }
+
+            else if (TotalScore >= 200 && TotalScore < 250)
+            {
+                WinLossText.text = "Ships will flee at the sight of ye!";
+            }
+
+            else if (TotalScore >= 250 && TotalScore < 300)
+            {
+                WinLossText.text = "The ocean itself fears yer aim!";
+            }
+
+            else if (TotalScore >= 300)
+            {
+                WinLossText.text = "Ye be the greatest pirate to ever live!";
+            }
+
+            WinLossText.text += "\n\nFinal Score: " + TotalScore + "\nAccuracy: " + finalAccuracy + "%";
+
 
             WinLossTextObj.SetActive(true);
-
-
-
             return;
         }
 
@@ -191,8 +236,8 @@ public class CannonController : MonoBehaviour
 
         Aim();  // Rotate cannon to face mouse position at every update (constantly)
 
-        if (Input.GetMouseButtonDown(0) && Time.time >= NextFireTime)
-            // If click left mouse and fire cooldown is over
+        if (!roundEnded && Input.GetMouseButtonDown(0) && Time.time >= NextFireTime)
+            // If click left mouse and fire cooldown is over, and round not ended
         {
             if (ShotsLeft > 0) {
                 Fire();
@@ -242,6 +287,7 @@ public class CannonController : MonoBehaviour
         CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
 
         activeCannonballs++;
+        shotsFired++;
 
     }
 }

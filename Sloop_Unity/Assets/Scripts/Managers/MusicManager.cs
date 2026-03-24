@@ -22,6 +22,9 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private MusicClip mainMenuMusic;
     [SerializeField] private MusicClip sailingMusic;
     [SerializeField] private MusicClip islandMusic;
+    [SerializeField] private MusicClip fishingMusic;
+    [SerializeField] private MusicClip cannonMusic;
+    [SerializeField] private MusicClip barrelMusic;
     [SerializeField] private MusicClip[] fiddleTunes;
     [SerializeField] private MusicClip[] shanties;
     public AudioClip[] oceanClips;
@@ -93,7 +96,9 @@ public class MusicManager : MonoBehaviour
         ambientSource.outputAudioMixerGroup = musicGroup;
         songSource.outputAudioMixerGroup = songGroup;
         ambientSource2.outputAudioMixerGroup = OceanGroup;
+        
         oceanSource = gameObject.AddComponent<AudioSource>();
+        oceanSource.outputAudioMixerGroup = OceanGroup;
         oceanSource.loop = true;
         oceanSource.playOnAwake = false;
         oceanSource.volume = 0.6f;
@@ -125,13 +130,15 @@ public class MusicManager : MonoBehaviour
 
             case "PRODUCTION":
                 newClip = sailingMusic;
+                oceanSource.volume = 1f;
                 oceanSource.clip = oceanClips[Random.Range(0, oceanClips.Length)];
                 ambientSource2.clip = null;
-                ambientSource.volume = 0f;
+                ambientSource2.volume = 0f;
                 break;
 
             case "R-IslandPort":
                 newClip = islandMusic;
+                oceanSource.volume = 1f;
                 oceanSource.clip = shoreClips[Random.Range(0, shoreClips.Length)];
                 ambientSource2.clip = dockClips[Random.Range(0, dockClips.Length)];
                 ambientSource2.volume = 1f;
@@ -139,6 +146,7 @@ public class MusicManager : MonoBehaviour
 
             case "H-IslandPort":
                 newClip = islandMusic;
+                oceanSource.volume = 1f;
                 oceanSource.clip = shoreClips[Random.Range(0, shoreClips.Length)];
                 ambientSource2.clip = dockClips[Random.Range(0, dockClips.Length)];
                 ambientSource2.volume = 1f;
@@ -146,16 +154,40 @@ public class MusicManager : MonoBehaviour
 
             case "N-IslandPort":
                 newClip = islandMusic;
+                oceanSource.volume = 1f;
                 oceanSource.clip = shoreClips[Random.Range(0, shoreClips.Length)];
                 ambientSource2.clip = dockClips[Random.Range(0, dockClips.Length)];
                 ambientSource2.volume = 1f;
+                break;
+
+            case "FishingMinigame":
+                newClip = fishingMusic;
+                //oceanSource.clip = oceanClips[Random.Range(0, oceanClips.Length)];
+                oceanSource.volume = 0.65f;
+                ambientSource2.clip = null;
+                ambientSource2.volume = 0f;
+                break;
+
+            case "CannonPractice":
+                newClip = cannonMusic;
+                //oceanSource.clip = oceanClips[Random.Range(0, oceanClips.Length)];
+                ambientSource2.clip = null;
+                ambientSource2.volume = 0f;
+                oceanSource.volume = 0.5f;
+                break;
+
+            case "BarrelDodging":
+                newClip = barrelMusic;
+                //oceanSource.clip = oceanClips[Random.Range(0, oceanClips.Length)];
+                oceanSource.volume = 0f;
+                ambientSource2.clip = null;
+                ambientSource2.volume = 0f;
                 break;
 
         }
         if (sceneName != "StartScreen")
         {
             Debug.Log("Playing ocean for scene: " + sceneName);
-            oceanSource.volume = 1f;
             oceanSource.Play();
             if (ambientSource2.clip != null)
              {
@@ -173,7 +205,7 @@ public class MusicManager : MonoBehaviour
             ambientSource.clip = currentClip.clip;
             ambientSource.volume = 0;
             ambientSource.Play();
-            StartCoroutine(FadeAmbient(currentClip.volume, 2f));
+            StartCoroutine(FadeAmbient(currentClip.volume, 1f));
         }
     }
     private IEnumerator FadeAmbient(float targetVolume, float duration)
@@ -222,7 +254,7 @@ public class MusicManager : MonoBehaviour
         ambientSource.clip = sailingMusic.clip;
         ambientSource.volume = sailingMusic.volume;
         ambientSource.Play();
-        StartCoroutine(FadeAmbient(sailingMusic.volume, 2f));
+        StartCoroutine(FadeAmbient(sailingMusic.volume, 1f));
         oceanSource.clip = oceanClips[Random.Range(0, oceanClips.Length)];
         oceanSource.volume = 0.6f;
         oceanSource.Play();
@@ -244,14 +276,15 @@ public class MusicManager : MonoBehaviour
 
             float waitTime = Random.Range(songfrequency, songfrequencyMax);
             Debug.Log("Waiting " + waitTime + " seconds before next shanty");
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSecondsRealtime(waitTime);
             float startVolume = ambientSource.volume;
+            float originalVolume = startVolume;
             float time = 0f;
 
-            while (time < 2f)
+            while (time < 1f)
             {
-                time += Time.deltaTime;
-                ambientSource.volume = Mathf.Lerp(startVolume, 0f, time / 2f);
+                time += Time.unscaledDeltaTime;
+                ambientSource.volume = Mathf.Lerp(startVolume, 0f, time / 1f);
                 yield return null;
             }
             ambientSource.volume = 0f;
@@ -273,15 +306,14 @@ public class MusicManager : MonoBehaviour
             songSource.volume = randomClip.volume;
             songSource.Play();
 
-            yield return new WaitForSeconds(randomClip.clip.length);
+            yield return new WaitForSecondsRealtime(randomClip.clip.length);
             
             startVolume = ambientSource.volume;
             time = 0f;
-
-            while (time < 2f)
+            while (time < 1f)
             {
-                time += Time.deltaTime;
-                ambientSource.volume = Mathf.Lerp(startVolume, 0.4f, time / 2f);
+                time += Time.unscaledDeltaTime;
+                ambientSource.volume = Mathf.Lerp(startVolume, originalVolume, time / 1f);
                 yield return null;
             }
 

@@ -44,9 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e112a82346c0f4bb0076c305918f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crewName: 
+  crewName: Hyuk Hyuk Harry
   traits: []
   alignment: 0
   role: 0
   npcIndex: 0
+  sprite: {fileID: -2761686722248681670, guid: a35830f869a2c594d95a6b43a9f59937, type: 3}
+  description: '+5 to existing W cost
+
+    +5 to existing F cost
+
+    +10 to H gain
+
+    +10
+    to P gain
+
+'
   crewEncounter: {fileID: 11400000, guid: 0ddd44787b500e64e87b84f845a4ec31, type: 2}

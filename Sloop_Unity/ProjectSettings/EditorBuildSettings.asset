@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FishingMinigame.unity
     guid: 28e3b00d1c3e7c74698d498cec92a547
+  - enabled: 1
+    path: Assets/Scenes/CannonBattle.unity
+    guid: 8087efaa576286c4db1f82e5253bdd11
   m_configObjects: {}

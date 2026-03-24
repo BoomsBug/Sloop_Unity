@@ -49,4 +49,10 @@ MonoBehaviour:
   alignment: 0
   role: 0
   npcIndex: 0
+  sprite: {fileID: 5298981861179260227, guid: 78d6e2751a4a2da4a977468165a97d82, type: 3}
+  description: '+5 to F cost,
+
+    -2 to H cost,
+
+    -5 to G gain'
   crewEncounter: {fileID: 0}
