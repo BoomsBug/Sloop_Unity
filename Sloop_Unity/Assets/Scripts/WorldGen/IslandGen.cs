@@ -47,8 +47,6 @@ public class IslandGen : MonoBehaviour
         //rend = GetComponent<SpriteRenderer>();
         Random.InitState(seed);
 
-        bool hasPort = false;
-
         // Set up the texture and a Color array to hold pixels during processing.
         noiseTex = new Texture2D(resolution, resolution);
         noiseTex.filterMode = FilterMode.Point;
@@ -66,9 +64,13 @@ public class IslandGen : MonoBehaviour
 
         float xCenter = noiseTex.width / 2;
         float yCenter = noiseTex.height / 2;
-        //add a random offset 
-        xCenter += Random.Range(-noiseTex.width / 4, noiseTex.width / 4);
-        yCenter += Random.Range(-noiseTex.height / 4, noiseTex.height / 4);
+
+        //add a random offset to non large islands
+        if (extraLevel <= 0)
+        {
+            xCenter += Random.Range(-noiseTex.width / 4, noiseTex.width / 4);
+            yCenter += Random.Range(-noiseTex.height / 4, noiseTex.height / 4);
+        }
 
         // For each pixel in the texture...
         for (float y = 0.0f; y < noiseTex.height; y++)
