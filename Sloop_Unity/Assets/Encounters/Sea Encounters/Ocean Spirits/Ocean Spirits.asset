@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: Ocean Spirits
   m_EditorClassIdentifier: 
   encounterName: Ocean Spirits
-  text: 'As your ship crests a wave and smoothly glides down, a movement to your
-    left catches your eye. Four animal heads shaped of water emerge next to your
-    ship: a horse, a fish, a shark, and a crab. Their watery mouths move as if to
-    speak to you, but nothing comes out. Half a second later, you feel their words
-    pierce your brain, speaking directly to your mind. "What offerings do you bring
-    us?"'
+  text: 'As your ship crests a wave and smoothly glides down, four animal heads shaped
+    of water emerge next to your ship: a horse, a fish, a shark, and a crab. Their
+    watery mouths move soundlessly. Half a second later, you feel their words pierce
+    your mind. "What offerings do you bring us?"'
   options:
   - {fileID: 11400000, guid: 759d0559e463a5b4da66aa8e2bde1a9e, type: 2}
   - {fileID: 11400000, guid: 4853beae3698b784e897d96874897ea4, type: 2}

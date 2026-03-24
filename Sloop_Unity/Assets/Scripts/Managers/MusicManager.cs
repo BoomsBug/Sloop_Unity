@@ -96,7 +96,9 @@ public class MusicManager : MonoBehaviour
         ambientSource.outputAudioMixerGroup = musicGroup;
         songSource.outputAudioMixerGroup = songGroup;
         ambientSource2.outputAudioMixerGroup = OceanGroup;
+        
         oceanSource = gameObject.AddComponent<AudioSource>();
+        oceanSource.outputAudioMixerGroup = OceanGroup;
         oceanSource.loop = true;
         oceanSource.playOnAwake = false;
         oceanSource.volume = 0.6f;

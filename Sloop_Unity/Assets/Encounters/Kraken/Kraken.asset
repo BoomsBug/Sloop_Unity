@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Kraken
+  m_EditorClassIdentifier: 
+  encounterName: Kraken
+  text: You hear a loud thud as something hits the hull. Suddenly tentacles erupt
+    from the water on all sides! A gargantuan squid has emerged from the depths.
+  options:
+  - {fileID: 11400000, guid: 39d9bfb7cf4ef354fb1cae037bfd93ca, type: 2}
+  - {fileID: 11400000, guid: 1febcdebb19b0654c9473579673f0cb5, type: 2}
+  - {fileID: 11400000, guid: c72ee588c54540449bfe4b99db709375, type: 2}
+  - {fileID: 11400000, guid: d6d8022dec59be24183a3ce55a508ff3, type: 2}
+  oneTime: 1
