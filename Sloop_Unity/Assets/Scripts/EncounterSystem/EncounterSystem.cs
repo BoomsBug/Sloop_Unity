@@ -94,7 +94,7 @@ public class EncounterSystem : MonoBehaviour
 
             //calls functions to calculate altered cost and gain based on hired crew;
             ResourceAmount[] alteredCost = CalculateAlteredCosts(curEncounter.options[i].cost);
-            ResourceAmount[] alteredGain = CalculateAlteredGains(curEncounter.options[i].gain);
+            ResourceAmount[] alteredGain = CalculateAlteredGains(curEncounter.options[i].gain, false);
             
             string alteredCostString = PrintListOfResources(alteredCost);
             string alteredGainString = PrintListOfResources(alteredGain);
@@ -148,7 +148,7 @@ public class EncounterSystem : MonoBehaviour
 
         //Adds gained resources to player (also calculate altered gains)
         ResourceAmount[] optionGains = selectedOption.gain;
-        optionGains = CalculateAlteredGains(optionGains);
+        optionGains = CalculateAlteredGains(optionGains, true);
         ResourceManager.Instance.Add(optionGains);
 
 
@@ -221,7 +221,7 @@ public class EncounterSystem : MonoBehaviour
         
         return alteredCosts;
     }
-    private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains)
+    private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains, bool callFunctions = false)
     {
         //For each crewmember hired, call their resource function and pass baseResources
         //Each crewmember will add or subtract to each resource type
@@ -231,9 +231,9 @@ public class EncounterSystem : MonoBehaviour
         ResourceAmount[] alteredGains = new ResourceAmount[baseGains.Length];
         Array.Copy(baseGains, alteredGains, baseGains.Length);
 
-        foreach (Crewmate crew in hiredCrew)
+        foreach (Crewmate crew in new List<Crewmate>(hiredCrew))
         {
-            alteredGains = crew.AlteredGain(alteredGains);
+            alteredGains = crew.AlteredGain(alteredGains, callFunctions);
         }
 
         return alteredGains;
@@ -260,14 +260,17 @@ public class EncounterSystem : MonoBehaviour
     {
         // Given the selected option, calls relevant specific functions specified by the encounter option SO
         // for example, if the option says that the fishing minigame should be loaded, call it here
-        if (option.callAddCrewmate)
-            CrewManager.Instance.HireCrew(option.crewToAdd);
 
+        //Removes a crewmate at random
         if (option.callRemoveCrewmate && CrewManager.Instance.hiredCrew.Count > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count);
             CrewManager.Instance.RemoveCrew(CrewManager.Instance.hiredCrew[randomIndex]);
         }
+
+        //hires
+        if (option.callAddCrewmate)
+            CrewManager.Instance.HireEncounterCrew(option.crewToAdd);
 
         if (option.loadMinigame)
         {
@@ -278,6 +281,7 @@ public class EncounterSystem : MonoBehaviour
             SceneManager.LoadScene(option.minigameName);
         }
 
+        //adds encounter
         if (option.callAddEncounter && option.encounterToAdd != null)
         {
             if (option.encounterToAdd.landEncounter) possibleLandEncounters.Add(option.encounterToAdd);

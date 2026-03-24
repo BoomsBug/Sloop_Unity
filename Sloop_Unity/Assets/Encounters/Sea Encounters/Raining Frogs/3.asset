@@ -25,8 +25,8 @@ MonoBehaviour:
     King of Frogs
   loadMinigame: 0
   minigameName: 
-  callAddCrewmate: 0
-  crewToAdd: {fileID: 0}
+  callAddCrewmate: 1
+  crewToAdd: {fileID: -3860984486255135725, guid: 1c416b5cb589c79419d6582cbf97081f, type: 3}
   callRemoveCrewmate: 1
   callAddEncounter: 1
   encounterToAdd: {fileID: 11400000, guid: 9e8b741a31b4e8b4d8e8c4c1f8903294, type: 2}

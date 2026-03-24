@@ -43,7 +43,7 @@ public class HyukHyukHarry : Crewmate
 
         return alteredCosts;
     }
-    public override ResourceAmount[] AlteredGain(ResourceAmount[] baseGains)
+    public override ResourceAmount[] AlteredGain(ResourceAmount[] baseGains, bool callFunctions = false)
     {
         int gold = 0;
         int food = 0;
