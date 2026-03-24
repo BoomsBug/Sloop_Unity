@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Kraken2
+  m_EditorClassIdentifier: 
+  encounterName: Kraken2
+  text: You hear a loud thud as something hits the hull. Suddenly tentacles erupt
+    from the water on all sides! The Kraken has returned.
+  options:
+  - {fileID: 11400000, guid: 31bc28e38d8fe614d920426fb4789809, type: 2}
+  - {fileID: 11400000, guid: 68f529c6f8928fd43b6a522e368a5803, type: 2}
+  - {fileID: 11400000, guid: 853500108ad93dd4c8eb5556c5d1eb17, type: 2}
+  - {fileID: 11400000, guid: 6c3f69a36091a5d40bbc8b237a5ad6a8, type: 2}
+  oneTime: 1

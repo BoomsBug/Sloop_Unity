@@ -269,7 +269,7 @@ namespace Sloop.NPC
                 $"Hire ({hireCost} gold)",
                 () =>
                 {
-                    ui.SetLine("You hired the deckhand. (stub)");
+                    ui.SetLine("You hired the deckhand.");
                     ui.HideChoices();
                     
                     if (data.subclassIndex != -1)

@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 1
+  m_Name: 3
   m_EditorClassIdentifier: 
-  text: Yes
-  cost: []
+  text: Give him some rations
+  cost:
+  - type: 2
+    amount: 30
   gain: []
-  isGainHidden: 0
-  outcome: 
-  loadMinigame: 1
-  minigameName: BarrelDodging
+  isGainHidden: 1
+  outcome: The Kraken is satisfied and leaves.
+  loadMinigame: 0
+  minigameName: 
   callAddCrewmate: 0
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0

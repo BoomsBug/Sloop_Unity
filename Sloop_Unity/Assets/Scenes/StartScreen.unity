@@ -924,7 +924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleEncounters.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleEncounters.Array.data[2]
@@ -946,6 +946,14 @@ PrefabInstance:
       propertyPath: possibleEncounters.Array.data[6]
       value: 
       objectReference: {fileID: 11400000, guid: 988b232f48952ad4294c5192e797962c, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleEncounters.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8fdc46a6e00e2e642993dd3448fec994, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleEncounters.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8fdc46a6e00e2e642993dd3448fec994, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager

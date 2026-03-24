@@ -12,15 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  text: Yes
-  cost: []
-  gain: []
+  text: Attack the Kraken
+  cost:
+  - type: 1
+    amount: 10
+  - type: 3
+    amount: 5
+  - type: 4
+    amount: 5
+  gain:
+  - type: 2
+    amount: 15
   isGainHidden: 0
-  outcome: 
-  loadMinigame: 1
-  minigameName: BarrelDodging
+  outcome: You face off against the deadly beast, severing tentacles upon tentacles.
+    An unsevered tentacle pulls a crewmate overboard, as it retreats into the depths.
+  loadMinigame: 0
+  minigameName: 
   callAddCrewmate: 0
   crewToAdd: {fileID: 0}
-  callRemoveCrewmate: 0
+  callRemoveCrewmate: 1
   callAddEncounter: 0
   encounterToAdd: {fileID: 0}
