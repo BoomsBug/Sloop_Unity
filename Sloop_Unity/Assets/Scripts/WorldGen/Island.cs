@@ -27,7 +27,7 @@ public class Island : MonoBehaviour
         int worldSeed = worldGen.seed;
         List<GameObject> islands = worldGen.islands;
 
-        if (isIsland)
+        if (isIsland && size >= 0) //only medium / large islands
         {
             //Place port
             Vector2[] points = GetComponent<PolygonCollider2D>().points;
