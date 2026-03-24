@@ -5,7 +5,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class GoodCrewA : Crewmate
+public class Frog : Crewmate
 {
 
     public override ResourceAmount[] AlteredCost(ResourceAmount[] baseCosts)
@@ -28,7 +28,9 @@ public class GoodCrewA : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
+        
 
+        
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -60,7 +62,9 @@ public class GoodCrewA : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        honour += 9;
+        
+        food += 5;
+
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {
@@ -76,11 +80,11 @@ public class GoodCrewA : Crewmate
     public override void HiredDialogue()
     {
         //bring up text box and character portrait, say dialogue, and wait for player to click continue
-        Debug.Log("Arrgh. I am a pirate");
+        Debug.Log("Ribbit");
     }
     public override void FiredDialogue()
     {
         //bring up text box and character portrait, say dialogue, and wait for player to click continue
-        Debug.Log("Arrgh. I am no longer a pirate");
+        Debug.Log("Sad ribbit");
     }
 }

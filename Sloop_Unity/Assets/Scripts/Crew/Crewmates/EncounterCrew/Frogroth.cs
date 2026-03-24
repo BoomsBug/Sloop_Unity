@@ -5,8 +5,9 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class GoodCrewA : Crewmate
+public class Frogroth : Crewmate
 {
+    [SerializeField] private Crewmate frog;
 
     public override ResourceAmount[] AlteredCost(ResourceAmount[] baseCosts)
     {
@@ -29,6 +30,7 @@ public class GoodCrewA : Crewmate
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
 
+        
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -60,7 +62,19 @@ public class GoodCrewA : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        honour += 9;
+        if (callFunctions)
+        {
+            if (UnityEngine.Random.value <= 1) //25% chance each encounter to turn a crewmate into a frog
+            {
+                Crewmate crewToRemove = CrewManager.Instance.hiredCrew[UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count)];
+                if (crewToRemove.crewName != "Frogroth, King of Frogs" && crewToRemove.crewName != "Frog")
+                {
+                    CrewManager.Instance.RemoveCrew(crewToRemove);
+                    CrewManager.Instance.HireEncounterCrew(frog);
+                }
+            }
+        }
+
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {
@@ -76,11 +90,11 @@ public class GoodCrewA : Crewmate
     public override void HiredDialogue()
     {
         //bring up text box and character portrait, say dialogue, and wait for player to click continue
-        Debug.Log("Arrgh. I am a pirate");
+        Debug.Log("I AM FROGROTH, KING OF FROGS!! Thanks for inviting me");
     }
     public override void FiredDialogue()
     {
         //bring up text box and character portrait, say dialogue, and wait for player to click continue
-        Debug.Log("Arrgh. I am no longer a pirate");
+        Debug.Log("YOU WILL RUE THIS DAY");
     }
 }
