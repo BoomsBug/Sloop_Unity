@@ -236,8 +236,8 @@ public class CannonController : MonoBehaviour
 
         Aim();  // Rotate cannon to face mouse position at every update (constantly)
 
-        if (Input.GetMouseButtonDown(0) && Time.time >= NextFireTime)
-            // If click left mouse and fire cooldown is over
+        if (!roundEnded && Input.GetMouseButtonDown(0) && Time.time >= NextFireTime)
+            // If click left mouse and fire cooldown is over, and round not ended
         {
             if (ShotsLeft > 0) {
                 Fire();
