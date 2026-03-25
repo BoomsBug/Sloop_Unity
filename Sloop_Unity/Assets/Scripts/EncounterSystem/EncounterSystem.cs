@@ -48,8 +48,9 @@ public class EncounterSystem : MonoBehaviour
     {
         UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
         nextLandEncounter = possibleLandEncounters[UnityEngine.Random.Range(0, possibleLandEncounters.Count)];
-        nextSeaEncounter = possibleSeaEncounters[UnityEngine.Random.Range(0, possibleSeaEncounters.Count)];
+        nextSeaEncounter = possibleSeaEncounters[UnityEngine.Random.Range(0, possibleSeaEncounters.Count)];   
     }
+
 
     public void LoadEncounter(bool landEncounter = false)
     {
@@ -63,6 +64,9 @@ public class EncounterSystem : MonoBehaviour
         Time.timeScale = 0.0f;
         PauseManager.Paused = true;
         encounterUI.SetActive(true);
+
+        //disable crew UI
+        CrewManager.Instance.disableUI();
 
         isEncounterActive = true;
         canChoose = true;
@@ -151,11 +155,6 @@ public class EncounterSystem : MonoBehaviour
         optionGains = CalculateAlteredGains(optionGains, true);
         ResourceManager.Instance.Add(optionGains);
 
-
-        //Checks each bool in option to see if it should call a specific function
-        CallOptionFunctions(selectedOption);
-
-
         //Enables continue button
         continueButton.SetActive(true);
         canContinue = true;
@@ -168,6 +167,9 @@ public class EncounterSystem : MonoBehaviour
         {
             nextSeaEncounter = ManagerEncounterList(possibleSeaEncounters, completedSeaEncounters);
         }
+
+        //Checks each bool in option to see if it should call a specific function
+        CallOptionFunctions(selectedOption);
     }
 
     public void ContinueGame()
@@ -181,6 +183,9 @@ public class EncounterSystem : MonoBehaviour
 
         //allows another encounter to happen
         isEncounterActive = false;
+
+        //enables crew UI
+        CrewManager.Instance.enableUI();
     }
 
     private EncounterSO ManagerEncounterList(List<EncounterSO> possible, List<EncounterSO> completed)
@@ -278,6 +283,10 @@ public class EncounterSystem : MonoBehaviour
             Time.timeScale = 1.0f; //temorary, should have better state save system
             PauseManager.Paused = false;
             encounterUI.SetActive(false);
+            CrewManager.Instance.disableUI();
+            canContinue = false;
+            //isEncounterActive = false;
+            GameManager.Instance.state = GameState.Minigame;
             SceneManager.LoadScene(option.minigameName);
         }
 
@@ -298,5 +307,30 @@ public class EncounterSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C)) LoadEncounter();
         if (Input.GetKeyDown(KeyCode.Space)) ContinueGame();
-    } 
+
+        // if (GameManager.Instance.state == GameState.Sailing && !isEncounterActive)
+        // {
+        //     CrewManager.Instance.enableUI();
+        // }
+        // else CrewManager.Instance.disableUI();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "PRODUCTION" && isEncounterActive)
+        {
+            encounterUI.SetActive(true);
+            canContinue = true;
+        }
+    }
 }

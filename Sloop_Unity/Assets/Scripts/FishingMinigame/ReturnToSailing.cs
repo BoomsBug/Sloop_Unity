@@ -9,7 +9,7 @@ public class ReturnToSailing : MonoBehaviour
 
     public void GoBack()
     {
-        SceneManager.LoadScene(sailingSceneName);
+        GameManager.Instance.UpdateGameState(GameState.Sailing);
     }
 
     /*
