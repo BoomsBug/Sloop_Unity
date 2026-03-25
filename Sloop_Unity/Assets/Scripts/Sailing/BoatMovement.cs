@@ -240,11 +240,6 @@ public class BoatMovement : MonoBehaviour
                 gm.currentIslandMorality = curIsland.morality;
             }
 
-            if (curIsland.hasTreasure)
-            {
-                SceneManager.LoadScene("Treasure");
-            }
-
             // Load the correct port scene
             switch (curIsland.morality)
             {
@@ -264,7 +259,7 @@ public class BoatMovement : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) 
+        else if (Input.GetKeyDown(KeyCode.E)) 
         {
             Collider2D islandCollider = Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Island"));
             if (islandCollider && !islandCollider.isTrigger && islandCollider.gameObject.GetComponent<Island>().hasTreasure)

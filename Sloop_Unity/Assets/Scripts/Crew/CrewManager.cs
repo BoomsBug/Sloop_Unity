@@ -5,6 +5,7 @@ using Sloop.NPC;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CrewManager : MonoBehaviour
 {
@@ -46,6 +47,22 @@ public class CrewManager : MonoBehaviour
     void Start()
     {
         UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "PRODUCTION")
+            enableUI();
     }
 
     //Takes NPC Data which has traits etc... but also has a Crewmate subclass, this makes the new Crewmate have the functionality of passed subclass

@@ -187,6 +187,7 @@ public enum GameState
     RIslandPort,
     VictoryMenu,
     LossMenu,
-    CannonPractice
+    CannonPractice,
+    Minigame
 }
 

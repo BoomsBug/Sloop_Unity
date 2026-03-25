@@ -8,7 +8,7 @@ public class Island : MonoBehaviour
     public Vector2 tileCoordinates;
     public Vector2 islandCenter;
     public bool isIsland;
-    public int size; // < 0 is small, 0 is medium, > 0 is large
+    public float size; // < 0 is small, 0 is medium, > 0 is large
     public string morality;
     public GameObject port;
     public bool hasTreasure;

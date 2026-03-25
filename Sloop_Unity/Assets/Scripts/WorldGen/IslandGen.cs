@@ -185,6 +185,7 @@ public class IslandGen : MonoBehaviour
             Vector2 pointCenter = sum / points.Length;
             islandScript.islandCenter = pointCenter;
             islandScript.port = port;
+            islandScript.size = extraLevel;
         }
 
         return islandObject;
