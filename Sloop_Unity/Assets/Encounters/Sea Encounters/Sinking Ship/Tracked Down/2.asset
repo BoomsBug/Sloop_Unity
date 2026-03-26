@@ -26,8 +26,8 @@ MonoBehaviour:
     he might betray you.
   loadMinigame: 0
   minigameName: 
-  callAddCrewmate: 0
-  crewToAdd: {fileID: 0}
+  callAddCrewmate: 1
+  crewToAdd: {fileID: 2827987482385375505, guid: 17a2fe89e71a5c14ba44f08301f4e8cb, type: 3}
   callRemoveCrewmate: 0
   callAddEncounter: 0
   encounterToAdd: {fileID: 0}
