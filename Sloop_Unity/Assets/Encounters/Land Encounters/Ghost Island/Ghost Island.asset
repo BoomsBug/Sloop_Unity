@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
-  m_Name: Land Test
+  m_Name: Ghost Island
   m_EditorClassIdentifier: 
   encounterName: 
-  text: There is nothing of interest at this island.
+  text: The shimmering light of this island intrigues you. Getting closer, the air
+    around it is warped and faintly glowing. A quiet hum comes from deep within the
+    island, slowly turning into a voice. "Our treasure has been stolen. If you return
+    it to us, we can finally rest...".
   options:
-  - {fileID: 11400000, guid: a7e86dbbc4d1dc04e85a978da640ab08, type: 2}
-  - {fileID: 11400000, guid: 71bb225dd49b85e488def3ee12b3971a, type: 2}
-  oneTime: 0
+  - {fileID: 11400000, guid: 0761b544e40468341a55c702ca103aa9, type: 2}
+  oneTime: 1
   landEncounter: 1

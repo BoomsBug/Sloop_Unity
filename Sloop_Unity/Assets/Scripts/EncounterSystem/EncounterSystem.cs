@@ -31,6 +31,7 @@ public class EncounterSystem : MonoBehaviour
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
     public Typewriter typewriter;
+    public GameObject rewardsPanel;
 
     void Awake()
     {
@@ -76,6 +77,9 @@ public class EncounterSystem : MonoBehaviour
 
         //enables typewriter effect
         typewriter.StartTypewriter();
+
+        //ensures rewards panel is disables
+        rewardsPanel.SetActive(false);
 
         //ensures continue button is disabled
         continueButton.SetActive(false);
@@ -163,6 +167,10 @@ public class EncounterSystem : MonoBehaviour
         optionGains = CalculateAlteredGains(optionGains, true);
         ResourceManager.Instance.Add(optionGains);
 
+        //enables rewards panel
+        rewardsPanel.SetActive(true);
+        rewardsPanel.transform.Find("Rewards Text").GetComponent<TextMeshProUGUI>().text = PrintListOfResources(optionGains);
+
         //Enables continue button
         continueButton.SetActive(true);
         canContinue = true;
@@ -194,6 +202,9 @@ public class EncounterSystem : MonoBehaviour
 
         //enables crew UI
         CrewManager.Instance.enableUI();
+        
+        //disable rewards panel
+        rewardsPanel.SetActive(false);
     }
 
     private EncounterSO ManagerEncounterList(List<EncounterSO> possible, List<EncounterSO> completed)

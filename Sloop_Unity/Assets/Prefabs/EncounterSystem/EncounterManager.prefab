@@ -205,6 +205,7 @@ MonoBehaviour:
   - {fileID: 5076141796266941011}
   - {fileID: 6591713245768491294}
   typewriter: {fileID: 3455829085897217476}
+  rewardsPanel: {fileID: 4000080241773246403}
 --- !u!1 &7440408285333027356
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,6 +464,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
       objectReference: {fileID: 0}
+    - target: {fileID: 328061942361572782, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 520466538676114185, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -709,6 +714,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f23445b8d5d37045a50812d934b7c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4000080241773246403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 328061942361572782, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+  m_PrefabInstance: {fileID: 3679055312343183981}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5076141796266941011 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8465840694038865982, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
