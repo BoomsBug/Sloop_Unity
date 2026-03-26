@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Kraken4
+  m_EditorClassIdentifier: 
+  encounterName: Kraken4
+  text: A tentacle waves in the air. Your friend the Kraken has returned!
+  options:
+  - {fileID: 11400000, guid: 5148f73511115f1498bd6fdf75285939, type: 2}
+  - {fileID: 11400000, guid: 79989cc79e4ae654b9ce1d85d249e896, type: 2}
+  - {fileID: 11400000, guid: dd8b70e430831bc4a9171d733bfae09c, type: 2}
+  - {fileID: 11400000, guid: d0a788043d028a54d943e6e6473f2249, type: 2}
+  oneTime: 0

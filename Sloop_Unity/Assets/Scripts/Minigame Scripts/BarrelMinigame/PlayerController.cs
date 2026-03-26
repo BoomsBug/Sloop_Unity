@@ -22,11 +22,35 @@ public class PlayerController : MonoBehaviour
     private bool isDashing = false;
     private int dashCharges = 0;              // Number of dash charges available
 
+    [Header("Jump Audio")]
+    public AudioClip[] jumpClips;
+
+    [Range(0f, 1f)]
+    public float jumpVolume = 1f;
+
+    [Range(0.8f, 1.2f)]
+    public float jumpPitchMin = 0.9f;
+
+    [Range(0.8f, 1.2f)]
+    public float jumpPitchMax = 1.1f;
+
+    private AudioSource audioSource;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         manager = FindObjectOfType<BarrelDashTestManager>();
+        audioSource = GetComponent<AudioSource>();
+    }
+    void PlayJumpSound()
+    {
+        if (jumpClips.Length == 0 || audioSource == null) return;
+
+        AudioClip clip = jumpClips[Random.Range(0, jumpClips.Length)];
+
+        audioSource.pitch = Random.Range(jumpPitchMin, jumpPitchMax);
+        audioSource.PlayOneShot(clip, jumpVolume);
     }
 
     void Update()
@@ -36,6 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isGrounded = false;
+            PlayJumpSound();
         }
 
         // Parry input (Left Mouse Button)

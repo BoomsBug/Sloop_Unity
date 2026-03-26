@@ -28,7 +28,9 @@ public class Template : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
+        
 
+        
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -41,7 +43,7 @@ public class Template : Crewmate
 
         return alteredCosts;
     }
-    public override ResourceAmount[] AlteredGain(ResourceAmount[] baseGains)
+    public override ResourceAmount[] AlteredGain(ResourceAmount[] baseGains, bool callFunctions = false) //if you want to call functions here, set to true
     {
         int gold = 0;
         int food = 0;
@@ -61,6 +63,8 @@ public class Template : Crewmate
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
         
+
+
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {

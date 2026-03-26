@@ -1,5 +1,7 @@
 using UnityEngine;
 using Sloop.NPC.Dialogue;
+using System;
+using System.Reflection;
 
 namespace Sloop.NPC
 {
@@ -267,9 +269,16 @@ namespace Sloop.NPC
                 $"Hire ({hireCost} gold)",
                 () =>
                 {
-                    ui.SetLine("You hired the deckhand. (stub)");
+                    ui.SetLine("You hired the deckhand.");
                     ui.HideChoices();
-                    // TODO: call CrewManager.AddCrew(data), deduct gold, etc.
+
+                    Sprite sprite = GetComponent<SpriteRenderer>().sprite;
+                    if (!sprite) Debug.Log("Invalid crewmember: missing sprite");
+                    
+                    if (data.subclassIndex != -1)
+                        CrewManager.Instance.HireCrew(data.subclassIndex, data, sprite);
+                    else
+                        Debug.Log("Invalid crewmember: missing subclass");
                 },
                 "Maybe Later",
                 () =>
@@ -340,11 +349,11 @@ namespace Sloop.NPC
                 {
                     if (band == WillingnessBand.Friendly || band == WillingnessBand.Neutral)
                     {
-                        ui.SetLine("I heard of ancient treasure due East (True)");
+                        ui.SetLine($"I heard of ancient treasure due {GameManager.Instance.directionToTreasure} (True)");
                     }
                     else
                     {
-                        ui.SetLine("I heard of ancient treasure due West (False)");
+                        ui.SetLine($"I heard of ancient treasure due {GameManager.Instance.randomDirection} (Possibly false)");
                     }
                     ui.HideChoices();
                 },

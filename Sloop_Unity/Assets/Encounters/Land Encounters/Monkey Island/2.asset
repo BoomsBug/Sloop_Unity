@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 2
+  m_EditorClassIdentifier: 
+  text: Recruit a monkey
+  cost:
+  - type: 2
+    amount: 60
+  gain:
+  - type: 3
+    amount: 10
+  - type: 4
+    amount: 10
+  isGainHidden: 1
+  outcome: One the monkeys is already wearing a sailor's hat! He definitely knows
+    how to sail.
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 1
+  crewToAdd: {fileID: 6306366020550114050, guid: d34613d9ae8678845bbc6824b1c79c42, type: 3}
+  callRemoveCrewmate: 0
+  callAddEncounter: 0
+  encounterToAdd: {fileID: 0}

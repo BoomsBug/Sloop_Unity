@@ -25,6 +25,23 @@ public class GameManager : MonoBehaviour
     public int currentIslandID = -1;
     public string currentIslandMorality;
 
+    public string directionToTreasure;
+
+    [Header("Global Variables")]
+    public string randomDirection;
+    public bool worldAlreadyLoaded = false;
+
+    [Header("World Gen")]
+    public List<GameObject> islands;
+
+    // [Header("Encounters")]
+    // public List<EncounterSO> possibleSailingEncounters;
+    // [HideInInspector] public List<EncounterSO> completedSailingEncounters;
+    // public List<EncounterSO> possibleIslandEncounters;
+    // [HideInInspector] public List<EncounterSO> completedIslandEncounters;
+    // public EncounterSO curSailingEncounter;
+    // public EncounterSO curIslandEncounter;
+
 
     // GameManager instance to grab from anywhere in game
     public static GameManager Instance { get; private set; }
@@ -76,6 +93,9 @@ public class GameManager : MonoBehaviour
                 HandleLossMenu();
                 break;
             case GameState.CannonPractice:
+                HandleCannonPractice();
+                break;
+            case GameState.CannonBattle:
                 HandleCannonPractice();
                 break;
             default:
@@ -132,6 +152,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("CannonPractice");
     }
 
+    private void HandleCannonBattle()
+    {
+        SceneManager.LoadScene("CannonBattle");
+    }
+
 
     public void DockOnIsland()
     {
@@ -170,6 +195,8 @@ public enum GameState
     RIslandPort,
     VictoryMenu,
     LossMenu,
-    CannonPractice
+    CannonPractice,
+    Minigame,
+    CannonBattle
 }
 

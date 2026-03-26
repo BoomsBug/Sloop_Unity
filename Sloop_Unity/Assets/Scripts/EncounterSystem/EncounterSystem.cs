@@ -8,17 +8,20 @@ using UnityEngine;
 using Sloop.Economy;
 using UnityEngine.UI;
 using System;
-
-//TODO: Make possibleEncounters and completedEncounters persist when loading to island scene and back
+using UnityEngine.SceneManagement;
 
 public class EncounterSystem : MonoBehaviour
 {
     public static EncounterSystem Instance;
     public GameObject encounterUI;
-    public List<EncounterSO> possibleEncounters;
-    private List<EncounterSO> completedEncounters = new List<EncounterSO>();
+    public List<EncounterSO> possibleSeaEncounters;
+    public List<EncounterSO> completedSeaEncounters = new List<EncounterSO>();
+    public List<EncounterSO> possibleLandEncounters;
+    public List<EncounterSO> completedLandEncounters = new List<EncounterSO>();
     public bool cycleEncounters;
     public EncounterSO curEncounter;
+    public EncounterSO nextLandEncounter;
+    public EncounterSO nextSeaEncounter;
     public GameObject continueButton;
     private bool canContinue = false;
     private bool canChoose = false;
@@ -27,21 +30,56 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
+    public Typewriter typewriter;
+    public GameObject rewardsPanel;
 
-    public void LoadEncounter()
+    void Awake()
+    {
+        // Singleton pattern
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
+        nextLandEncounter = possibleLandEncounters[UnityEngine.Random.Range(0, possibleLandEncounters.Count)];
+        nextSeaEncounter = possibleSeaEncounters[UnityEngine.Random.Range(0, possibleSeaEncounters.Count)];   
+    }
+
+
+    public void LoadEncounter(bool landEncounter = false)
     {
         //ensures only one encounter at a time
         if (isEncounterActive) return;
+
+        //if player is on land, set curEncounter to nextLandEncounter
+        curEncounter = landEncounter ? nextLandEncounter : nextSeaEncounter;
 
         //Pauses game and enable encounter UI
         Time.timeScale = 0.0f;
         PauseManager.Paused = true;
         encounterUI.SetActive(true);
 
+        //disable crew UI
+        CrewManager.Instance.disableUI();
+
         isEncounterActive = true;
         canChoose = true;
 
         encounterText.text = curEncounter.text;
+
+        //enables typewriter effect
+        typewriter.StartTypewriter();
+
+        //ensures rewards panel is disables
+        rewardsPanel.SetActive(false);
 
         //ensures continue button is disabled
         continueButton.SetActive(false);
@@ -68,7 +106,7 @@ public class EncounterSystem : MonoBehaviour
 
             //calls functions to calculate altered cost and gain based on hired crew;
             ResourceAmount[] alteredCost = CalculateAlteredCosts(curEncounter.options[i].cost);
-            ResourceAmount[] alteredGain = CalculateAlteredGains(curEncounter.options[i].gain);
+            ResourceAmount[] alteredGain = CalculateAlteredGains(curEncounter.options[i].gain, false);
             
             string alteredCostString = PrintListOfResources(alteredCost);
             string alteredGainString = PrintListOfResources(alteredGain);
@@ -110,6 +148,10 @@ public class EncounterSystem : MonoBehaviour
         }
 
         encounterText.text = selectedOption.outcome;
+
+        //enables typewriter effect
+        typewriter.StartTypewriter();
+
         //disables and hides option panels
         foreach (GameObject panel in optionPanels)
         {
@@ -122,31 +164,28 @@ public class EncounterSystem : MonoBehaviour
 
         //Adds gained resources to player (also calculate altered gains)
         ResourceAmount[] optionGains = selectedOption.gain;
-        optionGains = CalculateAlteredGains(optionGains);
+        optionGains = CalculateAlteredGains(optionGains, true);
         ResourceManager.Instance.Add(optionGains);
 
-
-        CallOptionFunctions(selectedOption);
-
+        //enables rewards panel
+        rewardsPanel.SetActive(true);
+        rewardsPanel.transform.Find("Rewards Text").GetComponent<TextMeshProUGUI>().text = PrintListOfResources(optionGains);
 
         //Enables continue button
         continueButton.SetActive(true);
         canContinue = true;
 
-        //Decides what next encounter is
-        completedEncounters.Add(curEncounter);
-        possibleEncounters.Remove(curEncounter);
-
-        //If all possible encounters used up, replenish list with completed encounters that aren't one time use
-        if (cycleEncounters && possibleEncounters.Count <= 0)
+        if (curEncounter.landEncounter) 
         {
-            foreach (EncounterSO completedEncounter in completedEncounters)
-            {
-                if (!completedEncounter.oneTime) possibleEncounters.Add(completedEncounter);
-            }
-            completedEncounters = new List<EncounterSO>();
+            nextLandEncounter = ManagerEncounterList(possibleLandEncounters, completedLandEncounters);
         }
-        curEncounter = possibleEncounters[UnityEngine.Random.Range(0, possibleEncounters.Count)];
+        else if (!curEncounter.landEncounter) 
+        {
+            nextSeaEncounter = ManagerEncounterList(possibleSeaEncounters, completedSeaEncounters);
+        }
+
+        //Checks each bool in option to see if it should call a specific function
+        CallOptionFunctions(selectedOption);
     }
 
     public void ContinueGame()
@@ -160,6 +199,33 @@ public class EncounterSystem : MonoBehaviour
 
         //allows another encounter to happen
         isEncounterActive = false;
+
+        //enables crew UI
+        CrewManager.Instance.enableUI();
+        
+        //disable rewards panel
+        rewardsPanel.SetActive(false);
+    }
+
+    private EncounterSO ManagerEncounterList(List<EncounterSO> possible, List<EncounterSO> completed)
+    {
+        //Decides what next encounter is
+        completed.Add(curEncounter);
+        possible.Remove(curEncounter);
+
+        //If all possible encounters used up, replenish list with completed encounters that aren't one time use
+        if (cycleEncounters && possible.Count <= 0)
+        {
+            foreach (EncounterSO completedEncounter in new List<EncounterSO>(completed))
+            {
+                if (!completedEncounter.oneTime) 
+                {
+                    possible.Add(completedEncounter);
+                    completed.Remove(completedEncounter);
+                }
+            }
+        }
+        return possible[UnityEngine.Random.Range(0, possible.Count)];
     }
 
     private ResourceAmount[] CalculateAlteredCosts(ResourceAmount[] baseCosts)
@@ -179,7 +245,7 @@ public class EncounterSystem : MonoBehaviour
         
         return alteredCosts;
     }
-    private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains)
+    private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains, bool callFunctions = false)
     {
         //For each crewmember hired, call their resource function and pass baseResources
         //Each crewmember will add or subtract to each resource type
@@ -189,9 +255,9 @@ public class EncounterSystem : MonoBehaviour
         ResourceAmount[] alteredGains = new ResourceAmount[baseGains.Length];
         Array.Copy(baseGains, alteredGains, baseGains.Length);
 
-        foreach (Crewmate crew in hiredCrew)
+        foreach (Crewmate crew in new List<Crewmate>(hiredCrew))
         {
-            alteredGains = crew.AlteredGain(alteredGains);
+            alteredGains = crew.AlteredGain(alteredGains, callFunctions);
         }
 
         return alteredGains;
@@ -218,20 +284,36 @@ public class EncounterSystem : MonoBehaviour
     {
         // Given the selected option, calls relevant specific functions specified by the encounter option SO
         // for example, if the option says that the fishing minigame should be loaded, call it here
-        if (option.callAddCrewmate)
-            CrewManager.Instance.HireCrew(option.crewToAdd);
 
-        if (option.callRemoveCrewmate)
+        //Removes a crewmate at random
+        if (option.callRemoveCrewmate && CrewManager.Instance.hiredCrew.Count > 0)
         {
-            UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
             int randomIndex = UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count);
             CrewManager.Instance.RemoveCrew(CrewManager.Instance.hiredCrew[randomIndex]);
         }
 
+        //hires
+        if (option.callAddCrewmate)
+            CrewManager.Instance.HireEncounterCrew(option.crewToAdd);
+
         if (option.loadMinigame)
         {
-            //TODO: load scene of name $"{option.minigameName}"
-            //  make sure it saves everything properly
+
+            Time.timeScale = 1.0f; //temorary, should have better state save system
+            PauseManager.Paused = false;
+            encounterUI.SetActive(false);
+            CrewManager.Instance.disableUI();
+            canContinue = false;
+            //isEncounterActive = false;
+            GameManager.Instance.state = GameState.Minigame;
+            SceneManager.LoadScene(option.minigameName);
+        }
+
+        //adds encounter
+        if (option.callAddEncounter && option.encounterToAdd != null)
+        {
+            if (option.encounterToAdd.landEncounter) possibleLandEncounters.Add(option.encounterToAdd);
+            else if (!option.encounterToAdd.landEncounter) possibleSeaEncounters.Add(option.encounterToAdd);
         }
     }
 
@@ -244,5 +326,30 @@ public class EncounterSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C)) LoadEncounter();
         if (Input.GetKeyDown(KeyCode.Space)) ContinueGame();
-    } 
+
+        // if (GameManager.Instance.state == GameState.Sailing && !isEncounterActive)
+        // {
+        //     CrewManager.Instance.enableUI();
+        // }
+        // else CrewManager.Instance.disableUI();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "PRODUCTION" && isEncounterActive)
+        {
+            encounterUI.SetActive(true);
+            canContinue = true;
+        }
+    }
 }

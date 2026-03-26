@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Tracked Down
+  m_EditorClassIdentifier: 
+  encounterName: Tracked Down
+  text: Small dinghy pulls alongside your ship and a man hops out. "You're the scumbag
+    that plundered my sinking ship! Looks like your luck has run out"
+  options:
+  - {fileID: 11400000, guid: 00ff0bd6bb869634b8988c4bdae454d6, type: 2}
+  - {fileID: 11400000, guid: 0427b55dd0c671542b777d69c9c04253, type: 2}
+  - {fileID: 11400000, guid: 6cf3ed57b466a244a99852cfc8e7e2b7, type: 2}
+  oneTime: 1

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 3
+  m_EditorClassIdentifier: 
+  text: Shoot them
+  cost:
+  - type: 3
+    amount: 50
+  - type: 4
+    amount: 20
+  gain: []
+  isGainHidden: 1
+  outcome: Nobody demands anything from you! You bark the orders to man the cannons
+    and in an instant, the crew comes alive. The spirits have barely any time to
+    react before you give the order to fire. Your ears ring and black smoke fills
+    the air as every cannon on the side of the ship goes off into the four spirits.
+    During the barrage, you make out that one of spirits got hit, but another flexed
+    their oceanly muscles and ripped one of your crew off your ship. As the black
+    smoke settles, they are gone, as is one of your crewmates.
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 0
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 1
+  callTeleportShip: 0
+  callAddEncounter: 1
+  encounterToAdd: {fileID: 11400000, guid: b77d7a88484e44141847a89d418f182a, type: 2}

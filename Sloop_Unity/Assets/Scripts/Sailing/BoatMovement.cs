@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sloop.World;
+using UnityEngine.Animations;
 
 
 public class BoatMovement : MonoBehaviour
@@ -205,7 +206,20 @@ public class BoatMovement : MonoBehaviour
                 return;
             }
 
+            //When player docks at a port, find the island that has the treasure, 
             WorldGen worldGen = FindObjectOfType<WorldGen>();
+            Island treasureIsland = worldGen.islands[worldGen.treasureIsland].GetComponent<Island>();
+            //  calculate the direction between that island and the player location,
+            float angle = Vector2.SignedAngle(gameObject.transform.right, treasureIsland.tileCoordinates - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y));
+            Debug.Log(treasureIsland.tileCoordinates);
+            //  turn that angle into a cardinal direction, and give that string to GameManager.
+            string cardinalDirection = AngleToDirection(angle);
+            Random.InitState(GameManager.Instance.worldSeed);
+            string randomDirection = AngleToDirection(Random.Range(0,360));
+            //  GameManager will use it in the island scene to tell the player which way to head  
+            GameManager.Instance.directionToTreasure = cardinalDirection;
+            GameManager.Instance.randomDirection = randomDirection;
+
             int worldSeed = worldGen != null ? worldGen.seed : 0;
 
             // Save context for port scene NPC generation
@@ -224,11 +238,6 @@ public class BoatMovement : MonoBehaviour
 
                 gm.currentIslandID = curIsland.islandID;
                 gm.currentIslandMorality = curIsland.morality;
-            }
-
-            if (curIsland.hasTreasure)
-            {
-                SceneManager.LoadScene("Treasure");
             }
 
             // Load the correct port scene
@@ -250,15 +259,41 @@ public class BoatMovement : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) 
+        else if (Input.GetKeyDown(KeyCode.E)) 
         {
             Collider2D islandCollider = Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Island"));
-            if (islandCollider && islandCollider.gameObject.GetComponent<Island>().hasTreasure)
+            if (islandCollider && !islandCollider.isTrigger && islandCollider.gameObject.GetComponent<Island>().hasTreasure)
             {
                 SceneManager.LoadScene("Treasure");
             }
+            else if (islandCollider && !islandCollider.isTrigger)
+            {
+                Debug.Log(islandCollider.gameObject.name);
+                EncounterSystem.Instance.LoadEncounter(true); //true means it loads land encounters
+            }
         }
         
+    }
+
+    private string AngleToDirection(float angle)
+    {
+        Debug.Log(angle);
+        //takes a float representing the angle between two vectors in degrees and returns a cardinal direction (E, SE, N, etc...)
+
+        if (angle < 0) angle += 360; //turns range from -180 -> 180 to 0 -> 360
+        angle += 22.5f;
+        if (angle > 360) angle %= 360; //turns 361 into just 1
+        Debug.Log(angle);
+
+        if (angle < 45) return "east";
+        if (angle < 90) return "north east";
+        if (angle < 135) return "north";
+        if (angle < 180) return "north west";
+        if (angle < 225) return "west";
+        if (angle < 270) return "south west";
+        if (angle < 315) return "south";
+        if (angle < 360) return "south east";
+        else return "INVALID DIRECTION";
     }
 
     // When the ship enters a new ocean tile, set curIsland to that tile
