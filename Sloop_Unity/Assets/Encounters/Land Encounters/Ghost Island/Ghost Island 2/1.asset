@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  text: Leave them be
+  cost: []
+  gain: []
+  isGainHidden: 0
+  outcome: They sail off into the horizon, growing fainter and fainter until they
+    merge with the sky itself.
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 0
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 0
+  callAddEncounter: 0
+  encounterToAdd: {fileID: 11400000, guid: a461994f39939874592f08c15248623a, type: 2}

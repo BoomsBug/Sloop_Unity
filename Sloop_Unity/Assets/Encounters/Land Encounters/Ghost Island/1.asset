@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  text: What?
+  cost: []
+  gain: []
+  isGainHidden: 0
+  outcome: You yell out in response but the island ignores you, its glow has died
+    down.
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 0
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 0
+  callAddEncounter: 1
+  encounterToAdd: {fileID: 11400000, guid: a461994f39939874592f08c15248623a, type: 2}

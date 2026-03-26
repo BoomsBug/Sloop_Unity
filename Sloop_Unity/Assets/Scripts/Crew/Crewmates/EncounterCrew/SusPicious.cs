@@ -5,7 +5,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Frogroth : Crewmate
+public class SusPicious : Crewmate
 {
 
     public override ResourceAmount[] AlteredCost(ResourceAmount[] baseCosts)
@@ -16,7 +16,7 @@ public class Frogroth : Crewmate
         int power = 0;
         int honour = 0;
 
-        for (int i = 0; i < baseCosts.Length; i++)
+        for (int i = 0; i < baseCosts.Length; i ++)
         {
             Resource resource = baseCosts[i].type;
             if (resource == Resource.Gold) gold = baseCosts[i].amount;
@@ -25,12 +25,12 @@ public class Frogroth : Crewmate
             if (resource == Resource.Power) power = baseCosts[i].amount;
             if (resource == Resource.Honour) honour = baseCosts[i].amount;
         }
-
+        
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
+        
 
-
-
+        
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -43,7 +43,7 @@ public class Frogroth : Crewmate
 
         return alteredCosts;
     }
-    public override ResourceAmount[] AlteredGain(ResourceAmount[] baseGains)
+    public override ResourceAmount[] AlteredGain(ResourceAmount[] baseGains, bool callFunctions = false) //if you want to call functions here, set to true
     {
         int gold = 0;
         int food = 0;
@@ -51,7 +51,7 @@ public class Frogroth : Crewmate
         int power = 0;
         int honour = 0;
 
-        for (int i = 0; i < baseGains.Length; i++)
+        for (int i = 0; i < baseGains.Length; i ++)
         {
             Resource resource = baseGains[i].type;
             if (resource == Resource.Gold) gold = baseGains[i].amount;
@@ -60,9 +60,9 @@ public class Frogroth : Crewmate
             if (resource == Resource.Power) power = baseGains[i].amount;
             if (resource == Resource.Honour) honour = baseGains[i].amount;
         }
-
+        
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-
+        
 
 
         //-----------------------------------------------------------

@@ -271,9 +271,12 @@ namespace Sloop.NPC
                 {
                     ui.SetLine("You hired the deckhand.");
                     ui.HideChoices();
+
+                    Sprite sprite = GetComponent<SpriteRenderer>().sprite;
+                    if (!sprite) Debug.Log("Invalid crewmember: missing sprite");
                     
                     if (data.subclassIndex != -1)
-                        CrewManager.Instance.HireCrew(data.subclassIndex, data);
+                        CrewManager.Instance.HireCrew(data.subclassIndex, data, sprite);
                     else
                         Debug.Log("Invalid crewmember: missing subclass");
                 },

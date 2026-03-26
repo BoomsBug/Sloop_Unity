@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.8, y: -20.5}
+  m_AnchoredPosition: {x: 41.8, y: -30.4}
   m_SizeDelta: {x: 100, y: 33.985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1246018229562354458
@@ -179,13 +179,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f1b4c893b83604aae50a856bd873fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  encounterUIprefab: {fileID: 581977765669588059}
-  possibleEncounters:
+  encounterUI: {fileID: 581977765669588059}
+  possibleSeaEncounters:
+  - {fileID: 11400000, guid: 2ee107ebbf240b4409411f1b00e86e9e, type: 2}
+  - {fileID: 11400000, guid: 988b232f48952ad4294c5192e797962c, type: 2}
   - {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
+  - {fileID: 11400000, guid: fb9242251c2f0874ca05690b8815b567, type: 2}
   - {fileID: 11400000, guid: f108cb998f9877047ab7f72e1876d174, type: 2}
-  - {fileID: 11400000, guid: 0ddd44787b500e64e87b84f845a4ec31, type: 2}
+  - {fileID: 11400000, guid: a72d3ab3b0d6045418fd68394a1b0571, type: 2}
+  - {fileID: 11400000, guid: 8fdc46a6e00e2e642993dd3448fec994, type: 2}
+  - {fileID: 11400000, guid: 6f83dfb001e9e6d498cc2dcf7cc38866, type: 2}
+  completedSeaEncounters: []
+  possibleLandEncounters:
+  - {fileID: 11400000, guid: 7232343a549216c4583d6128ebbfe67e, type: 2}
+  completedLandEncounters: []
   cycleEncounters: 1
   curEncounter: {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
+  nextLandEncounter: {fileID: 0}
+  nextSeaEncounter: {fileID: 0}
   continueButton: {fileID: 396428230716608008}
   encounterText: {fileID: 5588426495621141051}
   optionPanels:
@@ -193,6 +204,8 @@ MonoBehaviour:
   - {fileID: 7684187031734859498}
   - {fileID: 5076141796266941011}
   - {fileID: 6591713245768491294}
+  typewriter: {fileID: 3455829085897217476}
+  rewardsPanel: {fileID: 4000080241773246403}
 --- !u!1 &7440408285333027356
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250.7, y: -20.5}
+  m_AnchoredPosition: {x: 250.7, y: -30.400005}
   m_SizeDelta: {x: 100, y: 33.985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &170720804074126055
@@ -451,6 +464,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChooseOption
       objectReference: {fileID: 0}
+    - target: {fileID: 328061942361572782, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 520466538676114185, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -629,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7348049220011831458, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 7393155145739940613, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
       propertyPath: m_IsActive
@@ -684,6 +701,22 @@ RectTransform:
 --- !u!1 &1098814913485125972 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4337361200075770681, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+  m_PrefabInstance: {fileID: 3679055312343183981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3455829085897217476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2088319399829661609, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
+  m_PrefabInstance: {fileID: 3679055312343183981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f23445b8d5d37045a50812d934b7c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4000080241773246403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 328061942361572782, guid: 237471c01e7c681418dd061bd8e2f369, type: 3}
   m_PrefabInstance: {fileID: 3679055312343183981}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5076141796266941011 stripped

@@ -30,6 +30,8 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
+    public Typewriter typewriter;
+    public GameObject rewardsPanel;
 
     void Awake()
     {
@@ -48,8 +50,9 @@ public class EncounterSystem : MonoBehaviour
     {
         UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
         nextLandEncounter = possibleLandEncounters[UnityEngine.Random.Range(0, possibleLandEncounters.Count)];
-        nextSeaEncounter = possibleSeaEncounters[UnityEngine.Random.Range(0, possibleSeaEncounters.Count)];
+        nextSeaEncounter = possibleSeaEncounters[UnityEngine.Random.Range(0, possibleSeaEncounters.Count)];   
     }
+
 
     public void LoadEncounter(bool landEncounter = false)
     {
@@ -64,10 +67,19 @@ public class EncounterSystem : MonoBehaviour
         PauseManager.Paused = true;
         encounterUI.SetActive(true);
 
+        //disable crew UI
+        CrewManager.Instance.disableUI();
+
         isEncounterActive = true;
         canChoose = true;
 
         encounterText.text = curEncounter.text;
+
+        //enables typewriter effect
+        typewriter.StartTypewriter();
+
+        //ensures rewards panel is disables
+        rewardsPanel.SetActive(false);
 
         //ensures continue button is disabled
         continueButton.SetActive(false);
@@ -94,7 +106,7 @@ public class EncounterSystem : MonoBehaviour
 
             //calls functions to calculate altered cost and gain based on hired crew;
             ResourceAmount[] alteredCost = CalculateAlteredCosts(curEncounter.options[i].cost);
-            ResourceAmount[] alteredGain = CalculateAlteredGains(curEncounter.options[i].gain);
+            ResourceAmount[] alteredGain = CalculateAlteredGains(curEncounter.options[i].gain, false);
             
             string alteredCostString = PrintListOfResources(alteredCost);
             string alteredGainString = PrintListOfResources(alteredGain);
@@ -136,6 +148,10 @@ public class EncounterSystem : MonoBehaviour
         }
 
         encounterText.text = selectedOption.outcome;
+
+        //enables typewriter effect
+        typewriter.StartTypewriter();
+
         //disables and hides option panels
         foreach (GameObject panel in optionPanels)
         {
@@ -148,13 +164,12 @@ public class EncounterSystem : MonoBehaviour
 
         //Adds gained resources to player (also calculate altered gains)
         ResourceAmount[] optionGains = selectedOption.gain;
-        optionGains = CalculateAlteredGains(optionGains);
+        optionGains = CalculateAlteredGains(optionGains, true);
         ResourceManager.Instance.Add(optionGains);
 
-
-        //Checks each bool in option to see if it should call a specific function
-        CallOptionFunctions(selectedOption);
-
+        //enables rewards panel
+        rewardsPanel.SetActive(true);
+        rewardsPanel.transform.Find("Rewards Text").GetComponent<TextMeshProUGUI>().text = PrintListOfResources(optionGains);
 
         //Enables continue button
         continueButton.SetActive(true);
@@ -168,6 +183,9 @@ public class EncounterSystem : MonoBehaviour
         {
             nextSeaEncounter = ManagerEncounterList(possibleSeaEncounters, completedSeaEncounters);
         }
+
+        //Checks each bool in option to see if it should call a specific function
+        CallOptionFunctions(selectedOption);
     }
 
     public void ContinueGame()
@@ -181,6 +199,12 @@ public class EncounterSystem : MonoBehaviour
 
         //allows another encounter to happen
         isEncounterActive = false;
+
+        //enables crew UI
+        CrewManager.Instance.enableUI();
+        
+        //disable rewards panel
+        rewardsPanel.SetActive(false);
     }
 
     private EncounterSO ManagerEncounterList(List<EncounterSO> possible, List<EncounterSO> completed)
@@ -221,7 +245,7 @@ public class EncounterSystem : MonoBehaviour
         
         return alteredCosts;
     }
-    private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains)
+    private ResourceAmount[] CalculateAlteredGains(ResourceAmount[] baseGains, bool callFunctions = false)
     {
         //For each crewmember hired, call their resource function and pass baseResources
         //Each crewmember will add or subtract to each resource type
@@ -231,9 +255,9 @@ public class EncounterSystem : MonoBehaviour
         ResourceAmount[] alteredGains = new ResourceAmount[baseGains.Length];
         Array.Copy(baseGains, alteredGains, baseGains.Length);
 
-        foreach (Crewmate crew in hiredCrew)
+        foreach (Crewmate crew in new List<Crewmate>(hiredCrew))
         {
-            alteredGains = crew.AlteredGain(alteredGains);
+            alteredGains = crew.AlteredGain(alteredGains, callFunctions);
         }
 
         return alteredGains;
@@ -260,14 +284,17 @@ public class EncounterSystem : MonoBehaviour
     {
         // Given the selected option, calls relevant specific functions specified by the encounter option SO
         // for example, if the option says that the fishing minigame should be loaded, call it here
-        if (option.callAddCrewmate)
-            CrewManager.Instance.HireCrew(option.crewToAdd);
 
+        //Removes a crewmate at random
         if (option.callRemoveCrewmate && CrewManager.Instance.hiredCrew.Count > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count);
             CrewManager.Instance.RemoveCrew(CrewManager.Instance.hiredCrew[randomIndex]);
         }
+
+        //hires
+        if (option.callAddCrewmate)
+            CrewManager.Instance.HireEncounterCrew(option.crewToAdd);
 
         if (option.loadMinigame)
         {
@@ -275,9 +302,14 @@ public class EncounterSystem : MonoBehaviour
             Time.timeScale = 1.0f; //temorary, should have better state save system
             PauseManager.Paused = false;
             encounterUI.SetActive(false);
+            CrewManager.Instance.disableUI();
+            canContinue = false;
+            //isEncounterActive = false;
+            GameManager.Instance.state = GameState.Minigame;
             SceneManager.LoadScene(option.minigameName);
         }
 
+        //adds encounter
         if (option.callAddEncounter && option.encounterToAdd != null)
         {
             if (option.encounterToAdd.landEncounter) possibleLandEncounters.Add(option.encounterToAdd);
@@ -294,5 +326,30 @@ public class EncounterSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C)) LoadEncounter();
         if (Input.GetKeyDown(KeyCode.Space)) ContinueGame();
-    } 
+
+        // if (GameManager.Instance.state == GameState.Sailing && !isEncounterActive)
+        // {
+        //     CrewManager.Instance.enableUI();
+        // }
+        // else CrewManager.Instance.disableUI();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "PRODUCTION" && isEncounterActive)
+        {
+            encounterUI.SetActive(true);
+            canContinue = true;
+        }
+    }
 }

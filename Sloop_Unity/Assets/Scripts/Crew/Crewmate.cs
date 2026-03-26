@@ -14,6 +14,15 @@ public class Crewmate : MonoBehaviour
     public MoralAlignment alignment;
     public NPCRole role;
     public int npcIndex;
+    public Sprite sprite;
+    [TextArea] public string description; //their impact on resource costs and gains
+    public int crewID;
+    
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     // crew mates can have certain encounters that are only added to the possibleEncounter list when they are hired
     public EncounterSO crewEncounter;
 
@@ -22,7 +31,7 @@ public class Crewmate : MonoBehaviour
         return baseCosts;
     }
 
-    public virtual ResourceAmount[] AlteredGain(ResourceAmount[] baseGains)
+    public virtual ResourceAmount[] AlteredGain(ResourceAmount[] baseGains, bool callFunctions = false)
     {
         return baseGains;
     }
