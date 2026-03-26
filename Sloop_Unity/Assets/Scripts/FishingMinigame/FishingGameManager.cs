@@ -39,6 +39,11 @@ public class FishingGameManager : MonoBehaviour
     [Header("End")]
     public string returnSceneName = "PRODUCTION"; // or use GameManager later
 
+    [Header("Popups")]
+    public RectTransform uiRoot;         
+    public GameObject floatingTextPrefab; 
+    public Vector3 popupWorldOffset = new Vector3(0f, 0.6f, 0f);
+
     int fishCaught = 0;
     float timeLeft;
     bool ended = false;
@@ -98,6 +103,7 @@ public class FishingGameManager : MonoBehaviour
         PlayCatchSound();
 
         Destroy(fish);
+        Popup("Caught!", fish.transform.position + popupWorldOffset);
 
         fishCaught++;
         UpdateGoalUI();
@@ -115,6 +121,7 @@ public class FishingGameManager : MonoBehaviour
         if (ended) return;
 
         Destroy(loot);
+        Popup("Gold!", loot.transform.position + popupWorldOffset);
         if (resources) resources.AddGold(goldPerSack);
     }
 
@@ -147,5 +154,18 @@ public class FishingGameManager : MonoBehaviour
     void ReturnToSailing()
     {
         SceneManager.LoadScene(returnSceneName);
+    }
+
+    void Popup(string msg, Vector3 worldPos)
+    {
+        if (!floatingTextPrefab || !uiRoot || Camera.main == null) return;
+
+        var go = Instantiate(floatingTextPrefab, uiRoot);
+        var rt = go.GetComponent<RectTransform>();
+        if (rt != null)
+            rt.position = Camera.main.WorldToScreenPoint(worldPos);
+
+        var ft = go.GetComponent<FloatingTextPopup>();
+        if (ft != null) ft.Show(msg);
     }
 }
