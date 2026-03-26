@@ -739,17 +739,23 @@ MonoBehaviour:
   barrelPrefab: {fileID: 3878805231549771042, guid: dc21bd8d59ba1b24d8f0a068ead2dd5f, type: 3}
   coinPrefab: {fileID: 7479987330786730555, guid: 54c4709755c07ab4db7c590399a55d23, type: 3}
   flyingCannonPrefab: {fileID: 8161361091064401005, guid: 46ca6eddf3765c84d91a31cbc7f17557, type: 3}
-  initialMinInterval: 0.8
-  initialMaxInterval: 2.2
-  minIntervalLimit: 0.5
-  maxIntervalLimit: 1
-  intervalDecreaseRate: 0.02
-  barrelSizeRange: {x: 0.7, y: 1.2}
+  barrelInitialMinInterval: 0.8
+  barrelInitialMaxInterval: 2.2
+  barrelMinIntervalLimit: 0.3
+  barrelMaxIntervalLimit: 0.8
+  barrelIntervalDecreaseRate: 0.02
   barrelSpawnProbability: 0.7
+  barrelSizeRange: {x: 0.7, y: 1.2}
+  barrelHeightRange: {x: 0.5, y: 2.5}
+  cannonInitialMinInterval: 1.5
+  cannonInitialMaxInterval: 3
+  cannonMinIntervalLimit: 0.5
+  cannonMaxIntervalLimit: 1.2
+  cannonIntervalDecreaseRate: 0.02
+  cannonSpawnProbability: 0.8
+  cannonHeightAboveGround: 2
   coinSpawnProbability: 1
   coinOffset: {x: 0, y: 1}
-  cannonSpawnProbability: 0.602
-  cannonHeightRange: {x: 1, y: 1}
 --- !u!1 &462496965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,8 +1034,8 @@ MonoBehaviour:
   maxSpeed: 12
   speedIncreaseRate: 0.1
   goldPerPoint: 1
-  easyCannonProbability: 0
-  hardCannonProbability: 0.5
+  easyCannonChance: 0
+  hardCannonChance: 0.5
   sailingSceneName: Production
 --- !u!4 &630871824
 Transform:
@@ -1617,6 +1623,9 @@ MonoBehaviour:
   parryRange: 1
   parryScore: 5
   parryCooldown: 0
+  dashDistance: 2
+  dashDuration: 0.1
+  dashCooldown: 1
 --- !u!70 &1833410542
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
