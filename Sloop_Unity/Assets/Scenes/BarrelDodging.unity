@@ -635,6 +635,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.332
@@ -682,6 +686,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1644881086}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1833410547}
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1833410543}
@@ -742,17 +749,23 @@ MonoBehaviour:
   barrelPrefab: {fileID: 3878805231549771042, guid: dc21bd8d59ba1b24d8f0a068ead2dd5f, type: 3}
   coinPrefab: {fileID: 7479987330786730555, guid: 54c4709755c07ab4db7c590399a55d23, type: 3}
   flyingCannonPrefab: {fileID: 8161361091064401005, guid: 46ca6eddf3765c84d91a31cbc7f17557, type: 3}
-  initialMinInterval: 0.8
-  initialMaxInterval: 2.2
-  minIntervalLimit: 0.5
-  maxIntervalLimit: 1
-  intervalDecreaseRate: 0.02
+  barrelInitialMinInterval: 0.8
+  barrelInitialMaxInterval: 2.2
+  barrelMinIntervalLimit: 0.2
+  barrelMaxIntervalLimit: 0.6
+  barrelIntervalDecreaseRate: 0.02
+  barrelSpawnProbability: 0.8
   barrelSizeRange: {x: 0.7, y: 1.2}
-  barrelSpawnProbability: 0.7
-  coinSpawnProbability: 1
-  coinOffset: {x: 0, y: 1}
+  barrelHeightRange: {x: 0.5, y: 2.5}
+  cannonInitialMinInterval: 1.5
+  cannonInitialMaxInterval: 3
+  cannonMinIntervalLimit: 0.5
+  cannonMaxIntervalLimit: 1.2
+  cannonIntervalDecreaseRate: 0.02
   cannonSpawnProbability: 0.5
-  cannonHeightRange: {x: 1, y: 1}
+  cannonHeightAboveGround: 2
+  coinSpawnProbability: 0.3
+  coinOffset: {x: 0, y: 1}
 --- !u!1 &462496965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,8 +1044,8 @@ MonoBehaviour:
   maxSpeed: 12
   speedIncreaseRate: 0.1
   goldPerPoint: 1
-  easyCannonProbability: 0
-  hardCannonProbability: 0.5
+  easyCannonChance: 0
+  hardCannonChance: 0.5
   sailingSceneName: Production
 --- !u!4 &630871824
 Transform:
@@ -1617,9 +1630,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   jumpForce: 8
-  parryRange: 0.8
+  parryRange: 1
   parryScore: 5
   parryCooldown: 0
+  dashDistance: 2
+  dashDuration: 0.1
+  dashCooldown: 1
   jumpClips:
   - {fileID: 8300000, guid: e1055402fedf641478ddd8da736b591f, type: 3}
   - {fileID: 8300000, guid: 06c6a3e489cc7da42b21c2882af5e5f8, type: 3}
@@ -1796,6 +1812,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1833410547
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833410540}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -251751498062215573, guid: b490568ceeeaaeb44b302792aaa9e708, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1940230927
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,24 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 2
+  m_Name: 4
   m_EditorClassIdentifier: 
-  text: Recruit him
+  text: Hunt monkeys
   cost:
-  - type: 0
-    amount: 300
-  gain:
   - type: 4
-    amount: 5
-  - type: 3
-    amount: 5
+    amount: 30
+  gain:
+  - type: 2
+    amount: 20
   isGainHidden: 0
-  outcome: He accepts your money and reluctantly joins your crew. You have a feeling
-    he might betray you.
+  outcome: You send your crew on a monkey hunting expedition. At first you have some
+    success, killing one monkey, before a barrage of rocks and sticks kills one of
+    your crew and forces your retreat.
   loadMinigame: 0
   minigameName: 
-  callAddCrewmate: 1
-  crewToAdd: {fileID: 2827987482385375505, guid: 17a2fe89e71a5c14ba44f08301f4e8cb, type: 3}
-  callRemoveCrewmate: 0
+  callAddCrewmate: 0
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 1
   callAddEncounter: 0
   encounterToAdd: {fileID: 0}
