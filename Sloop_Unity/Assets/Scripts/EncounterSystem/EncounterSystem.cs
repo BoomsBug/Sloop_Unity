@@ -30,6 +30,7 @@ public class EncounterSystem : MonoBehaviour
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
     public List<GameObject> optionPanels;
+    public Typewriter typewriter;
 
     void Awake()
     {
@@ -72,6 +73,9 @@ public class EncounterSystem : MonoBehaviour
         canChoose = true;
 
         encounterText.text = curEncounter.text;
+
+        //enables typewriter effect
+        typewriter.StartTypewriter();
 
         //ensures continue button is disabled
         continueButton.SetActive(false);
@@ -140,6 +144,10 @@ public class EncounterSystem : MonoBehaviour
         }
 
         encounterText.text = selectedOption.outcome;
+
+        //enables typewriter effect
+        typewriter.StartTypewriter();
+
         //disables and hides option panels
         foreach (GameObject panel in optionPanels)
         {
