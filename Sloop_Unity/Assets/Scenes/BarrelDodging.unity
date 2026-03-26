@@ -635,6 +635,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.332
@@ -682,6 +686,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1644881086}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1833410547}
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 802358ef478f2964aa32b0d2fe0dcee8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1833410543}
@@ -744,10 +751,10 @@ MonoBehaviour:
   flyingCannonPrefab: {fileID: 8161361091064401005, guid: 46ca6eddf3765c84d91a31cbc7f17557, type: 3}
   barrelInitialMinInterval: 0.8
   barrelInitialMaxInterval: 2.2
-  barrelMinIntervalLimit: 0.3
-  barrelMaxIntervalLimit: 0.8
+  barrelMinIntervalLimit: 0.2
+  barrelMaxIntervalLimit: 0.6
   barrelIntervalDecreaseRate: 0.02
-  barrelSpawnProbability: 0.7
+  barrelSpawnProbability: 0.8
   barrelSizeRange: {x: 0.7, y: 1.2}
   barrelHeightRange: {x: 0.5, y: 2.5}
   cannonInitialMinInterval: 1.5
@@ -755,9 +762,9 @@ MonoBehaviour:
   cannonMinIntervalLimit: 0.5
   cannonMaxIntervalLimit: 1.2
   cannonIntervalDecreaseRate: 0.02
-  cannonSpawnProbability: 0.8
+  cannonSpawnProbability: 0.5
   cannonHeightAboveGround: 2
-  coinSpawnProbability: 1
+  coinSpawnProbability: 0.3
   coinOffset: {x: 0, y: 1}
 --- !u!1 &462496965
 GameObject:
@@ -1805,6 +1812,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1833410547
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833410540}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -251751498062215573, guid: b490568ceeeaaeb44b302792aaa9e708, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1940230927
 GameObject:
   m_ObjectHideFlags: 0
