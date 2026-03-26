@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Monkey Island
+  m_EditorClassIdentifier: 
+  encounterName: Monkey Island
+  text: As you approach this densely forested island your hear monkeys screeching.
+    Having landed on the island, you notice the monkeys playing with shiny bits of
+    gold.
+  options:
+  - {fileID: 11400000, guid: 446bd71bbbeecc94587b3d0b9e15041f, type: 2}
+  - {fileID: 11400000, guid: 01acddefa16d230468b6f98ff0fe4657, type: 2}
+  - {fileID: 11400000, guid: 5f8dbd61837f34f4d96ac87c121c001e, type: 2}
+  - {fileID: 11400000, guid: 4c441b66d7538b74e923f020aa3e15b2, type: 2}
+  oneTime: 0
+  landEncounter: 1

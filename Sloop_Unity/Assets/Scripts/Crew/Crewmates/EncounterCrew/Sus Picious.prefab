@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a3fbcf26af032488b13be402dcd65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crewName: 
+  crewName: Sus Picious
   traits: []
   alignment: 2
   role: 0
