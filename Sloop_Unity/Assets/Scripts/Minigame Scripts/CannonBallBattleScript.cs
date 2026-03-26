@@ -10,6 +10,7 @@ public class CannonBallBattleScript : MonoBehaviour
 {
     public GameObject ExplosionPrefab;
     public int DamagePerHit = 10;
+    public string ownerTag; // who fired, player or enemy
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class CannonBallBattleScript : MonoBehaviour
 
         }
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && ownerTag != "Player")
         {
             CannonBattleScript.Instance.PlayerHealth -= DamagePerHit;
             CannonBattleScript.Instance.UpdateHealthUI();
@@ -39,7 +40,7 @@ public class CannonBallBattleScript : MonoBehaviour
 
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && ownerTag != "Enemy")
         {
             CannonBattleScript.Instance.EnemyHealth -= DamagePerHit;
             CannonBattleScript.Instance.UpdateHealthUI();

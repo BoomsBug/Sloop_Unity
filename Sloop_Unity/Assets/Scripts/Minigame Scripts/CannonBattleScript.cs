@@ -38,11 +38,12 @@ public class CannonBattleScript : MonoBehaviour
     public TextMeshProUGUI EnemyHealthText;
 
     [Header("Player")]
-    public float FireSpeed = 20f;
+    public float FireSpeed = 30f;
     public float FireCooldown = 0.75f;
     private float NextFireTime = 0f;
     public Transform FirePoint;
     public Transform PlayerTransform;
+    public Rigidbody2D playerRB;
 
 
     [Header("Enemy")]
@@ -97,6 +98,7 @@ public class CannonBattleScript : MonoBehaviour
             return;
         }
 
+
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Get mouse pos
         mousePos.z = 0f; // 2D so z must be 0
 
@@ -130,8 +132,12 @@ public class CannonBattleScript : MonoBehaviour
 
     void Fire()
     {
+
+
         // Make a cannonball from firepoint
         GameObject cannonBall = Instantiate(cannonBallPrefab, FirePoint.position, Quaternion.identity);
+
+        cannonBall.GetComponent<CannonBallBattleScript>().ownerTag = "Player"; // this cannonball is players
 
         // Fire from cannon muzzle
         GameObject muzzleflash = Instantiate(CannonShotPrefab, FirePoint.position, Quaternion.identity);
@@ -155,9 +161,12 @@ public class CannonBattleScript : MonoBehaviour
 
     }
 
+    // Enemy boat firing logic
     void EnemyFire()
     {
         GameObject cannonBall = Instantiate(cannonBallPrefab, EnemyFirePoint.position, Quaternion.identity);
+
+        cannonBall.GetComponent<CannonBallBattleScript>().ownerTag = "Enemy"; // this cannonball is players
 
         // Fire from cannon muzzle
         GameObject muzzleflash = Instantiate(CannonShotPrefab, EnemyFirePoint.position, Quaternion.identity);
@@ -170,12 +179,25 @@ public class CannonBattleScript : MonoBehaviour
         // Get Rigidbody to apply physics
         Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
 
-        // Get dir from firepoint to destination (player)
-        Vector2 direction = (PlayerTransform.position - EnemyFirePoint.position).normalized;
-        direction.y += 0.4f; // Add lift b/c cannonball arcs and this doesn't take that into account
+
+        Vector2 playerVelocity = playerRB.velocity; // get player velocity
+
+        // estimate dist from player
+        float distance = Vector2.Distance(PlayerTransform.position, EnemyFirePoint.position);
+
+        float TimeToPlayer = distance / FireSpeed;
+
+        // predicted player position
+        Vector2 NewPredictedTarget = (Vector2)PlayerTransform.position + playerVelocity * TimeToPlayer;
+
+
+
+        // Get dir from firepoint to destination (predicted player position)
+        Vector2 direction = (NewPredictedTarget - (Vector2)EnemyFirePoint.position).normalized;
 
         // Throws off direction so enemy is not a perfect shot
-        direction += new Vector2(Random.Range(-.3f, .3f), Random.Range(-.3f, .3f));
+        direction += new Vector2(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+        direction.Normalize();
 
         // Apply force
         rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
