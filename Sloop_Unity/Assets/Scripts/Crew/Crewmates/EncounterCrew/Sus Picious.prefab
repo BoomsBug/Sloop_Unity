@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6486824282748974979
+--- !u!1 &2550559331199868026
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5602616182684023171}
-  - component: {fileID: 139501882367078120}
+  - component: {fileID: 3939727870530434347}
+  - component: {fileID: 2827987482385375505}
   m_Layer: 0
-  m_Name: Ghost
+  m_Name: Sus Picious
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5602616182684023171
+--- !u!4 &3939727870530434347
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6486824282748974979}
+  m_GameObject: {fileID: 2550559331199868026}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 407.944, y: 294.96707, z: -3.0114653}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &139501882367078120
+--- !u!114 &2827987482385375505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6486824282748974979}
+  m_GameObject: {fileID: 2550559331199868026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8df0bb7cd96c2f48b86cba04cd055b6, type: 3}
+  m_Script: {fileID: 11500000, guid: e9a3fbcf26af032488b13be402dcd65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crewName: Bob
+  crewName: Sus Picious
   traits: []
-  alignment: 0
+  alignment: 2
   role: 0
   npcIndex: 0
-  sprite: {fileID: 21300000, guid: 2e0e3d5b2c6250d47b46e2eb6879b3bf, type: 3}
-  description: If there is a food, wood, and gold cost, add 5 to honour gain and
-    10 to gold gain
+  sprite: {fileID: -7359962188882910793, guid: 9e9e60d593d327b4c80e5018b30fdca9, type: 3}
+  description: 
   crewID: 0
   crewEncounter: {fileID: 0}

@@ -26,5 +26,5 @@ MonoBehaviour:
   callAddCrewmate: 0
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0
-  callAddEncounter: 0
-  encounterToAdd: {fileID: 0}
+  callAddEncounter: 1
+  encounterToAdd: {fileID: 11400000, guid: 988b232f48952ad4294c5192e797962c, type: 2}

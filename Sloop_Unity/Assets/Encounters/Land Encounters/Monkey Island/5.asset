@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 2
+  m_Name: 5
   m_EditorClassIdentifier: 
-  text: Recruit him
-  cost:
-  - type: 0
-    amount: 300
+  text: MONKEY
+  cost: []
   gain:
   - type: 4
     amount: 5
-  - type: 3
-    amount: 5
-  isGainHidden: 0
-  outcome: He accepts your money and reluctantly joins your crew. You have a feeling
-    he might betray you.
+  isGainHidden: 1
+  outcome: MONKEY MONKEY MONKEY MONKEY OOOOHO OHO OOOH OOH AAAAH AH AHAAAHA OOH AH
+    OOH BANANANANA
   loadMinigame: 0
   minigameName: 
-  callAddCrewmate: 1
-  crewToAdd: {fileID: 2827987482385375505, guid: 17a2fe89e71a5c14ba44f08301f4e8cb, type: 3}
+  callAddCrewmate: 0
+  crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0
   callAddEncounter: 0
   encounterToAdd: {fileID: 0}

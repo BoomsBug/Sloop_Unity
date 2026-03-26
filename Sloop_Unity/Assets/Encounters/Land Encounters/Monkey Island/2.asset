@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  text: Recruit him
+  text: Recruit a monkey
   cost:
-  - type: 0
-    amount: 300
+  - type: 2
+    amount: 60
   gain:
-  - type: 4
-    amount: 5
   - type: 3
-    amount: 5
-  isGainHidden: 0
-  outcome: He accepts your money and reluctantly joins your crew. You have a feeling
-    he might betray you.
+    amount: 10
+  - type: 4
+    amount: 10
+  isGainHidden: 1
+  outcome: One the monkeys is already wearing a sailor's hat! He definitely knows
+    how to sail.
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 1
-  crewToAdd: {fileID: 2827987482385375505, guid: 17a2fe89e71a5c14ba44f08301f4e8cb, type: 3}
+  crewToAdd: {fileID: 6306366020550114050, guid: d34613d9ae8678845bbc6824b1c79c42, type: 3}
   callRemoveCrewmate: 0
   callAddEncounter: 0
   encounterToAdd: {fileID: 0}
