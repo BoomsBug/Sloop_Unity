@@ -95,6 +95,9 @@ public class GameManager : MonoBehaviour
             case GameState.CannonPractice:
                 HandleCannonPractice();
                 break;
+            case GameState.CannonBattle:
+                HandleCannonPractice();
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
 
@@ -149,6 +152,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("CannonPractice");
     }
 
+    private void HandleCannonBattle()
+    {
+        SceneManager.LoadScene("CannonBattle");
+    }
+
 
     public void DockOnIsland()
     {
@@ -188,6 +196,7 @@ public enum GameState
     VictoryMenu,
     LossMenu,
     CannonPractice,
-    Minigame
+    Minigame,
+    CannonBattle
 }
 
