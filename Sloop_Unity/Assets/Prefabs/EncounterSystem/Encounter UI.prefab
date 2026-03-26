@@ -2482,6 +2482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f23445b8d5d37045a50812d934b7c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textComponent: {fileID: 9115484767290892374}
+  letterDelay: 0.1
 --- !u!1 &5853268855646024507
 GameObject:
   m_ObjectHideFlags: 0
