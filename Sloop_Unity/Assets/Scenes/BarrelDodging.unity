@@ -748,7 +748,7 @@ MonoBehaviour:
   barrelSpawnProbability: 0.7
   coinSpawnProbability: 1
   coinOffset: {x: 0, y: 1}
-  cannonSpawnProbability: 0.5
+  cannonSpawnProbability: 0.602
   cannonHeightRange: {x: 1, y: 1}
 --- !u!1 &462496965
 GameObject:
@@ -1614,7 +1614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   jumpForce: 8
-  parryRange: 0.8
+  parryRange: 1
   parryScore: 5
   parryCooldown: 0
 --- !u!70 &1833410542
