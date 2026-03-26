@@ -30,8 +30,8 @@ public class BarrelDashTestManager : MonoBehaviour
     public int goldPerPoint = 1;
 
     [Header("Mode Settings")]
-    public float easyCannonProbability = 0f;   // No cannons in Easy
-    public float hardCannonProbability = 0.5f;  // Cannons in Hard
+    public float easyCannonChance = 0f;       // Chance for cannon to spawn in Easy mode
+    public float hardCannonChance = 0.5f;     // Chance for cannon to spawn in Hard mode
 
     [Header("Scene Management")]
     public string sailingSceneName = "Production";
@@ -41,8 +41,21 @@ public class BarrelDashTestManager : MonoBehaviour
     private int score;
     private bool hasAwardedGold = false;
 
+    private Camera mainCamera;
+    private Transform ground;
+
     void Start()
     {
+        mainCamera = Camera.main;
+        if (mainCamera == null)
+            Debug.LogWarning("No main camera found!");
+
+        GameObject groundObj = GameObject.FindGameObjectWithTag("Ground");
+        if (groundObj != null)
+            ground = groundObj.transform;
+        else
+            Debug.LogWarning("No object with tag 'Ground' found!");
+
         easyButton.onClick.AddListener(() => StartGameWithMode(GameMode.Easy));
         hardButton.onClick.AddListener(() => StartGameWithMode(GameMode.Hard));
         closeButton.onClick.AddListener(CloseGame);
@@ -53,13 +66,12 @@ public class BarrelDashTestManager : MonoBehaviour
 
     void StartGameWithMode(GameMode mode)
     {
-        // Set spawner's cannon probability based on mode
+        // Set the cannon spawn probability based on mode
         if (mode == GameMode.Easy)
-            spawner.cannonSpawnProbability = easyCannonProbability;
+            spawner.cannonSpawnProbability = easyCannonChance;
         else
-            spawner.cannonSpawnProbability = hardCannonProbability;
+            spawner.cannonSpawnProbability = hardCannonChance;
 
-        // Start the game
         gameActive = true;
         hasAwardedGold = false;
         easyButton.gameObject.SetActive(false);
@@ -68,13 +80,41 @@ public class BarrelDashTestManager : MonoBehaviour
         resultText.text = "";
         scoreText.text = "Score: 0";
 
-        player.ResetPlayer();
+        SpawnPlayerAtSafePosition();
         player.gameObject.SetActive(true);
-
         spawner.StartSpawning();
 
         currentSpeed = baseSpeed;
         score = 0;
+    }
+
+    private void SpawnPlayerAtSafePosition()
+    {
+        if (mainCamera == null)
+        {
+            if (playerStartPos != null)
+                player.transform.position = playerStartPos.position;
+            return;
+        }
+
+        float cameraLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        float spawnX = cameraLeft + 1f;
+
+        float groundY = 0f;
+        if (ground != null)
+        {
+            Collider2D groundCollider = ground.GetComponent<Collider2D>();
+            if (groundCollider != null)
+                groundY = groundCollider.bounds.max.y;
+            else
+                groundY = ground.position.y;
+        }
+
+        Collider2D playerCollider = player.GetComponent<Collider2D>();
+        float playerHalfHeight = playerCollider != null ? playerCollider.bounds.extents.y : 0.5f;
+        float spawnY = groundY + playerHalfHeight;
+
+        player.transform.position = new Vector3(spawnX, spawnY, 0f);
     }
 
     void Update()
@@ -83,7 +123,6 @@ public class BarrelDashTestManager : MonoBehaviour
 
         currentSpeed = Mathf.Min(currentSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
 
-        // Update global speed for all barrels and cannons
         Barrel.GlobalSpeed = currentSpeed;
         FlyingCannon.GlobalSpeed = currentSpeed;
 
@@ -138,5 +177,23 @@ public class BarrelDashTestManager : MonoBehaviour
         if (!gameActive) return;
         score += value;
         scoreText.text = "Score: " + score;
+    }
+
+    public Vector3 GetSafeSpawnPosition()
+    {
+        if (mainCamera == null || ground == null)
+            return playerStartPos != null ? playerStartPos.position : Vector3.zero;
+
+        float cameraLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        float spawnX = cameraLeft + 1f;
+
+        Collider2D groundCollider = ground.GetComponent<Collider2D>();
+        float groundY = groundCollider != null ? groundCollider.bounds.max.y : ground.position.y;
+
+        Collider2D playerCollider = player.GetComponent<Collider2D>();
+        float playerHalfHeight = playerCollider != null ? playerCollider.bounds.extents.y : 0.5f;
+        float spawnY = groundY + playerHalfHeight;
+
+        return new Vector3(spawnX, spawnY, 0f);
     }
 }
