@@ -978,6 +978,26 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7232343a549216c4583d6128ebbfe67e, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7232343a549216c4583d6128ebbfe67e, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7232343a549216c4583d6128ebbfe67e, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f49ed7e3d2f8d94ab69faf8de982636, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager
