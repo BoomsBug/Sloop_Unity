@@ -17,7 +17,7 @@ public class FishingGameManager : MonoBehaviour
     [Header("UI")]
     public TMP_Text goalText;   // "Fish: x / target"
     public TMP_Text timerText;  // "Time: xx"
-    public GameObject resultPanel;      // optional
+    [SerializeField] public FishingResultPanel resultPanel;      // optional
     public TMP_Text resultText;         // optional
 
 
