@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Sloop.Economy;
 using Sloop.Player;
-using Sloop.Time;
+using Sloop.SloopTime;
 
 namespace Sloop.UI
 {
