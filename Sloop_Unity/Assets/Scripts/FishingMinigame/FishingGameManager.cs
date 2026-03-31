@@ -1,6 +1,6 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
+using Sloop.UI;
 
 public class FishingGameManager : MonoBehaviour
 {
@@ -15,11 +15,10 @@ public class FishingGameManager : MonoBehaviour
     public float timeLimit = 30f;
 
     [Header("UI")]
-    public TMP_Text goalText;   // "Fish: x / target"
-    public TMP_Text timerText;  // "Time: xx"
-    public GameObject resultPanel;      // optional
-    public TMP_Text resultText;         // optional
-
+    // public TMP_Text goalText;   // "Fish: x / target"
+    // public TMP_Text timerText;  // "Time: xx"
+    [SerializeField] public FishingHUDPanel hud;
+    [SerializeField] public FishingResultPanel resultPanel;      // optional
 
     [Header("Audio")]
     public AudioClip catchFishSound;
@@ -67,7 +66,7 @@ public class FishingGameManager : MonoBehaviour
         timeLeft = timeLimit;
         UpdateGoalUI();
         UpdateTimerUI();
-        if (resultPanel) resultPanel.SetActive(false);
+        UIManager.Instance.OpenPanel(resultPanel);
     }
 
     void Update()
@@ -77,6 +76,7 @@ public class FishingGameManager : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0f) timeLeft = 0f;
         UpdateTimerUI();
+        resultPanel.Hide();
 
         if (timeLeft <= 0f)
         {
@@ -88,12 +88,12 @@ public class FishingGameManager : MonoBehaviour
 
     void UpdateGoalUI()
     {
-        if (goalText) goalText.text = $"Fish: {fishCaught} / {targetFish}";
+        if (hud != null) hud.SetGoal(fishCaught,targetFish);
     }
 
     void UpdateTimerUI()
     {
-        if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(timeLeft)}";
+        if (hud!=null) hud.SetTime(timeLeft);
     }
 
     public void CatchFish(GameObject fish)
@@ -133,6 +133,7 @@ public class FishingGameManager : MonoBehaviour
     void Win()
     {
         ended = true;
+        resultPanel.Show();
         ShowResult($"You win!\nCaught {fishCaught}/{targetFish} fish.");
         Invoke(nameof(ReturnToSailing), 1.5f);
     }
@@ -140,6 +141,7 @@ public class FishingGameManager : MonoBehaviour
     void Lose()
     {
         ended = true;
+        resultPanel.Show();
         ShowResult($"You lose!\nCaught {fishCaught}/{targetFish} fish.");
         Invoke(nameof(ReturnToSailing), 1.5f);
     }
@@ -147,8 +149,8 @@ public class FishingGameManager : MonoBehaviour
     void ShowResult(string msg)
     {
         Debug.Log(msg);
-        if (resultPanel) resultPanel.SetActive(true);
-        if (resultText) resultText.text = msg;
+        if (resultPanel!=null) resultPanel.SetResult(msg);
+        UIManager.Instance.OpenPanel(resultPanel);
     }
 
     void ReturnToSailing()
