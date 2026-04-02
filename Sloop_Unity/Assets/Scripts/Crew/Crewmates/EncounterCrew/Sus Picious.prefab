@@ -51,5 +51,8 @@ MonoBehaviour:
   npcIndex: 0
   sprite: {fileID: -7359962188882910793, guid: 9e9e60d593d327b4c80e5018b30fdca9, type: 3}
   description: 
+  dialogues:
+  - I totally forgive you for killing my family
+  - Enjoy your sleep tonight *wink*
   crewID: 0
   crewEncounter: {fileID: 0}

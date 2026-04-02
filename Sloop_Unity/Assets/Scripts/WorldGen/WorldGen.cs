@@ -43,6 +43,18 @@ public class WorldGen : MonoBehaviour
         public List<TreeNode> children = new List<TreeNode>();
     }
 
+    public static WorldGen Instance { get; private set; }
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         // if (!GameManager.Instance.worldAlreadyLoaded)

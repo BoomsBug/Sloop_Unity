@@ -28,8 +28,8 @@ public class GoodCrewB : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
-        food += 5;
-        honour -= 2;
+        food = (int) (food * 1.1);
+        honour = (int) (honour * 0.9);
 
         //-----------------------------------------------------------
 
@@ -62,7 +62,7 @@ public class GoodCrewB : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        gold -= 5;
+        gold  = (int) (gold * 0.9);
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {

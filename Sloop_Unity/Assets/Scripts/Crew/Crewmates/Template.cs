@@ -27,7 +27,7 @@ public class Template : Crewmate
         }
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
-        //ie. gold += 10, if (wood >= 10) food -= 5, etc...
+        //ie. gold = (int) (gold * 1.1), if (wood >= 10) = (int) (food * 1.1), etc...
         
 
         

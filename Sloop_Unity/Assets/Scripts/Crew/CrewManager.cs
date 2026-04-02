@@ -184,6 +184,7 @@ public class CrewManager : MonoBehaviour
             {
                 Debug.Log($"Removing crew at {panel.name}");
                 panel.SetActive(false);
+                panel.GetComponent<Panel>().UnloadBubble();
             }
         }
         Debug.Log($"Removing {crewToRemove.crewName}");
