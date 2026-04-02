@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-namespace Sloop.Time
+namespace Sloop.SloopTime
 {
     public class GameTimeManager : MonoBehaviour
     {

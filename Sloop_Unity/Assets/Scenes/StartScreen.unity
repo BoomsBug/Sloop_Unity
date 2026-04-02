@@ -1482,15 +1482,15 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   startingResources:
   - type: 0
-    amount: 1000
+    amount: 400
   - type: 1
-    amount: 1000
+    amount: 100
   - type: 2
-    amount: 1000
+    amount: 100
   - type: 3
-    amount: 1000
+    amount: 100
   - type: 4
-    amount: 1000
+    amount: 100
 --- !u!4 &778783914
 Transform:
   m_ObjectHideFlags: 0

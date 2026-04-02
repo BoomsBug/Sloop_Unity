@@ -1,4 +1,4 @@
-using Sloop.Time;
+using Sloop.SloopTime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

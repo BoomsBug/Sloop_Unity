@@ -1,6 +1,6 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
+using Sloop.UI;
 
 public class FishingGameManager : MonoBehaviour
 {
@@ -15,11 +15,10 @@ public class FishingGameManager : MonoBehaviour
     public float timeLimit = 30f;
 
     [Header("UI")]
-    public TMP_Text goalText;   // "Fish: x / target"
-    public TMP_Text timerText;  // "Time: xx"
-    public GameObject resultPanel;      // optional
-    public TMP_Text resultText;         // optional
-
+    // public TMP_Text goalText;   // "Fish: x / target"
+    // public TMP_Text timerText;  // "Time: xx"
+    [SerializeField] public FishingHUDPanel hud;
+    [SerializeField] public FishingResultPanel resultPanel;      // optional
 
     [Header("Audio")]
     public AudioClip catchFishSound;
@@ -38,6 +37,11 @@ public class FishingGameManager : MonoBehaviour
 
     [Header("End")]
     public string returnSceneName = "PRODUCTION"; // or use GameManager later
+
+    [Header("Popups")]
+    public RectTransform uiRoot;         
+    public GameObject floatingTextPrefab; 
+    public Vector3 popupWorldOffset = new Vector3(0f, 0.6f, 0f);
 
     int fishCaught = 0;
     float timeLeft;
@@ -62,7 +66,7 @@ public class FishingGameManager : MonoBehaviour
         timeLeft = timeLimit;
         UpdateGoalUI();
         UpdateTimerUI();
-        if (resultPanel) resultPanel.SetActive(false);
+        UIManager.Instance.OpenPanel(resultPanel);
     }
 
     void Update()
@@ -72,6 +76,7 @@ public class FishingGameManager : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0f) timeLeft = 0f;
         UpdateTimerUI();
+        resultPanel.Hide();
 
         if (timeLeft <= 0f)
         {
@@ -83,12 +88,12 @@ public class FishingGameManager : MonoBehaviour
 
     void UpdateGoalUI()
     {
-        if (goalText) goalText.text = $"Fish: {fishCaught} / {targetFish}";
+        if (hud != null) hud.SetGoal(fishCaught,targetFish);
     }
 
     void UpdateTimerUI()
     {
-        if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(timeLeft)}";
+        if (hud!=null) hud.SetTime(timeLeft);
     }
 
     public void CatchFish(GameObject fish)
@@ -98,6 +103,7 @@ public class FishingGameManager : MonoBehaviour
         PlayCatchSound();
 
         Destroy(fish);
+        Popup("Caught!", fish.transform.position + popupWorldOffset);
 
         fishCaught++;
         UpdateGoalUI();
@@ -115,6 +121,7 @@ public class FishingGameManager : MonoBehaviour
         if (ended) return;
 
         Destroy(loot);
+        Popup("Gold!", loot.transform.position + popupWorldOffset);
         if (resources) resources.AddGold(goldPerSack);
     }
 
@@ -126,6 +133,7 @@ public class FishingGameManager : MonoBehaviour
     void Win()
     {
         ended = true;
+        resultPanel.Show();
         ShowResult($"You win!\nCaught {fishCaught}/{targetFish} fish.");
         Invoke(nameof(ReturnToSailing), 1.5f);
     }
@@ -133,6 +141,7 @@ public class FishingGameManager : MonoBehaviour
     void Lose()
     {
         ended = true;
+        resultPanel.Show();
         ShowResult($"You lose!\nCaught {fishCaught}/{targetFish} fish.");
         Invoke(nameof(ReturnToSailing), 1.5f);
     }
@@ -140,12 +149,25 @@ public class FishingGameManager : MonoBehaviour
     void ShowResult(string msg)
     {
         Debug.Log(msg);
-        if (resultPanel) resultPanel.SetActive(true);
-        if (resultText) resultText.text = msg;
+        if (resultPanel!=null) resultPanel.SetResult(msg);
+        UIManager.Instance.OpenPanel(resultPanel);
     }
 
     void ReturnToSailing()
     {
         SceneManager.LoadScene(returnSceneName);
+    }
+
+    void Popup(string msg, Vector3 worldPos)
+    {
+        if (!floatingTextPrefab || !uiRoot || Camera.main == null) return;
+
+        var go = Instantiate(floatingTextPrefab, uiRoot);
+        var rt = go.GetComponent<RectTransform>();
+        if (rt != null)
+            rt.position = Camera.main.WorldToScreenPoint(worldPos);
+
+        var ft = go.GetComponent<FloatingTextPopup>();
+        if (ft != null) ft.Show(msg);
     }
 }
