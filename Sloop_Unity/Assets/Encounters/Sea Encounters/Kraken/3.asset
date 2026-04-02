@@ -13,20 +13,21 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   text: ESCAPE!
-  cost:
+  cost: []
+  gain:
   - type: 0
-    amount: 100
+    amount: 1000
   - type: 1
-    amount: 100
-  - type: 2
-    amount: 100
+    amount: 1000
   - type: 3
-    amount: 100
+    amount: 1000
   - type: 4
-    amount: 100
-  gain: []
+    amount: 1000
+  - type: 2
+    amount: 1000
   isGainHidden: 1
-  outcome: You try to escape. Foolishly. The Kraken consumes your ship. YOU DIE
+  isGainNegative: 1
+  outcome: You try to escape. Foolishly. The Kraken consumes your ship. YOU DIE COWARD
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 0

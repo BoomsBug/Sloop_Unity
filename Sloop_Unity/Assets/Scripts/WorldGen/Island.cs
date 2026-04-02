@@ -12,6 +12,7 @@ public class Island : MonoBehaviour
     public string morality;
     public GameObject port;
     public bool hasTreasure;
+    public EncounterSO islandEvent;
 
 
     void OnDrawGizmos()

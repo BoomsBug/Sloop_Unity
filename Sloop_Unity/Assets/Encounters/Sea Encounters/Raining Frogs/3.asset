@@ -20,6 +20,7 @@ MonoBehaviour:
   - type: 3
     amount: 15
   isGainHidden: 0
+  isGainNegative: 0
   outcome: You carefully arrange frogs into a pentagram, placing an unsuspecting
     crewmember in the middle. In a flash, he is gone. In his place stand Frogroth
     King of Frogs
@@ -28,5 +29,5 @@ MonoBehaviour:
   callAddCrewmate: 1
   crewToAdd: {fileID: -3860984486255135725, guid: 1c416b5cb589c79419d6582cbf97081f, type: 3}
   callRemoveCrewmate: 1
-  callAddEncounter: 1
+  callAddEncounter: 0
   encounterToAdd: {fileID: 11400000, guid: 9e8b741a31b4e8b4d8e8c4c1f8903294, type: 2}

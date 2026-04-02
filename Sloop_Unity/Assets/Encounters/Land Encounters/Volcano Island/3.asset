@@ -12,22 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  text: GET AWAY
-  cost: []
-  gain:
-  - type: 0
-    amount: 1000
-  - type: 1
-    amount: 1000
-  - type: 2
-    amount: 1000
-  - type: 3
-    amount: 1000
+  text: Throw a crewmate into the volcano
+  cost:
   - type: 4
-    amount: 1000
+    amount: 20
+  gain:
+  - type: 3
+    amount: 5
   isGainHidden: 1
-  isGainNegative: 1
-  outcome: You try to escape. Foolishly. The Kraken consumes your ship. YOU DIE
+  isGainNegative: 0
+  outcome: '"AAAAaaargh!" You hear their screams echo off the walls of the caldera
+    as they plunge into the lava. '
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 0

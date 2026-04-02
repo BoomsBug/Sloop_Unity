@@ -124,6 +124,26 @@ namespace Sloop.Economy
             return true;
         }
 
+        public bool Spend(Resource type, int cost)
+        {
+            if (cost <= 0) return true;
+
+            int current = GetAmount(type);
+            if ((current - cost) <= 0)
+            {
+                current = 0;
+            }
+            else
+            {
+                current = current - cost;
+            }
+            int newValue = current;
+            amounts[type] = newValue;
+
+            OnResourceChanged?.Invoke(type, newValue);
+            return true;
+        }
+
         // -----------------------------
         // TrySpend (multi)
         // -----------------------------
@@ -143,6 +163,34 @@ namespace Sloop.Economy
                 int newValue = GetAmount(c.type) - c.amount;
                 amounts[c.type] = newValue;
 
+                OnResourceChanged?.Invoke(c.type, newValue);
+            }
+
+            return true;
+        }
+
+        // -----------------------------
+        // TrySpend (multi)
+        // -----------------------------
+        public bool Spend(IEnumerable<ResourceAmount> costs)
+        {
+            
+
+            if (costs == null)
+                return true;
+
+            
+            foreach (var c in costs)
+            {
+                if (c.amount <= 0) continue;
+                int newValue;
+                if((GetAmount(c.type) - c.amount) <= 0)
+                {
+                    newValue = 0;
+                }else{
+                    newValue = GetAmount(c.type) - c.amount;
+                }
+                amounts[c.type] = newValue;
                 OnResourceChanged?.Invoke(c.type, newValue);
             }
 

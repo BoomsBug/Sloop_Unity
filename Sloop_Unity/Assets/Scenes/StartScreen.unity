@@ -980,7 +980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleLandEncounters.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleLandEncounters.Array.data[1]
@@ -1002,6 +1002,10 @@ PrefabInstance:
       propertyPath: possibleLandEncounters.Array.data[5]
       value: 
       objectReference: {fileID: 11400000, guid: deb6d373b30feb44fb017bf3a38a1fa1, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: dac22feda13695f5488858dcd72753fb, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager

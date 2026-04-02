@@ -13,6 +13,7 @@ public class EncounterOptionSO : ScriptableObject
     public ResourceAmount[] cost;
     public ResourceAmount[] gain;
     public bool isGainHidden;
+    public bool isGainNegative;
     [TextArea] public string outcome;
 
     //specify the minigame scene name (if any) you want this option to laod
@@ -23,7 +24,8 @@ public class EncounterOptionSO : ScriptableObject
     public bool callAddCrewmate;
     public Crewmate crewToAdd;
     public bool callRemoveCrewmate; //can't specify which crewmate to remove, will remove one at random
-    public bool callAddEncounter; //Does selecting this option add an encounter to the pool?
+    public bool callAddEncounter; //Does selecting this option add an encounter to the pool
     public EncounterSO encounterToAdd;
+    public EncounterSO encounterToReplace;
 
 }

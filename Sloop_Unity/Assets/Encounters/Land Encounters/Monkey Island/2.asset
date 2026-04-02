@@ -22,6 +22,7 @@ MonoBehaviour:
   - type: 4
     amount: 10
   isGainHidden: 1
+  isGainNegative: 0
   outcome: One the monkeys is already wearing a sailor's hat! He definitely knows
     how to sail.
   loadMinigame: 0
@@ -29,5 +30,5 @@ MonoBehaviour:
   callAddCrewmate: 1
   crewToAdd: {fileID: 6306366020550114050, guid: d34613d9ae8678845bbc6824b1c79c42, type: 3}
   callRemoveCrewmate: 0
-  callAddEncounter: 0
-  encounterToAdd: {fileID: 0}
+  callAddEncounter: 1
+  encounterToAdd: {fileID: 11400000, guid: cb9074f9412123b5f884391a56ffadcd, type: 2}
