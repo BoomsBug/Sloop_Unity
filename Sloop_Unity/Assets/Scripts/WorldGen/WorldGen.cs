@@ -57,17 +57,17 @@ public class WorldGen : MonoBehaviour
 
     void Start()
     {
-        // if (!GameManager.Instance.worldAlreadyLoaded)
-        // {
-        //     GenerateWorld();
-        //     GameManager.Instance.worldAlreadyLoaded = true;
-        //     GameManager.Instance.islands = islands;
-        // }
+        if (!GameManager.Instance.worldAlreadyLoaded)
+        {
+            GenerateWorld();
+            GameManager.Instance.worldAlreadyLoaded = true;
+            // GameManager.Instance.islands = islands;
+        }
         // else
         // {
         //     LoadWorld();
         // }
-        GenerateWorld();
+        // GenerateWorld();
     }
 
     public void LoadWorld()
