@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sloop.UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,8 +10,7 @@ public class PauseManager : MonoBehaviour
 
     public static bool Paused = false;
     public static PauseManager Instance;
-
-    public GameObject PauseMenuOverlay;
+    [SerializeField] private UIPanel pausePanel;
 
     // On awake, make Pauemanager persist accross scenes
     private void Awake()
@@ -25,28 +25,21 @@ public class PauseManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (Paused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+            if (Paused) Resume();
+
+            else { Pause(); }
         }
     }
 
     // Resume game
     public void Resume()
     {
-        PauseMenuOverlay.SetActive(false);
+        UIManager.Instance.CloseTopPanel();
         Time.timeScale = 1.0f;
         Paused = false;
     }
@@ -54,7 +47,7 @@ public class PauseManager : MonoBehaviour
     // Pause game
     public void Pause()
     {
-        PauseMenuOverlay.SetActive(true);
+        UIManager.Instance.OpenPanel(pausePanel);
         Time.timeScale = 0.0f;
         Paused = true;
     }
@@ -65,10 +58,8 @@ public class PauseManager : MonoBehaviour
         if (GameManager.Instance != null)
         {
             Resume();
-            GameManager.Instance.UpdateGameState(GameState.StartScreen);
-            
+            GameManager.Instance.UpdateGameState(GameState.StartScreen);          
         }
-
     }
 
     // Quit game immediately
@@ -81,10 +72,4 @@ public class PauseManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
     }
-
-
-
-
-
-
 }
