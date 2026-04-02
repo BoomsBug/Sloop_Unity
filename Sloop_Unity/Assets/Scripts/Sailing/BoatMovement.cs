@@ -269,7 +269,7 @@ public class BoatMovement : MonoBehaviour
             else if (islandCollider && !islandCollider.isTrigger)
             {
                 Debug.Log(islandCollider.gameObject.name);
-                EncounterSystem.Instance.LoadEncounter(true); //true means it loads land encounters
+                EncounterSystem.Instance.LoadEncounter(islandCollider.gameObject.GetComponent<Island>(),true); //true means it loads land encounters
             }
         }
         

@@ -33,6 +33,9 @@ public class EncounterSystem : MonoBehaviour
     public Typewriter typewriter;
     public GameObject rewardsPanel;
 
+    public Island currentIsland;
+
+
     void Awake()
     {
         // Singleton pattern
@@ -54,13 +57,30 @@ public class EncounterSystem : MonoBehaviour
     }
 
 
-    public void LoadEncounter(bool landEncounter = false)
+    public void LoadEncounter(Island curIsland = null, bool landEncounter = false)
     {
         //ensures only one encounter at a time
         if (isEncounterActive) return;
 
         //if player is on land, set curEncounter to nextLandEncounter
-        curEncounter = landEncounter ? nextLandEncounter : nextSeaEncounter;
+        if (landEncounter)
+        {
+            currentIsland = curIsland;
+            if(curIsland.islandEvent){
+                curEncounter = curIsland.islandEvent;
+            }
+            else
+            {
+                curIsland.islandEvent = nextLandEncounter;
+                curEncounter = curIsland.islandEvent;
+            }
+        }
+        else
+        {
+            curEncounter = nextSeaEncounter;
+        }
+        
+
 
         //Pauses game and enable encounter UI
         Time.timeScale = 0.0f;
@@ -164,8 +184,15 @@ public class EncounterSystem : MonoBehaviour
 
         //Adds gained resources to player (also calculate altered gains)
         ResourceAmount[] optionGains = selectedOption.gain;
-        optionGains = CalculateAlteredGains(optionGains, true);
-        ResourceManager.Instance.Add(optionGains);
+        
+        ResourceAmount[] alteredOptionGains = CalculateAlteredGains(optionGains, true);
+        ResourceManager.Instance.Add(alteredOptionGains);
+        if (selectedOption.isGainNegative)
+        {
+            ResourceManager.Instance.Spend(optionGains);
+            ResourceManager.Instance.Spend(optionGains);
+            
+        }
 
         //enables rewards panel
         rewardsPanel.SetActive(true);
@@ -312,8 +339,40 @@ public class EncounterSystem : MonoBehaviour
         //adds encounter
         if (option.callAddEncounter && option.encounterToAdd != null)
         {
-            if (option.encounterToAdd.landEncounter) possibleLandEncounters.Add(option.encounterToAdd);
-            else if (!option.encounterToAdd.landEncounter) possibleSeaEncounters.Add(option.encounterToAdd);
+            if (option.encounterToAdd.landEncounter)
+            {
+                if (option.encounterToReplace)
+                {
+                    WorldGen world = FindObjectOfType<WorldGen>();
+                    bool isGenerated = false;
+                    foreach (GameObject i in world.islands)
+                    {
+                        if(i.GetComponent<Island>().islandEvent == option.encounterToReplace)
+                        {
+                            currentIsland = i.GetComponent<Island>();
+                            isGenerated = true;
+                            break;
+                        }
+                    }
+                    if (!isGenerated)
+                    {
+                        foreach (GameObject i in world.islands)
+                        {
+                            if(i.GetComponent<Island>().islandEvent == null)
+                            {
+                                currentIsland = i.GetComponent<Island>();
+                                break;
+                                
+                            }
+                        }
+                    }
+                    
+                }
+                currentIsland.islandEvent = option.encounterToAdd;
+            }  else if (!option.encounterToAdd.landEncounter)
+            {
+                possibleSeaEncounters.Add(option.encounterToAdd);
+            } 
         }
     }
 

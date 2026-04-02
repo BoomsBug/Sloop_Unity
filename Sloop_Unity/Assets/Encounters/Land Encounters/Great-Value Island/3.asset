@@ -12,26 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  text: GET AWAY
-  cost: []
-  gain:
-  - type: 0
-    amount: 1000
-  - type: 1
-    amount: 1000
-  - type: 2
-    amount: 1000
+  text: Complain to customer service
+  cost:
   - type: 3
-    amount: 1000
-  - type: 4
-    amount: 1000
+    amount: 5
+  gain: []
   isGainHidden: 1
-  isGainNegative: 1
-  outcome: You try to escape. Foolishly. The Kraken consumes your ship. YOU DIE
+  isGainNegative: 0
+  outcome: The complaints department is highly accomodating. They even assign you
+    a personal Great Value service member to assist you on your journey.
   loadMinigame: 0
   minigameName: 
-  callAddCrewmate: 0
-  crewToAdd: {fileID: 0}
-  callRemoveCrewmate: 1
+  callAddCrewmate: 1
+  crewToAdd: {fileID: -3337998711456353049, guid: e63844499a96c1150854cf8100c2e3df, type: 3}
+  callRemoveCrewmate: 0
   callAddEncounter: 0
-  encounterToAdd: {fileID: 0}
+  encounterToAdd: {fileID: 11400000, guid: b69a69f9803c914a4b1c99fb3f1b001e, type: 2}

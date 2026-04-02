@@ -10,28 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 3
+  m_Name: 2
   m_EditorClassIdentifier: 
-  text: GET AWAY
+  text: Ask what he's cooking
   cost: []
   gain:
-  - type: 0
-    amount: 1000
-  - type: 1
-    amount: 1000
   - type: 2
-    amount: 1000
-  - type: 3
-    amount: 1000
-  - type: 4
-    amount: 1000
+    amount: 5
   isGainHidden: 1
-  isGainNegative: 1
-  outcome: You try to escape. Foolishly. The Kraken consumes your ship. YOU DIE
+  isGainNegative: 0
+  outcome: '"Just making some sushi Cap''n"'
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 0
   crewToAdd: {fileID: 0}
-  callRemoveCrewmate: 1
+  callRemoveCrewmate: 0
   callAddEncounter: 0
   encounterToAdd: {fileID: 0}
