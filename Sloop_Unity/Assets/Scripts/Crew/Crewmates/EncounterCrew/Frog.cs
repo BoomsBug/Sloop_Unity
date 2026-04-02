@@ -63,7 +63,7 @@ public class Frog : Crewmate
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
         
-        food += 5;
+        food = (int) (food * 1.1f);
 
         //-----------------------------------------------------------
 

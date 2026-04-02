@@ -60,7 +60,7 @@ public class GoodCrewA : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        honour += 9;
+        honour = (int) (honour * 1.1);
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {

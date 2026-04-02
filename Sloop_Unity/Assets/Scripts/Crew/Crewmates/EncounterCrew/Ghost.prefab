@@ -52,5 +52,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2e0e3d5b2c6250d47b46e2eb6879b3bf, type: 3}
   description: If there is a food, wood, and gold cost, add 5 to honour gain and
     10 to gold gain
+  dialogues:
+  - oooOOOOoooOOO
   crewID: 0
   crewEncounter: {fileID: 0}

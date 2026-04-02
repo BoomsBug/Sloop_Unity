@@ -60,4 +60,9 @@ MonoBehaviour:
     to P gain
 
 '
+  dialogues:
+  - Hyuk Hyuk
+  - Hyuk Hyuk Hyuk
+  - Hyuk Hyuk Hyuk Hyuk
+  crewID: 0
   crewEncounter: {fileID: 11400000, guid: 0ddd44787b500e64e87b84f845a4ec31, type: 2}

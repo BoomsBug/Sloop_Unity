@@ -55,4 +55,9 @@ MonoBehaviour:
     -2 to H cost,
 
     -5 to G gain'
+  dialogues:
+  - It's a nice day out
+  - You're such a great captain!
+  - You've got this!
+  crewID: 0
   crewEncounter: {fileID: 0}

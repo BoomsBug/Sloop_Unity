@@ -51,6 +51,9 @@ MonoBehaviour:
   npcIndex: 0
   sprite: {fileID: -667343969, guid: 768a1a94732dcf74fb935fcac618c467, type: 3}
   description: 
+  dialogues:
+  - Hey boss, I turned one of your crew into a frog. *wink*
+  - RIBBIT
   crewID: 0
   crewEncounter: {fileID: 11400000, guid: 9e8b741a31b4e8b4d8e8c4c1f8903294, type: 2}
   frog: {fileID: 3847454697608693603, guid: 27b1b7d1b9054c646a525523f3f53963, type: 3}

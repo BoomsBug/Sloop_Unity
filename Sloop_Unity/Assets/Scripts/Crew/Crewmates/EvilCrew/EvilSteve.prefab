@@ -53,4 +53,8 @@ MonoBehaviour:
   description: '+2 to H cost,
 
     +10 to G gain'
+  dialogues:
+  - Hey its me!! Evil Steve!! Muahahaha
+  - You should kill the next guy you see
+  crewID: 0
   crewEncounter: {fileID: 0}
