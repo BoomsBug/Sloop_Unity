@@ -2127,7 +2127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d254348d018669418f116d227064cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseMenuOverlay: {fileID: 313584400}
+  pausePanel: {fileID: 0}
 --- !u!114 &977007396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5149,6 +5149,10 @@ PrefabInstance:
     - target: {fileID: 6311423960936347772, guid: 7a11ab8e4ed1a6f42a064ce4f47167f6, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500429141581349623, guid: 7a11ab8e4ed1a6f42a064ce4f47167f6, type: 3}
+      propertyPath: maxCrew
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6996556795199470641, guid: 7a11ab8e4ed1a6f42a064ce4f47167f6, type: 3}
       propertyPath: m_IsActive

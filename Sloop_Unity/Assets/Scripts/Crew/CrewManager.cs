@@ -24,6 +24,7 @@ public class CrewManager : MonoBehaviour
     public GameObject crewUI;
     public List<GameObject> panels;
     private int maxCrewID = 0;
+    public int maxCrew;
 
     void Awake()
     {
@@ -214,7 +215,7 @@ public class CrewManager : MonoBehaviour
             else i ++;
         }
 
-        if (i >= 18)
+        if (i >= maxCrew)
         {
             Debug.Log("crew is full");
             return;
