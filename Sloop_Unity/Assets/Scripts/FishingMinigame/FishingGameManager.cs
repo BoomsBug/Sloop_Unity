@@ -15,8 +15,6 @@ public class FishingGameManager : MonoBehaviour
     public float timeLimit = 30f;
 
     [Header("UI")]
-    // public TMP_Text goalText;   // "Fish: x / target"
-    // public TMP_Text timerText;  // "Time: xx"
     [SerializeField] public FishingHUDPanel hud;
     [SerializeField] public FishingResultPanel resultPanel;      // optional
 

@@ -68,8 +68,9 @@ public class Ghost : Crewmate
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
         if (check)
         {
-            honour += 5;
+            honour = (int) (honour * 1.1);
             gold += 10;
+            gold = (int) (gold * 1.1);
         }
 
 

@@ -61,11 +61,11 @@ public class GoodCrewC : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        gold += 5;
-        food += 5;
-        wood += 5;
-        power += 5;
-        honour += 5;
+        gold = (int) (gold * 1.1);
+        food = (int) (food * 1.1);
+        wood = (int) (wood * 1.1);
+        power = (int) (power * 1.1);
+        honour = (int) (honour * 1.1);
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {

@@ -51,4 +51,9 @@ MonoBehaviour:
   npcIndex: 0
   sprite: {fileID: 5292535884887548555, guid: e72c95ced4d931b45af27a199aee63d2, type: 3}
   description: +9 to H gain
+  dialogues:
+  - It's a nice day out
+  - You're such a great captain!
+  - You've got this!
+  crewID: 0
   crewEncounter: {fileID: 0}

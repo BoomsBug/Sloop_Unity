@@ -29,8 +29,8 @@ public class HyukHyukHarry : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
-        if (wood > 0) wood += 5;
-        if (food > 0) food += 5;
+        if (wood > 0) wood = (int) (wood * 1.1);
+        if (food > 0) food = (int) (food * 1.1);
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -62,8 +62,8 @@ public class HyukHyukHarry : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        honour += 5;
-        power += 5;
+        honour = (int) (honour * 1.1);
+        power = (int) (power * 1.1);
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {
