@@ -32,8 +32,8 @@ public class Island : MonoBehaviour
         {
             //Place port
             Vector2[] points = GetComponent<PolygonCollider2D>().points;
-            GameObject newPort = Instantiate(port, transform.TransformPoint(points[Random.Range(0,points.Length)]), Quaternion.identity);
-            newPort.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+            GameObject newPort = Instantiate(port, transform.TransformPoint(points[Random.Range(0,points.Length)]), Quaternion.identity, gameObject.transform);
+            newPort.GetComponent<SpriteRenderer>().sortingLayerName = "Port";
         }
     }
 }

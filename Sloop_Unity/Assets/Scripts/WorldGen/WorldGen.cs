@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class WorldGen : MonoBehaviour
@@ -57,28 +58,31 @@ public class WorldGen : MonoBehaviour
 
     void Start()
     {
-        // if (!GameManager.Instance.worldAlreadyLoaded)
-        // {
-        //     GenerateWorld();
-        //     GameManager.Instance.worldAlreadyLoaded = true;
-        //     GameManager.Instance.islands = islands;
-        // }
-        // else
-        // {
-        //     LoadWorld();
-        // }
-        GenerateWorld();
+        if (!GameManager.Instance.worldAlreadyLoaded)
+        {
+            GenerateWorld();
+            GameManager.Instance.worldAlreadyLoaded = true;
+        }
     }
 
-    public void LoadWorld()
+     void OnEnable()
     {
-        //takes stored island list and instantiates each island at it's correct tile coordinates
-        islands = GameManager.Instance.islands;
-        foreach (GameObject island in islands)
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //whenever prod is laoded, make sure islands are active. Wherever another scene is loaded, disable islands
+        if (scene.name == "PRODUCTION")
+            islandParent.gameObject.SetActive(true);
+        else
         {
-            Island islandScript = island.GetComponent<Island>();
-            GameObject newIsland = Instantiate(island, islandScript.tileCoordinates, Quaternion.identity);
-            newIsland.transform.SetParent(islandParent);
+            islandParent.gameObject.SetActive(false);
         }
     }
 
