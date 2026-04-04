@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   text: GET AWAY
-  cost:
+  cost: []
+  gain:
   - type: 0
-    amount: 100
+    amount: 1000
   - type: 1
-    amount: 100
+    amount: 1000
   - type: 2
-    amount: 100
+    amount: 1000
   - type: 3
-    amount: 100
+    amount: 1000
   - type: 4
-    amount: 100
-  gain: []
+    amount: 1000
   isGainHidden: 1
+  isGainNegative: 1
   outcome: You try to escape. Foolishly. The Kraken consumes your ship. YOU DIE
   loadMinigame: 0
   minigameName: 

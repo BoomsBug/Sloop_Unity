@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 3
+  m_EditorClassIdentifier: 
+  text: Complain to customer service
+  cost:
+  - type: 3
+    amount: 5
+  gain: []
+  isGainHidden: 1
+  isGainNegative: 0
+  outcome: The complaints department is highly accomodating. They even assign you
+    a personal Great Value service member to assist you on your journey.
+  loadMinigame: 0
+  minigameName: 
+  callAddCrewmate: 1
+  crewToAdd: {fileID: -3337998711456353049, guid: e63844499a96c1150854cf8100c2e3df, type: 3}
+  callRemoveCrewmate: 0
+  callAddEncounter: 0
+  encounterToAdd: {fileID: 11400000, guid: b69a69f9803c914a4b1c99fb3f1b001e, type: 2}

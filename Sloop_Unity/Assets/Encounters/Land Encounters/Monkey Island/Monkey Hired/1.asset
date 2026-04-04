@@ -10,16 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 5
+  m_Name: 1
   m_EditorClassIdentifier: 
-  text: MONKEY
-  cost: []
+  text: Give the monkeys bananas in exchange for gold
+  cost:
+  - type: 2
+    amount: 30
   gain:
-  - type: 4
-    amount: 5
+  - type: 0
+    amount: 100
   isGainHidden: 1
-  outcome: MONKEY MONKEY MONKEY MONKEY OOOOHO OHO OOOH OOH AAAAH AH AHAAAHA OOH AH
-    OOH BANANANANA
+  isGainNegative: 0
+  outcome: The monkeys take your bananas and they begin to eat them, leaving piles
+    of gold on the beach as they return to the trees.
   loadMinigame: 0
   minigameName: 
   callAddCrewmate: 0

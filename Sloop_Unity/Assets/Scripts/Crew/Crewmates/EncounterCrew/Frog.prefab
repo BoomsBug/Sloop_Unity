@@ -51,4 +51,8 @@ MonoBehaviour:
   npcIndex: 0
   sprite: {fileID: 1773627999, guid: cb00f7174a2b5464e9f1910013d7d5f2, type: 3}
   description: mmm froggy
+  dialogues:
+  - Ribbit
+  - Croak
+  crewID: 0
   crewEncounter: {fileID: 0}

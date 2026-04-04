@@ -16,6 +16,7 @@ public class Crewmate : MonoBehaviour
     public int npcIndex;
     public Sprite sprite;
     [TextArea] public string description; //their impact on resource costs and gains
+    [TextArea] public string[] dialogues;
     public int crewID;
     
     void Start()

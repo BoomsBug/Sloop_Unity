@@ -22,6 +22,7 @@ MonoBehaviour:
   - type: 3
     amount: 5
   isGainHidden: 0
+  isGainNegative: 0
   outcome: He accepts your money and reluctantly joins your crew. You have a feeling
     he might betray you.
   loadMinigame: 0
@@ -30,4 +31,4 @@ MonoBehaviour:
   crewToAdd: {fileID: 2827987482385375505, guid: 17a2fe89e71a5c14ba44f08301f4e8cb, type: 3}
   callRemoveCrewmate: 0
   callAddEncounter: 0
-  encounterToAdd: {fileID: 0}
+  encounterToAdd: {fileID: 11400000, guid: b2f4b76f0692bcfed9b62d6d5cb56c8b, type: 2}

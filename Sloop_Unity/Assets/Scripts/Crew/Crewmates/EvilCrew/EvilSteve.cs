@@ -29,7 +29,7 @@ public class EvilSteve : Crewmate
         
         // ---------------- MAKE COST MODIFIERS HERE ----------------
         //ie. gold += 10, if (wood >= 10) food -= 5, etc...
-        honour += 2;
+        honour = (int) (honour * 1.1);
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredCosts = {
@@ -61,7 +61,7 @@ public class EvilSteve : Crewmate
         }
         
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
-        gold += 10;
+        gold = (int) (gold * 1.1);
         //-----------------------------------------------------------
 
         ResourceAmount[] alteredGains = {

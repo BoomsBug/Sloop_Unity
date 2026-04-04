@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   text: Steal their gold
-  cost:
+  cost: []
+  gain:
   - type: 4
     amount: 30
-  gain:
-  - type: 0
-    amount: 0
-  isGainHidden: 0
+  isGainHidden: 1
+  isGainNegative: 1
   outcome: The monkeys chase you all the way to your ship.
   loadMinigame: 1
   minigameName: BarrelDodging

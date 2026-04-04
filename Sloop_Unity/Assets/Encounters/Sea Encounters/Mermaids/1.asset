@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: 
   text: Sail towards the singing
-  cost:
-  - type: 3
-    amount: 10
+  cost: []
+  gain:
   - type: 0
     amount: 100
-  gain: []
+  - type: 3
+    amount: 10
   isGainHidden: 1
+  isGainNegative: 1
   outcome: You find yourself surrounded by beautiful mermaids. Their singing enchants
     you and your crew, urging you to toss your riches overboard. One of you crew
     even jumps overboard himself.

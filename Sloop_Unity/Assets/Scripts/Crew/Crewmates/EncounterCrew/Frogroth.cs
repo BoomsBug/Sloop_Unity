@@ -64,7 +64,7 @@ public class Frogroth : Crewmate
         // ---------------- MAKE GAIN MODIFIERS HERE ----------------
         if (callFunctions)
         {
-            if (UnityEngine.Random.value <= 1) //25% chance each encounter to turn a crewmate into a frog
+            if (UnityEngine.Random.value <= 0.25) //25% chance each encounter to turn a crewmate into a frog
             {
                 Crewmate crewToRemove = CrewManager.Instance.hiredCrew[UnityEngine.Random.Range(0, CrewManager.Instance.hiredCrew.Count)];
                 if (crewToRemove.crewName != "Frogroth, King of Frogs" && crewToRemove.crewName != "Frog")
