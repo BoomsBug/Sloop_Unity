@@ -11,6 +11,7 @@ public class PauseManager : MonoBehaviour
     public static bool Paused = false;
     public static PauseManager Instance;
     [SerializeField] private UIPanel pausePanel;
+    [SerializeField] private UIPanel settingsPanel;
 
     // On awake, make Pauemanager persist accross scenes
     private void Awake()
@@ -39,7 +40,7 @@ public class PauseManager : MonoBehaviour
     // Resume game
     public void Resume()
     {
-        UIManager.Instance.CloseTopPanel();
+        UIManager.Instance.CloseAll();
         Time.timeScale = 1.0f;
         Paused = false;
     }
@@ -50,6 +51,17 @@ public class PauseManager : MonoBehaviour
         UIManager.Instance.OpenPanel(pausePanel);
         Time.timeScale = 0.0f;
         Paused = true;
+    }
+
+    // open settings
+    public void OpenSettings()
+    {
+        UIManager.Instance.OpenPanel(settingsPanel);
+    }
+
+    public void CloseSettings()
+    {
+        UIManager.Instance.CloseTopPanel();
     }
 
     // Go to main menu/ start screen
