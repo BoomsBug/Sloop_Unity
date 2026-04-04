@@ -128,10 +128,12 @@ AudioMixerController:
     name: MyExposedParam 3
   - guid: 62a1a82d9621ed742b6cc0dd5aaeed71
     name: MyExposedParam 1
+  - guid: a50d4fca11a4a6b488d5086a3fd58ee1
+    name: MasterVolume
   - guid: cac7ec60166673244b38b385b731ef36
     name: MyExposedParam 4
   - guid: 898d9cb0901d1b849aab776b53eaebbd
-    name: MyExposedParam
+    name: SFXVolume
   - guid: a7454bb83e3b03041955f3f7bf48a9ec
     name: SongVolume
   m_AudioMixerGroupViews:
