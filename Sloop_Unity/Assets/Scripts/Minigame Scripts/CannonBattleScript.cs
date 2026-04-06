@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Sloop.UI;
 
 // Used Chat GPT to help me construct parts of this script
 
@@ -24,18 +25,20 @@ public class CannonBattleScript : MonoBehaviour
 
 
     [Header("UI")]
-    public TextMeshProUGUI WinLossText;
-    public GameObject WinLossTextObj;
+    //public TextMeshProUGUI WinLossText;
+    //public GameObject WinLossTextObj;
+    [SerializeField] private CannonBattleHUDPanel hud;
+    [SerializeField] private CannonBallResultPanel resultPanel;
 
     [Header("UIButtons")]
-    public GameObject ResetButton;
-    public GameObject ReturnButton;
+    //public GameObject ResetButton;
+    //public GameObject ReturnButton;
 
     [Header("Health")]
     public int PlayerHealth = 100;
     public int EnemyHealth = 100;
-    public TextMeshProUGUI PlayerHealthText;
-    public TextMeshProUGUI EnemyHealthText;
+    //public TextMeshProUGUI PlayerHealthText;
+    //public TextMeshProUGUI EnemyHealthText;
 
     [Header("Player")]
     public float FireSpeed = 30f;
@@ -57,46 +60,44 @@ public class CannonBattleScript : MonoBehaviour
     public AudioClip CannonAudioClip;
     public AudioClip ExplosionClip;
 
-
     private void Start()
     {
         Instance = this;
+        if (hud!=null) 
+        {
+            hud.Show();
+            hud.HealthInit(PlayerHealth,EnemyHealth);
+        }
         UpdateHealthUI();
     }
 
-
     public void UpdateHealthUI()
     {
-        PlayerHealthText.text = "Health: " + PlayerHealth;
-        EnemyHealthText.text = "Health: " + EnemyHealth;
+        if (hud!=null) hud.SetHealth(PlayerHealth, EnemyHealth);
+        // PlayerHealthText.text = "Health: " + PlayerHealth;
+        // EnemyHealthText.text = "Health: " + EnemyHealth;
     }
-
-
 
     void Update()
     {
         if (!roundEnded && (PlayerHealth <= 0 || EnemyHealth <= 0))
-        {        
-            roundEnded = true;
-        }
-
-        if (roundEnded)
         {
-            ReturnButton.SetActive(true);
-
-            if (PlayerHealth <= 0)
-            {
-                WinLossText.text = "You Lose!";
-            }
-
-            else if (EnemyHealth <= 0)
-            {
-                WinLossText.text = "You Win!";
-            }
-
-            WinLossTextObj.SetActive(true);
+            roundEnded = true;
+            ShowResult();
             return;
-        }
+        }  
+
+        // if (roundEnded)
+        // {        
+        //     ReturnButton.SetActive(true);
+
+        //     if (PlayerHealth <= 0) WinLossText.text = "You Lose!";
+
+        //     else if (EnemyHealth <= 0) WinLossText.text = "You Win!";
+
+        //     WinLossTextObj.SetActive(true);
+        //     return;
+        // }
 
 
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Get mouse pos
@@ -120,7 +121,6 @@ public class CannonBattleScript : MonoBehaviour
 
     void Aim()
     {
-
         Vector2 direction = mousePos - transform.position;
 
         // angle to calculate where to fire with arc to hit target
@@ -132,8 +132,6 @@ public class CannonBattleScript : MonoBehaviour
 
     void Fire()
     {
-
-
         // Make a cannonball from firepoint
         GameObject cannonBall = Instantiate(cannonBallPrefab, FirePoint.position, Quaternion.identity);
 
@@ -156,9 +154,7 @@ public class CannonBattleScript : MonoBehaviour
         // Apply force
         rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
 
-
         CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
-
     }
 
     // Enemy boat firing logic
@@ -175,10 +171,8 @@ public class CannonBattleScript : MonoBehaviour
         // Smoke from cannon fire
         Instantiate(SmokePrefab, EnemyFirePoint.position, Quaternion.identity);
 
-
         // Get Rigidbody to apply physics
         Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
-
 
         Vector2 playerVelocity = playerRB.velocity; // get player velocity
 
@@ -190,8 +184,6 @@ public class CannonBattleScript : MonoBehaviour
         // predicted player position
         Vector2 NewPredictedTarget = (Vector2)PlayerTransform.position + playerVelocity * TimeToPlayer;
 
-
-
         // Get dir from firepoint to destination (predicted player position)
         Vector2 direction = (NewPredictedTarget - (Vector2)EnemyFirePoint.position).normalized;
 
@@ -202,9 +194,20 @@ public class CannonBattleScript : MonoBehaviour
         // Apply force
         rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
 
-
         CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
-
     }
 
+    void ShowResult()
+    {
+        string msg="";
+        if (PlayerHealth<=0) msg="You lose!";
+        else if (EnemyHealth<=0) msg="You win!";
+        
+        if (resultPanel != null)
+        {
+            resultPanel.SetResult(msg);
+            UIManager.Instance.OpenPanel(resultPanel);
+            resultPanel.Show();
+        }
+    }
 }
