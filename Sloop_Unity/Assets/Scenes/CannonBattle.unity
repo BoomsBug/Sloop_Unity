@@ -1027,8 +1027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 353401778}
   rb: {fileID: 564450894}
-  moveSpeed: 4
-  preferredDistance: 16
+  moveSpeed: 3
+  preferredDistance: 20
 --- !u!95 &564450896
 Animator:
   serializedVersion: 5
@@ -1857,14 +1857,14 @@ MonoBehaviour:
   hud: {fileID: 1640146776}
   resultPanel: {fileID: 312637355}
   PlayerHealth: 100
-  EnemyHealth: 100
+  EnemyHealth: 250
   FireSpeed: 30
-  FireCooldown: 0.75
+  FireCooldown: 1
   FirePoint: {fileID: 960972680}
   PlayerTransform: {fileID: 353401778}
   playerRB: {fileID: 784034145}
   EnemyFirePoint: {fileID: 1985006592}
-  EnemyFireCooldown: 1.5
+  EnemyFireCooldown: 2
   CannonAudioSource: {fileID: 962565792}
   CannonAudioClip: {fileID: 8300000, guid: 4bcbd86f5bf36df4b8fcd34fe21eb677, type: 3}
   ExplosionClip: {fileID: 8300000, guid: 8bc12b628a49b5b449edc7888d6f56b4, type: 3}
@@ -1954,15 +1954,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6259655479840087230, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: maxZoom
-      value: 30
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 6259655479840087230, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: minZoom
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6259655479840087230, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: scrollSensitivity
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6635720673327538025, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_Depth
@@ -1974,7 +1974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6635720673327538025, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: orthographic size
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6635720673327538025, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_BackGroundColor.a
@@ -2975,74 +2975,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2137127040
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2137127043}
-  - component: {fileID: 2137127042}
-  - component: {fileID: 2137127041}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2137127041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137127040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf3bed580d93f114bb90bc13fb5028ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2137127042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137127040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49ef87e5bbf11354a98cc9db7732d959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  worldSeed: 0
-  boatPosition: {x: 0, y: 0, z: 0}
-  boatVelocity: {x: 0, y: 0}
-  hasBoatState: 0
-  currentIslandID: -1
-  currentIslandMorality: 
-  directionToTreasure: 
-  randomDirection: 
-  worldAlreadyLoaded: 0
-  islands: []
---- !u!4 &2137127043
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137127040}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3054,6 +2986,5 @@ SceneRoots:
   - {fileID: 306652651}
   - {fileID: 832022351}
   - {fileID: 1390900496}
-  - {fileID: 2137127043}
   - {fileID: 1710346052}
   - {fileID: 1439751283}
