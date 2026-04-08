@@ -36,13 +36,13 @@ public class CannonBattleScript : MonoBehaviour
 
     [Header("Health")]
     public int PlayerHealth = 100;
-    public int EnemyHealth = 100;
+    public int EnemyHealth = 250;
     //public TextMeshProUGUI PlayerHealthText;
     //public TextMeshProUGUI EnemyHealthText;
 
     [Header("Player")]
     public float FireSpeed = 30f;
-    public float FireCooldown = 0.75f;
+    public float FireCooldown = 1f;
     private float NextFireTime = 0f;
     public Transform FirePoint;
     public Transform PlayerTransform;
@@ -51,7 +51,7 @@ public class CannonBattleScript : MonoBehaviour
 
     [Header("Enemy")]
     public Transform EnemyFirePoint;
-    public float EnemyFireCooldown = 1.5f;
+    public float EnemyFireCooldown = 2f;
     private float NextEnemyFireTime = 0f;
 
 
@@ -135,6 +135,15 @@ public class CannonBattleScript : MonoBehaviour
         // Make a cannonball from firepoint
         GameObject cannonBall = Instantiate(cannonBallPrefab, FirePoint.position, Quaternion.identity);
 
+        // Ignore if cannonball hits own ship
+        Collider2D CannonCollider = cannonBall.GetComponent<Collider2D>();
+        Collider2D PlayerCollider = PlayerTransform.GetComponent<Collider2D>();
+
+        if (PlayerCollider != null && CannonCollider != null)
+        {
+            Physics2D.IgnoreCollision(CannonCollider, PlayerCollider);
+        }
+
         cannonBall.GetComponent<CannonBallBattleScript>().ownerTag = "Player"; // this cannonball is players
 
         // Fire from cannon muzzle
@@ -152,7 +161,9 @@ public class CannonBattleScript : MonoBehaviour
         Vector2 direction = (mousePos - FirePoint.position).normalized;
 
         // Apply force
-        rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
+        //rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
+        rb.velocity = direction * FireSpeed;
+        rb.mass = 0.0001f;
 
         CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
     }
@@ -161,6 +172,14 @@ public class CannonBattleScript : MonoBehaviour
     void EnemyFire()
     {
         GameObject cannonBall = Instantiate(cannonBallPrefab, EnemyFirePoint.position, Quaternion.identity);
+
+        // Ignore if cannonball hits own ship
+        Collider2D CannonCollider = cannonBall.GetComponent<Collider2D>();
+        Collider2D EnemyCollider = EnemyFirePoint.GetComponentInParent<Collider2D>();
+        if (EnemyCollider != null && CannonCollider!= null)
+        {
+            Physics2D.IgnoreCollision(CannonCollider, EnemyCollider);
+        }
 
         cannonBall.GetComponent<CannonBallBattleScript>().ownerTag = "Enemy"; // this cannonball is players
 
@@ -188,11 +207,13 @@ public class CannonBattleScript : MonoBehaviour
         Vector2 direction = (NewPredictedTarget - (Vector2)EnemyFirePoint.position).normalized;
 
         // Throws off direction so enemy is not a perfect shot
-        direction += new Vector2(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+        direction += new Vector2(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f));
         direction.Normalize();
 
         // Apply force
-        rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
+        //rb.AddForce(direction * FireSpeed, ForceMode2D.Impulse);
+        rb.velocity = direction * FireSpeed;
+        rb.mass = 0.0001f;
 
         CannonAudioSource.PlayOneShot(CannonAudioClip, 1f); // Play 1 second of cannon firing
     }

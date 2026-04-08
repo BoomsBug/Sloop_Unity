@@ -973,7 +973,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0128625855, y: 0.022698104}
+  m_Offset: {x: -0.0018488206, y: 0.022698104}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -984,7 +984,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16253968, y: 0.44328326}
+  m_Size: {x: 0.16427049, y: 0.44328326}
   m_EdgeRadius: 0
 --- !u!50 &564450894
 Rigidbody2D:
@@ -1861,7 +1861,7 @@ MonoBehaviour:
   FireSpeed: 30
   FireCooldown: 0.75
   FirePoint: {fileID: 960972680}
-  PlayerTransform: {fileID: 868189374}
+  PlayerTransform: {fileID: 353401778}
   playerRB: {fileID: 784034145}
   EnemyFirePoint: {fileID: 1985006592}
   EnemyFireCooldown: 1.5
@@ -1879,6 +1879,26 @@ PrefabInstance:
     - target: {fileID: 609237003617239293, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_Name
       value: Ship (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 609237003617239293, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1556120282000706483, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5244575
+      objectReference: {fileID: 0}
+    - target: {fileID: 1556120282000706483, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: m_Size.y
+      value: 0.16785876
+      objectReference: {fileID: 0}
+    - target: {fileID: 1556120282000706483, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0025043404
+      objectReference: {fileID: 0}
+    - target: {fileID: 1556120282000706483, guid: b422367889da544439dac250a0adea90, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.07296783
       objectReference: {fileID: 0}
     - target: {fileID: 5115798002665951388, guid: b422367889da544439dac250a0adea90, type: 3}
       propertyPath: m_LocalScale.x
@@ -2678,7 +2698,7 @@ Transform:
   m_GameObject: {fileID: 1985006591}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.071, y: -0.04, z: 0}
   m_LocalScale: {x: 0.06666667, y: 0.06666667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
