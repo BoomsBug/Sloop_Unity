@@ -1864,7 +1864,7 @@ MonoBehaviour:
   PlayerTransform: {fileID: 353401778}
   playerRB: {fileID: 784034145}
   EnemyFirePoint: {fileID: 1985006592}
-  EnemyFireCooldown: 2
+  EnemyFireCooldown: 3
   CannonAudioSource: {fileID: 962565792}
   CannonAudioClip: {fileID: 8300000, guid: 4bcbd86f5bf36df4b8fcd34fe21eb677, type: 3}
   ExplosionClip: {fileID: 8300000, guid: 8bc12b628a49b5b449edc7888d6f56b4, type: 3}

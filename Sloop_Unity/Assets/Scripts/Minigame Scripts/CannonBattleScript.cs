@@ -51,7 +51,7 @@ public class CannonBattleScript : MonoBehaviour
 
     [Header("Enemy")]
     public Transform EnemyFirePoint;
-    public float EnemyFireCooldown = 2f;
+    public float EnemyFireCooldown = 3f;
     private float NextEnemyFireTime = 0f;
 
 
