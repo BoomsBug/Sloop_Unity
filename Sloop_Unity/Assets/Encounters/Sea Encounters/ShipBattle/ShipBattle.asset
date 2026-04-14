@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: ShipBattle
+  m_EditorClassIdentifier: 
+  encounterName: No Quarter
+  text: From a curtain of thick fog, rain, an ominous shadow emerges in the distance.
+    Silent. yet deliberate in its approach... could it be? Fire suddenly illuminates
+    the horizon, cannon shots crack through the mist. You shout "All Hands to Quarters!"
+  options:
+  - {fileID: 11400000, guid: 83fb00f647d051541b140965f3a1e39a, type: 2}
+  - {fileID: 11400000, guid: 792b17e0e0d38714798c51e96f62464d, type: 2}
+  - {fileID: 11400000, guid: 3d4f48985e483e5449c6523e3e707ce6, type: 2}
+  oneTime: 0
+  landEncounter: 0

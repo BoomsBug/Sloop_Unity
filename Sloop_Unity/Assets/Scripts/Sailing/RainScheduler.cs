@@ -32,6 +32,14 @@ public class RainScheduler : MonoBehaviour
     public float gustStrength = 0.5f;        // extra random wind amount
     public float gustChangeRate = 2f;        // how fast gust changes
 
+    [Header("Popups")]
+    public RectTransform uiRoot;         
+    public GameObject floatingTextPrefab; 
+    public Vector3 popupWorldOffset = new Vector3(0f, 0.6f, 0f);
+
+    private bool wasRainingLastFrame = false;
+
+    public GameObject ship;
 
     public bool IsRaining { get; private set; }
     public float CurrentSpeedMultiplier => IsRaining ? rainSpeedMultiplier : 1f;
@@ -78,6 +86,13 @@ public class RainScheduler : MonoBehaviour
 
     void Update()
     {
+        if (IsRaining && !wasRainingLastFrame)
+        {
+            Popup("Caution: Strong Wind!", ship.transform.position + popupWorldOffset);
+        }
+
+        wasRainingLastFrame = IsRaining;
+
         if (!IsRaining)
         {
             GustVector = Vector2.zero;
@@ -90,4 +105,16 @@ public class RainScheduler : MonoBehaviour
         GustVector = new Vector2(gx, gy).normalized * gustStrength;
     }
 
+    void Popup(string msg, Vector3 worldPos)
+    {
+        if (!floatingTextPrefab || !uiRoot || Camera.main == null) return;
+
+        var go = Instantiate(floatingTextPrefab, uiRoot);
+        var rt = go.GetComponent<RectTransform>();
+        if (rt != null)
+            rt.position = Camera.main.WorldToScreenPoint(worldPos);
+
+        var ft = go.GetComponent<FloatingTextPopup>();
+        if (ft != null) ft.Show(msg);
+    }
 }

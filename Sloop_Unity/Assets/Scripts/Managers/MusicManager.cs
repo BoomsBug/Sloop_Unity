@@ -40,17 +40,43 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup songGroup;
     [SerializeField] private AudioMixerGroup OceanGroup;
     [SerializeField] private AudioMixer mixer;
+    
     private Coroutine shantyRoutine;
     private List<int> fiddleQueue = new List<int>();
     private int fiddleIndex = 0;
+
+    public float MasterVolume {get; private set;} = 1f;
+    public float SongVolume {get; private set;} = 1f;
+    public float SFXVolume {get; private set;} = 1f;
+
+    public void SetMasterVolume(float value)
+    {
+        MasterVolume=value;
+        mixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Max(value,0.0001f))*20);
+        PlayerPrefs.SetFloat("MasterVolume",value);
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        SFXVolume=value;
+        mixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Max(value,0.0001f))*20);
+        PlayerPrefs.SetFloat("SFXVolume",value);
+    }
+
+    public void SetSongVolume(float value)
+    {
+        SongVolume=value;
+        mixer.SetFloat("SongVolume", Mathf.Log10(Mathf.Max(value,0.0001f))*20);
+        PlayerPrefs.SetFloat("SongVolume",value);
+    }
     public void SetMusicVolume(float value)
     {
-        mixer.SetFloat("AmbientVolume", Mathf.Log10(value) * 20);
+        mixer.SetFloat("AmbientVolume", Mathf.Log10(Mathf.Max(value,0.0001f)) * 20);
     }
 
     public void SetEventVolume(float value)
     {
-        mixer.SetFloat("SongVolume", Mathf.Log10(value) * 20);
+        mixer.SetFloat("SongVolume", Mathf.Log10(Mathf.Max(value,0.0001f)) * 20);
     }
 
     private void InitializeFiddleQueue()
@@ -81,6 +107,7 @@ public class MusicManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        //LoadSettings();
 
         ambientSource = gameObject.AddComponent<AudioSource>();
         ambientSource.loop = true;
@@ -105,10 +132,8 @@ public class MusicManager : MonoBehaviour
         InitializeFiddleQueue();
     }
 
-    void Start()
-    {
-        
-    }
+    void Start(){}
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -300,8 +325,6 @@ public class MusicManager : MonoBehaviour
                 InitializeFiddleQueue();
             }
 
-
-
             songSource.clip = randomClip.clip;
             songSource.volume = randomClip.volume;
             songSource.Play();
@@ -320,4 +343,15 @@ public class MusicManager : MonoBehaviour
             yield return new WaitUntil(() => !songSource.isPlaying);
         }
     }
+
+    // private void LoadSettings()
+    // {
+    //     MasterVolume = PlayerPrefs.GetFloat("MasterVolume",1f);
+    //     MusicVolume = PlayerPrefs.GetFloat("MusicVolume",1f);
+    //     SFXVolume = PlayerPrefs.GetFloat("SFXVolume",1f);
+
+    //     SetMasterVolume(MasterVolume);
+    //     SetMusicVolume(MusicVolume);
+    //     SetSFXVolume(SFXVolume);
+    // }
 }

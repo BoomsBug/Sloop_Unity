@@ -9,10 +9,10 @@ public class EnemyMovement : MonoBehaviour
     public Transform player;          // Player ship
     public Rigidbody2D rb;
 
-    public float moveSpeed = 4f;
+    public float moveSpeed = 3f;
 
     // Distance enemy wants to keep from player
-    public float preferredDistance = 16f;
+    public float preferredDistance = 20f;
 
     private Animator animator;
 
