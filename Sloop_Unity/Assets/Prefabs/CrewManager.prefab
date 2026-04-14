@@ -176,6 +176,7 @@ MonoBehaviour:
   - {fileID: 130812795428892482}
   - {fileID: 6311423960936347772}
   - {fileID: 3295310070634445671}
+  maxCrew: 0
 --- !u!1 &8677852298742525564
 GameObject:
   m_ObjectHideFlags: 0

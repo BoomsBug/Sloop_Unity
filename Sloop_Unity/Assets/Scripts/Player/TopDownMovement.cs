@@ -24,6 +24,7 @@ public class TopDownPlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
     private Vector2 moveInput;
     private Vector2 currentVelocity;
     
@@ -52,6 +53,13 @@ public class TopDownPlayerMovement : MonoBehaviour
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
         
+        if (moveInput.x !=0 && moveInput.y !=0) {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+             animator.SetBool("isRunning", false);
+        }
         // Handle interactions
         // if (Input.GetKeyDown(KeyCode.E) && isNearMerchant)
         // {
