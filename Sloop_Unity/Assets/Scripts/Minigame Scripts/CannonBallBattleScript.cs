@@ -33,6 +33,10 @@ public class CannonBallBattleScript : MonoBehaviour
             CannonBattleScript.Instance.UpdateHealthUI();
 
             GameObject Explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+
+            // Parent explosion to keep on ship
+            Explosion.transform.SetParent(collision.transform);
+
             CannonBattleScript.Instance.CannonAudioSource.PlayOneShot(CannonBattleScript.Instance.ExplosionClip, 1f); // Play 1 second of explosion sound upon keg hit
 
             Destroy(Explosion, 3f);
@@ -46,6 +50,10 @@ public class CannonBallBattleScript : MonoBehaviour
             CannonBattleScript.Instance.UpdateHealthUI();
 
             GameObject Explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+
+            // Parent explosion to keep on ship
+            Explosion.transform.SetParent(collision.transform);
+
             CannonBattleScript.Instance.CannonAudioSource.PlayOneShot(CannonBattleScript.Instance.ExplosionClip, 1f); // Play 1 second of explosion sound upon keg hit
 
 

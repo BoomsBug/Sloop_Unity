@@ -164,7 +164,7 @@ public class CannonController : MonoBehaviour
         }
         if (roundEnded && activeCannonballs == 0) {
 
-            if (TotalScore > 100)
+            if (TotalScore >= 100)
             {
                 ReturnButton.SetActive(true);
             }

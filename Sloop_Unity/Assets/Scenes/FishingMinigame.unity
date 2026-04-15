@@ -404,8 +404,8 @@ MonoBehaviour:
   catchPitchMin: 2.3
   catchPitchMax: 2.9
   returnSceneName: PRODUCTION
-  uiRoot: {fileID: 0}
-  floatingTextPrefab: {fileID: 0}
+  uiRoot: {fileID: 1559966911}
+  floatingTextPrefab: {fileID: 4508708029077706253, guid: 8754255f87414d842b9c489420c9db06, type: 3}
   popupWorldOffset: {x: 0, y: 0.6, z: 0}
 --- !u!4 &483264495
 Transform:
@@ -951,7 +951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topY: 3
-  bottomY: -5
+  bottomY: -3
   downTime: 0.17
   upTime: 0.2
   cooldown: 0.1
@@ -1741,11 +1741,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d624e501033864f9a8e3c726b8274c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topY: 1
-  bottomY: -4.3
-  downTime: 0.12
-  upTime: 0.18
-  cooldown: 0.25
+  topY: 0.2
+  bottomY: -5.8
+  downTime: 0.17
+  upTime: 0.2
+  cooldown: 0.1
   dipSound: {fileID: 0}
   volume: 1
   pitchMin: 0.9

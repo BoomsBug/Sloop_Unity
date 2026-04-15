@@ -51,5 +51,8 @@ MonoBehaviour:
   npcIndex: 0
   sprite: {fileID: 7072210873301622302, guid: e75b73b27be230a4e9a4ba9ee09f2744, type: 3}
   description: 
+  dialogues:
+  - Do you provide any kind of benefits package?
+  - My last job sucked, but at least it had dental insurance
   crewID: 0
   crewEncounter: {fileID: 0}

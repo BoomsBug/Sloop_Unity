@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
                 HandleCannonPractice();
                 break;
             case GameState.CannonBattle:
-                HandleCannonPractice();
+                HandleCannonBattle();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
