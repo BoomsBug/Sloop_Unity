@@ -385,7 +385,10 @@ MonoBehaviour:
     volume: 1
   barrelMusic:
     clip: {fileID: 8300000, guid: ac837a0521ae25d47861be0c31c5ee9b, type: 3}
-    volume: 1.696
+    volume: 1
+  battleMusic:
+    clip: {fileID: 8300000, guid: a41167a5de743bd4a901575c87a8052b, type: 3}
+    volume: 1
   fiddleTunes:
   - clip: {fileID: 8300000, guid: 3a350980472c81d48af4bd1e7eed5b66, type: 3}
     volume: 1.273
@@ -1279,12 +1282,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleSeaEncounters.Array.size
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleLandEncounters.Array.size
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleSeaEncounters.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 47eee7d036e6a2a459a5d776f6d40374, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleSeaEncounters.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a72d3ab3b0d6045418fd68394a1b0571, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleSeaEncounters.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f83dfb001e9e6d498cc2dcf7cc38866, type: 2}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleSeaEncounters.Array.data[8]
       value: 
