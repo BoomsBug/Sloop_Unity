@@ -102,6 +102,7 @@ public class FishingGameManager : MonoBehaviour
 
         Destroy(fish);
         Popup("Caught!", fish.transform.position + popupWorldOffset);
+        Debug.Log("Popup");
 
         fishCaught++;
         UpdateGoalUI();
