@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class MusicClip
 {
     public AudioClip clip;
-    [Range(0f, 2f)]
+    [Range(0f, 1f)]
     public float volume = 1f;
 }
 
@@ -25,6 +25,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private MusicClip fishingMusic;
     [SerializeField] private MusicClip cannonMusic;
     [SerializeField] private MusicClip barrelMusic;
+    [SerializeField] private MusicClip battleMusic;
     [SerializeField] private MusicClip[] fiddleTunes;
     [SerializeField] private MusicClip[] shanties;
     public AudioClip[] oceanClips;
@@ -208,6 +209,15 @@ public class MusicManager : MonoBehaviour
                 ambientSource2.clip = null;
                 ambientSource2.volume = 0f;
                 break;
+
+            case "CannonBattle":
+                newClip = battleMusic;
+                //oceanSource.clip = oceanClips[Random.Range(0, oceanClips.Length)];
+                oceanSource.volume = 0f;
+                ambientSource2.clip = null;
+                ambientSource2.volume = 0f;
+                break;
+
 
         }
         if (sceneName != "StartScreen")
