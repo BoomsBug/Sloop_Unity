@@ -404,8 +404,8 @@ MonoBehaviour:
   catchPitchMin: 2.3
   catchPitchMax: 2.9
   returnSceneName: PRODUCTION
-  uiRoot: {fileID: 0}
-  floatingTextPrefab: {fileID: 0}
+  uiRoot: {fileID: 1559966911}
+  floatingTextPrefab: {fileID: 4508708029077706253, guid: 8754255f87414d842b9c489420c9db06, type: 3}
   popupWorldOffset: {x: 0, y: 0.6, z: 0}
 --- !u!4 &483264495
 Transform:
