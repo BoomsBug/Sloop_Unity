@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  text: Stand and fight
+  cost:
+  - type: 1
+    amount: 10
+  - type: 3
+    amount: 20
+  gain:
+  - type: 0
+    amount: 200
+  - type: 4
+    amount: 20
+  - type: 2
+    amount: 20
+  isGainHidden: 1
+  isGainNegative: 0
+  outcome: Once and for all, Captain Buckley's ship is defeated, and you and your
+    crew watch as the tip of the mast slowly sinks below the calm waters. It was
+    a tough battle, but he was no match for you. Onto the treasure.
+  minigameName: CannonBattle
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 1
+  encounterToAdd: {fileID: 0}
+  encounterToReplace: {fileID: 0}
+  followUpEncounter: {fileID: 0}
+  loseGame: 0
+  winGame: 0

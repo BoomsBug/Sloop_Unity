@@ -19,6 +19,7 @@ public class EncounterSystem : MonoBehaviour
     public List<EncounterSO> possibleLandEncounters;
     public List<EncounterSO> completedLandEncounters = new List<EncounterSO>();
     public EncounterSO startingEncounter;
+    public EncounterSO treasureEncounter;
     public bool cycleEncounters;
     public EncounterSO curEncounter;
     public EncounterSO nextLandEncounter;
@@ -29,6 +30,7 @@ public class EncounterSystem : MonoBehaviour
     private bool isEncounterActive = false;
     private bool loseGameOnContinue = false;
     private bool winGameOnContinue = false;
+    private bool loadFollowUpEncounterOnContinue = false;
 
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
@@ -60,29 +62,39 @@ public class EncounterSystem : MonoBehaviour
     }
 
 
-    public void LoadEncounter(Island curIsland = null, bool landEncounter = false)
+    public void LoadEncounter(Island curIsland=null, bool landEncounter=false, bool isTreasureEncounter=false, bool isFollowUp=false)
     {
         //ensures only one encounter at a time
         if (isEncounterActive) return;
 
-        //if player is on land, set curEncounter to nextLandEncounter
-        if (landEncounter)
-        {
-            currentIsland = curIsland;
-            if(curIsland.islandEvent){
-                curEncounter = curIsland.islandEvent;
+        if (!isFollowUp)
+        { //If the encounter being loaded is marked as followUp, do not change curEncounter
+            //whatever called LoadEncounter() with isFollowUp as true will set curEncounter itself
+            //Used for when choosing an option should immediatly load another encounter
+            //FollowUp encounters are not part of the possible encounter list, and are neither land or sea
+            
+            if (isTreasureEncounter)
+            {
+                curEncounter = treasureEncounter;
+            }
+            //if player is on land, set curEncounter to nextLandEncounter
+            else if (landEncounter)
+            {
+                currentIsland = curIsland;
+                if(curIsland.islandEvent){
+                    curEncounter = curIsland.islandEvent;
+                }
+                else
+                {
+                    curIsland.islandEvent = nextLandEncounter;
+                    curEncounter = curIsland.islandEvent;
+                }
             }
             else
             {
-                curIsland.islandEvent = nextLandEncounter;
-                curEncounter = curIsland.islandEvent;
+                curEncounter = nextSeaEncounter;
             }
         }
-        else
-        {
-            curEncounter = nextSeaEncounter;
-        }
-        
 
 
         //Pauses game and enable encounter UI
@@ -245,6 +257,12 @@ public class EncounterSystem : MonoBehaviour
         
         //disable rewards panel
         rewardsPanel.SetActive(false);
+
+        if (loadFollowUpEncounterOnContinue)
+        {
+            loadFollowUpEncounterOnContinue = false;
+            LoadEncounter(isFollowUp:true);
+        }
     }
 
     private EncounterSO ManagerEncounterList(List<EncounterSO> possible, List<EncounterSO> completed)
@@ -347,6 +365,12 @@ public class EncounterSystem : MonoBehaviour
             //isEncounterActive = false;
             GameManager.Instance.state = GameState.Minigame;
             SceneManager.LoadScene(option.minigameName);
+        }
+
+        if (option.followUpEncounter)
+        {
+            loadFollowUpEncounterOnContinue = true;
+            curEncounter = option.followUpEncounter;
         }
 
         //adds encounter

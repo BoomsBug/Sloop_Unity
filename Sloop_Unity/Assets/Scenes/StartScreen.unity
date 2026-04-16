@@ -1282,6 +1282,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 4fe92d1eac2374b45a11c08b6a4c8524, type: 2}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: treasureEncounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 7f170607fa41c994a981f32292c5a6a0, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleSeaEncounters.Array.size
       value: 10
       objectReference: {fileID: 0}
