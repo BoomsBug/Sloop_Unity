@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 4
   m_EditorClassIdentifier: 
-  text: 
+  text: Leave
   cost: []
   gain: []
   isGainHidden: 0
   isGainNegative: 0
-  outcome: 
+  outcome: Buckley can have his treasure.
   minigameName: 
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0
   encounterToAdd: {fileID: 0}
   encounterToReplace: {fileID: 0}
   followUpEncounter: {fileID: 0}
-  loseGame: 0
+  loseGame: 1
   winGame: 0

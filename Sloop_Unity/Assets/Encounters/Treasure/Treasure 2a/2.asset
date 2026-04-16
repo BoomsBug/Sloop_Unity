@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  text: Lose
+  text: Morgan
   cost: []
   gain: []
   isGainHidden: 0
   isGainNegative: 0
-  outcome: womp womp
+  outcome: '"What? no!" the ghost vanishes as the cave walls begin to crumble around
+    you. You dash for the exit, but too late.'
   minigameName: 
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0

@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  text: Win
+  text: Blackbeard
   cost: []
   gain: []
   isGainHidden: 0
   isGainNegative: 0
-  outcome: hooray!
+  outcome: '"Indeed" says the ghost, fading away. Deeper in the cave you find a golden
+    artifact inscribed with runes and pictograms. The images depict the artifact
+    being used to conjure cyclones and sink ships.'
   minigameName: 
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0

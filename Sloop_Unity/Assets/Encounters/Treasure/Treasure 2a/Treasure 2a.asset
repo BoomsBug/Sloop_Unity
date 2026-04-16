@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Treasure 2a
   m_EditorClassIdentifier: 
   encounterName: 
-  text: treasue go here
+  text: You find a cave in the middle of the island. Stepping inside, you are surprised
+    by a ghost wearing a tricorne hat and dressed in sailing garb. "Yarrrr! If ye
+    wish to claim my treasure, first to me you must answerrr. What is my name?"
   options:
   - {fileID: 11400000, guid: a78f3ac9be43ef64eae8e7bbc968f02b, type: 2}
   - {fileID: 11400000, guid: 0d004f983ecfecf4a83003d28accb774, type: 2}
+  - {fileID: 11400000, guid: 696e457653e7e60478878144651cfdfc, type: 2}
+  - {fileID: 11400000, guid: aeb59a8b8a11d874891e2c256b49e684, type: 2}
   oneTime: 1
   landEncounter: 0

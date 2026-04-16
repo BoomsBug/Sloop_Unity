@@ -35,6 +35,6 @@ MonoBehaviour:
   callRemoveCrewmate: 1
   encounterToAdd: {fileID: 0}
   encounterToReplace: {fileID: 0}
-  followUpEncounter: {fileID: 0}
+  followUpEncounter: {fileID: 11400000, guid: b3c1a998e02c31645ab31adf81998a12, type: 2}
   loseGame: 0
   winGame: 0

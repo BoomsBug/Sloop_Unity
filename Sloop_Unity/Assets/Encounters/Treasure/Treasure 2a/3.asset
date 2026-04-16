@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  text: 
+  text: Walk through him
   cost: []
   gain: []
   isGainHidden: 0
   isGainNegative: 0
-  outcome: 
+  outcome: '"Only a fool ignores a ghost!" As you keep walking you notice that your
+    limbs feel very light. Looking down you see the ground through your legs, and
+    your corpse behind you.'
   minigameName: 
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0
   encounterToAdd: {fileID: 0}
   encounterToReplace: {fileID: 0}
   followUpEncounter: {fileID: 0}
-  loseGame: 0
+  loseGame: 1
   winGame: 0
