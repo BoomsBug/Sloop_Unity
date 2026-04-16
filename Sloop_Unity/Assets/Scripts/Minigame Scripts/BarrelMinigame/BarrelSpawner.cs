@@ -36,8 +36,11 @@ public class BarrelSpawner : MonoBehaviour
 
     [Header("Tutorial Mode")]
     public bool tutorialMode = false;
-    public float tutorialSpawnInterval = 1.5f;   // Constant time between spawns
-    public bool tutorialStartWithCannon = true;  // If true, first spawn is cannon; else barrel
+    public float tutorialSpawnInterval = 1.5f;
+    public bool tutorialFirstSpawnIsCannon = true;  // This was missing
+
+    // Track spawned objects to efficiently clean up
+    private List<GameObject> spawnedObjects = new List<GameObject>();
 
     private float currentBarrelMinInterval;
     private float currentBarrelMaxInterval;
@@ -50,7 +53,6 @@ public class BarrelSpawner : MonoBehaviour
     private Camera mainCamera;
     private float groundY;
 
-    // Tutorial mode state
     private float nextTutorialSpawnTime;
     private bool nextIsCannon;
 
@@ -82,7 +84,6 @@ public class BarrelSpawner : MonoBehaviour
 
         if (tutorialMode)
         {
-            // Tutorial mode: spawn at constant interval, alternating types
             if (Time.time >= nextTutorialSpawnTime)
             {
                 if (nextIsCannon)
@@ -90,14 +91,12 @@ public class BarrelSpawner : MonoBehaviour
                 else
                     SpawnBarrel();
 
-                // Alternate for next spawn
                 nextIsCannon = !nextIsCannon;
                 nextTutorialSpawnTime = Time.time + tutorialSpawnInterval;
             }
         }
         else
         {
-            // Normal mode: independent random intervals
             if (Time.time >= nextBarrelSpawnTime)
             {
                 if (barrelPrefab != null && Random.value < barrelSpawnProbability)
@@ -129,6 +128,8 @@ public class BarrelSpawner : MonoBehaviour
         Vector3 spawnPos = new Vector3(spawnX, groundY + heightOffset, 0f);
 
         GameObject barrel = Instantiate(barrelPrefab, spawnPos, Quaternion.identity);
+        spawnedObjects.Add(barrel);
+
         float scale = Random.Range(barrelSizeRange.x, barrelSizeRange.y);
         barrel.transform.localScale = Vector3.one * scale;
 
@@ -136,6 +137,7 @@ public class BarrelSpawner : MonoBehaviour
         {
             Vector3 worldOffset = new Vector3(coinOffset.x, coinOffset.y, 0);
             GameObject coin = Instantiate(coinPrefab, barrel.transform.position + worldOffset, Quaternion.identity);
+            spawnedObjects.Add(coin);
             CoinFollow follow = coin.AddComponent<CoinFollow>();
             follow.target = barrel.transform;
             follow.offset = worldOffset;
@@ -147,7 +149,8 @@ public class BarrelSpawner : MonoBehaviour
         float rightEdgeX = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
         float spawnX = rightEdgeX + spawnOffsetX;
         Vector3 spawnPos = new Vector3(spawnX, groundY + cannonHeightAboveGround, 0f);
-        Instantiate(flyingCannonPrefab, spawnPos, Quaternion.identity);
+        GameObject cannon = Instantiate(flyingCannonPrefab, spawnPos, Quaternion.identity);
+        spawnedObjects.Add(cannon);
     }
 
     public void StartSpawning()
@@ -156,7 +159,7 @@ public class BarrelSpawner : MonoBehaviour
 
         if (tutorialMode)
         {
-            nextIsCannon = tutorialStartWithCannon;
+            nextIsCannon = tutorialFirstSpawnIsCannon;
             nextTutorialSpawnTime = Time.time + tutorialSpawnInterval;
         }
         else
@@ -175,11 +178,10 @@ public class BarrelSpawner : MonoBehaviour
     {
         spawning = false;
 
-        foreach (GameObject barrel in GameObject.FindGameObjectsWithTag("Barrel"))
-            Destroy(barrel);
-        foreach (GameObject coin in GameObject.FindGameObjectsWithTag("Loot"))
-            Destroy(coin);
-        foreach (GameObject cannon in GameObject.FindGameObjectsWithTag("FlyingCannon"))
-            Destroy(cannon);
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj != null) Destroy(obj);
+        }
+        spawnedObjects.Clear();
     }
 }

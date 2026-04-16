@@ -8,6 +8,9 @@ using Sloop.Economy;
 
 public class BarrelDashTestManager : MonoBehaviour
 {
+    // Singleton accessor
+    public static BarrelDashTestManager Instance { get; private set; }
+
     public enum GameMode { Tutorial, Play }
 
     [Header("UI References")]
@@ -16,6 +19,8 @@ public class BarrelDashTestManager : MonoBehaviour
     public TextMeshProUGUI resultText;
     public TextMeshProUGUI dashCounterText;
     public TextMeshProUGUI instructionText;
+    public TextMeshProUGUI livesText;
+    public TextMeshProUGUI parryCounterText;   // New: displays birds parried (0-9)
     public Button tutorialButton;
     public Button playButton;
     public Button closeButton;
@@ -49,10 +54,20 @@ public class BarrelDashTestManager : MonoBehaviour
     private float currentSpeed;
     private int score;
     private bool hasAwardedGold = false;
-    private bool isTutorialMode = false;   // Track if current game is tutorial
+    private bool isTutorialMode = false;
 
     private Camera mainCamera;
     private Transform ground;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
@@ -76,13 +91,14 @@ public class BarrelDashTestManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
         if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
         if (instructionText != null) instructionText.gameObject.SetActive(false);
+        if (livesText != null) livesText.gameObject.SetActive(false);
+        if (parryCounterText != null) parryCounterText.gameObject.SetActive(false);
     }
 
     void Update()
     {
         if (!gameActive) return;
 
-        // Allow exiting tutorial mode with P key
         if (isTutorialMode && Input.GetKeyDown(KeyCode.P))
         {
             ExitTutorial();
@@ -90,7 +106,6 @@ public class BarrelDashTestManager : MonoBehaviour
         }
 
         currentSpeed = Mathf.Min(currentSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
-
         Barrel.GlobalSpeed = currentSpeed;
         FlyingCannon.GlobalSpeed = currentSpeed;
 
@@ -105,13 +120,11 @@ public class BarrelDashTestManager : MonoBehaviour
 
     void ExitTutorial()
     {
-        // Stop game and clean up
         gameActive = false;
         isTutorialMode = false;
         spawner.StopSpawning();
         player.gameObject.SetActive(false);
 
-        // Show the start UI buttons
         tutorialButton.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
         closeButton.gameObject.SetActive(true);
@@ -119,6 +132,8 @@ public class BarrelDashTestManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
         if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
         if (instructionText != null) instructionText.gameObject.SetActive(false);
+        if (livesText != null) livesText.gameObject.SetActive(false);
+        if (parryCounterText != null) parryCounterText.gameObject.SetActive(false);
     }
 
     void StartGameWithMode(GameMode mode)
@@ -128,10 +143,9 @@ public class BarrelDashTestManager : MonoBehaviour
             isTutorialMode = true;
             StartCoroutine(ShowInstructionsAndStart());
         }
-        else // Play mode
+        else
         {
             isTutorialMode = false;
-            // Hide start buttons and show game UI immediately
             tutorialButton.gameObject.SetActive(false);
             playButton.gameObject.SetActive(false);
             closeButton.gameObject.SetActive(false);
@@ -146,7 +160,6 @@ public class BarrelDashTestManager : MonoBehaviour
 
     IEnumerator ShowInstructionsAndStart()
     {
-        // Hide start buttons and UI elements
         tutorialButton.gameObject.SetActive(false);
         playButton.gameObject.SetActive(false);
         closeButton.gameObject.SetActive(false);
@@ -154,17 +167,14 @@ public class BarrelDashTestManager : MonoBehaviour
         if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
         resultText.text = "";
 
-        // Show instruction text with "Press Space to continue" and "Press P to exit"
         if (instructionText != null)
         {
             instructionText.text = tutorialMessage + "\n\nPress Space to continue\nPress P to exit tutorial any time";
             instructionText.gameObject.SetActive(true);
         }
 
-        // Wait until Space is pressed
         while (!Input.GetKeyDown(KeyCode.Space))
         {
-            // Also allow exiting during instruction screen
             if (Input.GetKeyDown(KeyCode.P))
             {
                 ExitTutorial();
@@ -173,15 +183,12 @@ public class BarrelDashTestManager : MonoBehaviour
             yield return null;
         }
 
-        // Hide instructions
         if (instructionText != null)
             instructionText.gameObject.SetActive(false);
 
-        // Re-enable score and dash counter for the game
         scoreText.gameObject.SetActive(true);
         if (dashCounterText != null) dashCounterText.gameObject.SetActive(true);
 
-        // Configure and start the actual tutorial game
         ConfigureGameMode(GameMode.Tutorial);
         BeginGame();
     }
@@ -192,10 +199,10 @@ public class BarrelDashTestManager : MonoBehaviour
         {
             spawner.tutorialMode = true;
             spawner.tutorialSpawnInterval = 1.5f;
-            spawner.tutorialStartWithCannon = true;
+            spawner.tutorialFirstSpawnIsCannon = true;
             spawner.cannonSpawnProbability = 1f;
         }
-        else // Play
+        else
         {
             spawner.tutorialMode = false;
             spawner.cannonSpawnProbability = playCannonChance;
@@ -209,12 +216,22 @@ public class BarrelDashTestManager : MonoBehaviour
         resultText.text = "";
         scoreText.text = "Score: 0";
         if (dashCounterText != null)
-        {
             dashCounterText.text = "Dashes: 0";
+
+        // Show lives and parry counter UI
+        if (livesText != null)
+        {
+            livesText.gameObject.SetActive(true);
+            livesText.text = "Lives: " + player.GetCurrentLives();
+        }
+        if (parryCounterText != null)
+        {
+            parryCounterText.gameObject.SetActive(true);
+            parryCounterText.text = "Birds Parried: 0";
         }
 
         SpawnPlayerAtSafePosition();
-        player.ResetPlayer();
+        player.ResetPlayer();   // This will update lives and parry counter UI
         player.gameObject.SetActive(true);
         spawner.StartSpawning();
 
@@ -292,6 +309,10 @@ public class BarrelDashTestManager : MonoBehaviour
         closeButton.gameObject.SetActive(true);
         if (dashCounterText != null)
             dashCounterText.gameObject.SetActive(false);
+        if (livesText != null)
+            livesText.gameObject.SetActive(false);
+        if (parryCounterText != null)
+            parryCounterText.gameObject.SetActive(false);
     }
 
     void CloseGame()
@@ -329,5 +350,22 @@ public class BarrelDashTestManager : MonoBehaviour
         float spawnY = groundY + playerHalfHeight;
 
         return new Vector3(spawnX, spawnY, 0f);
+    }
+
+    // Called from PlayerController to update the lives UI
+    public void UpdateLivesUI(int lives)
+    {
+        if (livesText != null)
+            livesText.text = "Lives: " + lives;
+    }
+
+    // Called from PlayerController to update the parry counter UI (shows 0-9)
+    public void UpdateParryCounter(int parryCount)
+    {
+        if (parryCounterText != null)
+        {
+            int displayValue = parryCount % 10;
+            parryCounterText.text = "Birds Parried: " + displayValue;
+        }
     }
 }

@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public float dashDuration = 0.2f;
     public float dashCooldown = 0.5f;
 
+    [Header("Lives")]
+    public int maxLives = 2;
+    public float invincibleAfterHitDuration = 1f;
+
     [Header("Jump Audio")]
     public AudioClip[] jumpClips;
     [Range(0f, 1f)] public float jumpVolume = 1f;
@@ -21,8 +25,8 @@ public class PlayerController : MonoBehaviour
     [Range(0.8f, 1.2f)] public float jumpPitchMax = 1.1f;
 
     [Header("Boundaries")]
-    public float leftBoundaryOffset = 0.2f;   // distance from left camera edge
-    public float rightBoundaryOffset = 0.2f;  // distance from right camera edge
+    public float leftBoundaryOffset = 0.2f;
+    public float rightBoundaryOffset = 0.2f;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -34,8 +38,11 @@ public class PlayerController : MonoBehaviour
     private bool isDashing = false;
     private bool isInvincible = false;
     private int dashCharges = 0;
+    private int currentLives;
+    private int parryCount = 0;
     private AudioSource audioSource;
     private Camera mainCamera;
+    private Vector2 lastHitPosition;
 
     void Awake()
     {
@@ -46,6 +53,7 @@ public class PlayerController : MonoBehaviour
         manager = FindObjectOfType<BarrelDashTestManager>();
         audioSource = GetComponent<AudioSource>();
         mainCamera = Camera.main;
+        currentLives = maxLives;
     }
 
     void PlayJumpSound()
@@ -58,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Jump input (Space)
+        // Jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isDashing)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -67,22 +75,24 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Jump");
         }
 
-        // Parry input (Left Mouse Button)
+        // Parry (Left Click)
         if (Input.GetMouseButtonDown(0) && Time.time >= lastParryTime + parryCooldown && !isDashing)
         {
             TryParry();
         }
 
-        // Dash input (Right Mouse Button)
+        // Dash (Right Click)
         if (Input.GetMouseButtonDown(1) && !isDashing && Time.time >= lastDashTime + dashCooldown && dashCharges > 0)
         {
             StartCoroutine(Dash());
         }
 
+        // Animations
         float horizontalSpeed = Mathf.Abs(rb.velocity.x);
         animator.SetFloat("Speed", horizontalSpeed);
         animator.SetBool("IsGrounded", isGrounded);
 
+        // Flipping sprite
         float moveInput = Input.GetAxisRaw("Horizontal");
         if (moveInput != 0 && !isDashing)
         {
@@ -105,7 +115,6 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
-        // Clamp position within camera boundaries
         if (mainCamera == null) return;
 
         Vector3 viewMin = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
@@ -145,15 +154,61 @@ public class PlayerController : MonoBehaviour
             nearest.Parry();
             lastParryTime = Time.time;
             dashCharges++;
+            parryCount++;
+
+            if (manager != null)
+                manager.UpdateParryCounter(parryCount);
+
+            if (parryCount % 10 == 0)
+            {
+                currentLives++;
+                if (currentLives > 99) currentLives = 99;
+                if (manager != null)
+                    manager.UpdateLivesUI(currentLives);
+                Debug.Log("Bonus life from parry! Lives: " + currentLives);
+            }
 
             if (manager != null)
                 manager.AddParryScore(parryScore);
         }
     }
 
+    // Called when dashing into a flying cannon
+    void OnDashHitFlyingCannon(FlyingCannon cannon)
+    {
+        // Destroy the cannon
+        Destroy(cannon.gameObject);
+
+        // Reward: dash charge refunded + parry counter increment
+        dashCharges++;
+        parryCount++;
+
+        // Update UI
+        if (manager != null)
+        {
+            manager.UpdateParryCounter(parryCount);
+            manager.AddParryScore(parryScore);   // Also add score for dash-parry
+        }
+
+        // Bonus life every 10 parries (combined from left-click and dash)
+        if (parryCount % 10 == 0)
+        {
+            currentLives++;
+            if (currentLives > 99) currentLives = 99;
+            if (manager != null)
+                manager.UpdateLivesUI(currentLives);
+            Debug.Log("Bonus life from dash parry! Lives: " + currentLives);
+        }
+    }
+
     public int GetDashCharges()
     {
         return dashCharges;
+    }
+
+    public int GetCurrentLives()
+    {
+        return currentLives;
     }
 
     IEnumerator Dash()
@@ -182,6 +237,41 @@ public class PlayerController : MonoBehaviour
         isInvincible = false;
     }
 
+    IEnumerator InvincibilityFrames()
+    {
+        isInvincible = true;
+        float elapsed = 0f;
+        while (elapsed < invincibleAfterHitDuration)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(0.1f);
+            elapsed += 0.1f;
+        }
+        spriteRenderer.enabled = true;
+        isInvincible = false;
+    }
+
+    void TakeDamage()
+    {
+        if (isInvincible || isDashing) return;
+
+        currentLives--;
+        if (manager != null)
+            manager.UpdateLivesUI(currentLives);
+
+        if (currentLives <= 0)
+        {
+            if (manager != null)
+                manager.GameOver();
+        }
+        else
+        {
+            transform.position = lastHitPosition;
+            rb.velocity = Vector2.zero;
+            StartCoroutine(InvincibilityFrames());
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -190,21 +280,25 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Barrel"))
         {
-            if (manager != null)
-                manager.GameOver();
-        }
-        else if (collision.gameObject.CompareTag("FlyingCannon"))
-        {
-            // If player is dashing, destroy the cannon and do nothing else
             if (isDashing)
             {
                 Destroy(collision.gameObject);
-                // Optional: Add a small effect, sound, or score here
                 return;
             }
-            // Otherwise, if not invincible, game over
-            if (!isInvincible && manager != null)
-                manager.GameOver();
+            lastHitPosition = collision.contacts[0].point;
+            TakeDamage();
+        }
+        else if (collision.gameObject.CompareTag("FlyingCannon"))
+        {
+            if (isDashing)
+            {
+                FlyingCannon cannon = collision.gameObject.GetComponent<FlyingCannon>();
+                if (cannon != null)
+                    OnDashHitFlyingCannon(cannon);
+                return;
+            }
+            lastHitPosition = collision.contacts[0].point;
+            TakeDamage();
         }
     }
 
@@ -231,6 +325,14 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         isInvincible = false;
         dashCharges = 0;
+        currentLives = maxLives;
+        parryCount = 0;
+        if (manager != null)
+        {
+            manager.UpdateLivesUI(currentLives);
+            manager.UpdateParryCounter(parryCount);
+        }
         StopAllCoroutines();
+        spriteRenderer.enabled = true;
     }
 }
