@@ -17,11 +17,12 @@ MonoBehaviour:
   gain: []
   isGainHidden: 0
   isGainNegative: 0
-  outcome: 
+  outcome: The island shrinks on the horizon
   minigameName: 
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 0
   encounterToAdd: {fileID: 0}
   encounterToReplace: {fileID: 0}
+  followUpEncounter: {fileID: 0}
   loseGame: 0
   winGame: 0

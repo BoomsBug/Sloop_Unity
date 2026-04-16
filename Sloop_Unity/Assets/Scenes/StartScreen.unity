@@ -1373,6 +1373,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 7f170607fa41c994a981f32292c5a6a0, type: 2}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: notEnoughCrewEncounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e266bfd9ad92b644967a2f2c01f08dd, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleSeaEncounters.Array.size
       value: 13
       objectReference: {fileID: 0}

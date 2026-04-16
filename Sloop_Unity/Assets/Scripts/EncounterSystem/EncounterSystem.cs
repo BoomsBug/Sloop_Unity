@@ -20,6 +20,7 @@ public class EncounterSystem : MonoBehaviour
     public List<EncounterSO> completedLandEncounters = new List<EncounterSO>();
     public EncounterSO startingEncounter;
     public EncounterSO treasureEncounter;
+    public EncounterSO notEnoughCrewEncounter;
     public bool cycleEncounters;
     public EncounterSO curEncounter;
     public EncounterSO nextLandEncounter;
@@ -75,7 +76,14 @@ public class EncounterSystem : MonoBehaviour
             
             if (isTreasureEncounter)
             {
-                curEncounter = treasureEncounter;
+                if (CrewManager.Instance.hiredCrew.Count < 4)
+                {
+                    curEncounter = notEnoughCrewEncounter;
+                }
+                else
+                {
+                    curEncounter = treasureEncounter;
+                }
             }
             //if player is on land, set curEncounter to nextLandEncounter
             else if (landEncounter)

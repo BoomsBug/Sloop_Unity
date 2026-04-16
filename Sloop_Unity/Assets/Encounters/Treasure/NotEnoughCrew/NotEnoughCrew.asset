@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: NotEnoughCrew
+  m_EditorClassIdentifier: 
+  encounterName: 
+  text: You gaze into the jungle of this island and are almost confident that this
+    island hold the treasure. You want to go and get it, but you don't know where
+    to find it, and don't have enough crew to help. You'll have to come back when
+    you have at least 4 crewmates.
+  options:
+  - {fileID: 11400000, guid: 29ebd4ac76387eb4394adf8354f8e4fe, type: 2}
+  oneTime: 1
+  landEncounter: 0
