@@ -12,22 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  text: Sail towards the singing
-  cost: []
+  text: Attack the pirates
+  cost:
+  - type: 3
+    amount: 5
+  - type: 1
+    amount: 100
   gain:
   - type: 0
     amount: 100
-  - type: 3
+  - type: 4
     amount: 10
-  isGainHidden: 1
-  isGainNegative: 1
-  outcome: You find yourself surrounded by beautiful mermaids. Their singing enchants
-    you and your crew, urging you to jump overboard. You come to your senses as you
-    plunge into cold seawater. Your ship is already drifting away and you're surrounded...
-  minigameName: 
+  isGainHidden: 0
+  isGainNegative: 0
+  outcome: You fight off the pirates and claim this paradise for yourself.
+  minigameName: CannonBattle
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 1
-  encounterToAdd: {fileID: 0}
+  encounterToAdd: {fileID: 11400000, guid: 097c64cd00d60ce45a140e3053816488, type: 2}
   encounterToReplace: {fileID: 0}
-  loseGame: 1
+  loseGame: 0
   winGame: 0

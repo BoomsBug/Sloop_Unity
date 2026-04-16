@@ -8,6 +8,19 @@ public class Coin : MonoBehaviour
     private BarrelDashTestManager manager;
     private bool canBeCollected = false;
 
+
+    public AudioClip coinClip;
+    [Range(0f, 1f)]
+    public float catchGoldVolume = 1f;
+
+    [Range(2.2f, 3f)]
+    public float catchGoldPitchMin = 2.3f;
+
+    [Range(2.2f, 3)]
+    public float catchGoldPitchMax = 2.9f;
+
+    public AudioSource audioSource;
+
     void Start()
     {
         manager = FindObjectOfType<BarrelDashTestManager>();
@@ -29,6 +42,11 @@ public class Coin : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Coin collected by player!");
+            if (audioSource != null)
+            {
+                audioSource.pitch = Random.Range(catchGoldPitchMin, catchGoldPitchMax);
+                audioSource.PlayOneShot(coinClip, catchGoldVolume);
+            }
             if (manager != null)
                 manager.AddCoinScore(value);
             Destroy(gameObject);

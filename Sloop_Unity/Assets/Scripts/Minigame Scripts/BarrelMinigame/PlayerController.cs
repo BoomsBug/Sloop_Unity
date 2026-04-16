@@ -18,11 +18,13 @@ public class PlayerController : MonoBehaviour
     public int maxLives = 2;
     public float invincibleAfterHitDuration = 1f;
 
-    [Header("Jump Audio")]
+    [Header("Audio")]
     public AudioClip[] jumpClips;
     [Range(0f, 1f)] public float jumpVolume = 1f;
     [Range(0.8f, 1.2f)] public float jumpPitchMin = 0.9f;
     [Range(0.8f, 1.2f)] public float jumpPitchMax = 1.1f;
+
+    
 
     [Header("Boundaries")]
     public float leftBoundaryOffset = 0.2f;
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSource;
     private Camera mainCamera;
     private Vector2 lastHitPosition;
+
+
 
     void Awake()
     {

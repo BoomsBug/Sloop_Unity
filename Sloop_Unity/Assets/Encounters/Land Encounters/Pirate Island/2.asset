@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
-  m_Name: 1
+  m_Name: 2
   m_EditorClassIdentifier: 
-  text: Sail towards the singing
+  text: Dock anyways
   cost: []
   gain:
-  - type: 0
-    amount: 100
-  - type: 3
-    amount: 10
-  isGainHidden: 1
-  isGainNegative: 1
-  outcome: You find yourself surrounded by beautiful mermaids. Their singing enchants
-    you and your crew, urging you to jump overboard. You come to your senses as you
-    plunge into cold seawater. Your ship is already drifting away and you're surrounded...
+  - type: 2
+    amount: 50
+  isGainHidden: 0
+  isGainNegative: 0
+  outcome: You're not scared of any pirates! As you make camp on the island you assume
+    they will keep to themselves. You notice the pirates leaving some time later,
+    taking your ship with them!
   minigameName: 
   crewToAdd: {fileID: 0}
-  callRemoveCrewmate: 1
+  callRemoveCrewmate: 0
   encounterToAdd: {fileID: 0}
   encounterToReplace: {fileID: 0}
   loseGame: 1

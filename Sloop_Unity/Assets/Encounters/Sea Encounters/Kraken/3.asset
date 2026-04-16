@@ -28,10 +28,10 @@ MonoBehaviour:
   isGainHidden: 1
   isGainNegative: 1
   outcome: You try to escape. Foolishly. The Kraken consumes your ship. YOU DIE COWARD
-  loadMinigame: 0
   minigameName: 
-  callAddCrewmate: 0
   crewToAdd: {fileID: 0}
   callRemoveCrewmate: 1
-  callAddEncounter: 0
   encounterToAdd: {fileID: 0}
+  encounterToReplace: {fileID: 0}
+  loseGame: 1
+  winGame: 0
