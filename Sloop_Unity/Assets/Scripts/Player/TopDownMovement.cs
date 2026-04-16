@@ -25,6 +25,7 @@ public class TopDownPlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 moveInput;
+    private Animator animator;
     private Vector2 currentVelocity;
     
     // Track what we're near
@@ -42,6 +43,8 @@ public class TopDownPlayerMovement : MonoBehaviour
         playerResources = GetComponent<PlayerResources>();
         rb.gravityScale = 0;
         spriteRenderer.color = defaultColor;
+
+        animator = GetComponent<Animator>();
         
         // // Hide merchant UI initially
         // if (merchantPanel != null)
@@ -52,6 +55,33 @@ public class TopDownPlayerMovement : MonoBehaviour
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
         
+        if (moveInput.x != 0 && moveInput.y !=0)
+        {
+            animator.SetBool("IsWalking",true);
+            // if (moveInput.x > 0)
+            // {
+            //     animator.SetFloat("InputX",1);
+            // }
+            // if (moveInput.x < 0)
+            // {
+            //     animator.SetFloat("InputX",-1);
+            // }
+            // if (moveInput.y > 0)
+            // {
+            //     animator.SetFloat("InputY",1);
+            // }
+            // if (moveInput.y < 0)
+            // {
+            //     animator.SetFloat("InputY",-1);
+            // }
+            animator.SetFloat("InputX",moveInput.x);
+            animator.SetFloat("InputY",moveInput.y);
+
+        }else
+        {
+            animator.SetBool("isWalking",false);
+        }
+
         // Handle interactions
         // if (Input.GetKeyDown(KeyCode.E) && isNearMerchant)
         // {
@@ -105,6 +135,7 @@ public class TopDownPlayerMovement : MonoBehaviour
         Vector2 targetVelocity = moveInput * moveSpeed;
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref currentVelocity, 
             moveInput.magnitude > 0.1f ? 1f / acceleration : 1f / deceleration);
+            
     }
 
     // void OpenMerchantUI()
@@ -219,6 +250,23 @@ public class TopDownPlayerMovement : MonoBehaviour
             spriteRenderer.color = defaultColor;
         }
     }
+
+    // public void Move(InputAction.CallbackContext context)
+    // {
+    //     if (moveInput.x != 0 && moveInput.y !=0)
+    //     {
+
+    //         animator.SetBool("isWalking",true);
+    //         animator.SetFloat("InputX",moveInput.x);
+    //         print("moving");
+    //         animator.SetFloat("InputY",moveInput.y);
+
+    //     }else
+    //     {
+    //         animator.SetBool("isWalking",false);
+    //     }
+
+    // }
 
 
 }
