@@ -30,6 +30,9 @@ public class RodDip : MonoBehaviour
     private bool isCharging = false;
     private float chargeTimer = 0f;
 
+    //remembers that the player wants to start charging
+    private bool queuedCharge = false;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -42,13 +45,31 @@ public class RodDip : MonoBehaviour
 
     void Update()
     {
+        // If player presses space while dipping, remember it
+        if (Input.GetKeyDown(KeyCode.Space) && IsDipping)
+        {
+            queuedCharge = true;
+        }
+
+        // If player releases space while dipping, cancel queued charge
+        if (Input.GetKeyUp(KeyCode.Space) && IsDipping)
+        {
+            queuedCharge = false;
+        }
+
+        // If dipping just finished and player is still holding space, start charging immediately
+        if (!IsDipping && !isCharging && (queuedCharge || Input.GetKey(KeyCode.Space)))
+        {
+            StartCharging();
+            queuedCharge = false;
+        }
+
         if (IsDipping)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isCharging)
         {
-            isCharging = true;
-            chargeTimer = 0f;
+            StartCharging();
         }
 
         if (Input.GetKey(KeyCode.Space) && isCharging)
@@ -57,23 +78,33 @@ public class RodDip : MonoBehaviour
             chargeTimer = Mathf.Clamp(chargeTimer, 0f, maxChargeTime);
 
             float chargePercent = chargeTimer / maxChargeTime;
-
-            // Move upward while charging
             float currentY = Mathf.Lerp(topY, chargeY, chargePercent);
             SetY(currentY);
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && isCharging)
         {
-            isCharging = false;
-
-            float chargePercent = chargeTimer / maxChargeTime;
-            float dipTargetY = Mathf.Lerp(minDipY, maxDipY, chargePercent);
-            float releaseStartY = transform.position.y;
-
-            PlayDipSound();
-            StartCoroutine(Dip(releaseStartY, dipTargetY));
+            ReleaseCharge();
         }
+    }
+
+    void StartCharging()
+    {
+        isCharging = true;
+        chargeTimer = 0f;
+        SetY(topY);
+    }
+
+    void ReleaseCharge()
+    {
+        isCharging = false;
+
+        float chargePercent = chargeTimer / maxChargeTime;
+        float dipTargetY = Mathf.Lerp(minDipY, maxDipY, chargePercent);
+        float releaseStartY = transform.position.y;
+
+        PlayDipSound();
+        StartCoroutine(Dip(releaseStartY, dipTargetY));
     }
 
     void PlayDipSound()
@@ -89,12 +120,8 @@ public class RodDip : MonoBehaviour
     {
         IsDipping = true;
 
-        // Shoot downward from current charged height
         yield return MoveY(fromY, targetDipY, releaseDownTime);
-
-        // Return to resting position
         yield return MoveY(targetDipY, topY, returnUpTime);
-
         yield return new WaitForSeconds(cooldown);
 
         IsDipping = false;

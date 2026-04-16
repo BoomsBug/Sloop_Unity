@@ -1087,7 +1087,7 @@ MonoBehaviour:
   topY: 3
   chargeY: 5
   minDipY: 1.5
-  maxDipY: -3
+  maxDipY: -2.3
   maxChargeTime: 1.2
   releaseDownTime: 0.12
   returnUpTime: 0.18
@@ -1884,7 +1884,7 @@ MonoBehaviour:
   topY: 0.2
   chargeY: 2.2
   minDipY: -1.3
-  maxDipY: -5.8
+  maxDipY: -5.1
   maxChargeTime: 1.2
   releaseDownTime: 0.12
   returnUpTime: 0.18
