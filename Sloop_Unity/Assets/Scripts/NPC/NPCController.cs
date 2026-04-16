@@ -376,7 +376,7 @@ namespace Sloop.NPC
                         return;
                     }
 
-                    merchantShop.OpenShop(ui);
+                    merchantShop.OpenShop(ui, willingness);
                 },
                 "Nevermind",
                 () =>
