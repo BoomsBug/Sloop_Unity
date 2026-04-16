@@ -392,9 +392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cbb65e572daa840b3d6ec264be3bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resources: {fileID: 0}
   foodPerFish: 2
-  goldPerSack: 15
+  goldPerSack: 5
   targetFish: 15
   timeLimit: 50
   hud: {fileID: 1684261664}
