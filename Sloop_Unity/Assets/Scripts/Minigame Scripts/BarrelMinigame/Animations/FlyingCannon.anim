@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BirdFly
+  m_Name: FlyingCannon
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -17,27 +17,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves:
-  - serializedVersion: 2
-    curve:
-    - time: 0
-      value: {fileID: 581608573, guid: 0c6ba6f4bd6d17e4f8e7e685e45b4fa2, type: 3}
-    - time: 0.083333336
-      value: {fileID: -1054620833, guid: 0c6ba6f4bd6d17e4f8e7e685e45b4fa2, type: 3}
-    - time: 0.16666667
-      value: {fileID: -92709554, guid: 0c6ba6f4bd6d17e4f8e7e685e45b4fa2, type: 3}
-    - time: 0.25
-      value: {fileID: -40090011, guid: 0c6ba6f4bd6d17e4f8e7e685e45b4fa2, type: 3}
-    - time: 0.33333334
-      value: {fileID: 400469773, guid: 0c6ba6f4bd6d17e4f8e7e685e45b4fa2, type: 3}
-    - time: 0.41666666
-      value: {fileID: 380098900, guid: 0c6ba6f4bd6d17e4f8e7e685e45b4fa2, type: 3}
-    attribute: m_Sprite
-    path: 
-    classID: 212
-    script: {fileID: 0}
-    flags: 2
-  m_SampleRate: 12
+  m_PPtrCurves: []
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -50,7 +31,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -69,11 +50,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

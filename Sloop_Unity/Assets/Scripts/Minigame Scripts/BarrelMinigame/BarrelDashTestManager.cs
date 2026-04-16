@@ -8,16 +8,16 @@ using Sloop.Economy;
 
 public class BarrelDashTestManager : MonoBehaviour
 {
-    public enum GameMode { Tutorial, Hard }
+    public enum GameMode { Tutorial, Play }
 
     [Header("UI References")]
     public GameObject gamePanel;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI resultText;
     public TextMeshProUGUI dashCounterText;
-    public TextMeshProUGUI instructionText;   // <-- New: text for tutorial instructions
+    public TextMeshProUGUI instructionText;
     public Button tutorialButton;
-    public Button hardButton;
+    public Button playButton;          // renamed from hardButton
     public Button closeButton;
 
     [Header("Game Objects")]
@@ -33,12 +33,11 @@ public class BarrelDashTestManager : MonoBehaviour
 
     [Header("Mode Settings")]
     public float tutorialCannonChance = 1f;
-    public float hardCannonChance = 0.5f;
+    public float playCannonChance = 0.5f;   // renamed from hardCannonChance
 
     [Header("Tutorial Instructions")]
     [TextArea(3, 5)]
     public string tutorialMessage = "Jump to avoid the barrels\nLeft Click to hit the birds and gain a Dash\nRight Click to dash through a bird";
-    public float instructionDisplayTime = 3f;   // seconds before game starts
 
     [Header("Scene Management")]
     public string sailingSceneName = "Production";
@@ -67,36 +66,44 @@ public class BarrelDashTestManager : MonoBehaviour
             Debug.LogWarning("No object with tag 'Ground' found!");
 
         tutorialButton.onClick.AddListener(() => StartGameWithMode(GameMode.Tutorial));
-        hardButton.onClick.AddListener(() => StartGameWithMode(GameMode.Hard));
+        playButton.onClick.AddListener(() => StartGameWithMode(GameMode.Play));
         closeButton.onClick.AddListener(CloseGame);
 
         gamePanel.SetActive(true);
         player.gameObject.SetActive(false);
 
-        // Hide instruction text initially
-        if (instructionText != null)
-            instructionText.gameObject.SetActive(false);
+        // Initially hide game UI elements and instruction text
+        scoreText.gameObject.SetActive(false);
+        if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
+        if (instructionText != null) instructionText.gameObject.SetActive(false);
     }
 
     void StartGameWithMode(GameMode mode)
     {
         if (mode == GameMode.Tutorial)
         {
-            // Show instructions first, then start the game after delay
             StartCoroutine(ShowInstructionsAndStart());
         }
-        else // Hard mode – start immediately
+        else // Play mode
         {
-            ConfigureGameMode(GameMode.Hard);
+            // Hide start buttons and show game UI immediately
+            tutorialButton.gameObject.SetActive(false);
+            playButton.gameObject.SetActive(false);
+            closeButton.gameObject.SetActive(false);
+            scoreText.gameObject.SetActive(true);
+            if (dashCounterText != null) dashCounterText.gameObject.SetActive(true);
+            resultText.text = "";
+
+            ConfigureGameMode(GameMode.Play);
             BeginGame();
         }
     }
 
     IEnumerator ShowInstructionsAndStart()
     {
-        // Disable buttons and hide other UI elements during instructions
+        // Hide start buttons and UI elements
         tutorialButton.gameObject.SetActive(false);
-        hardButton.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(false);
         closeButton.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
         if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
@@ -137,10 +144,10 @@ public class BarrelDashTestManager : MonoBehaviour
             spawner.tutorialStartWithCannon = true;
             spawner.cannonSpawnProbability = 1f;
         }
-        else // Hard
+        else // Play
         {
             spawner.tutorialMode = false;
-            spawner.cannonSpawnProbability = hardCannonChance;
+            spawner.cannonSpawnProbability = playCannonChance;
         }
     }
 
@@ -153,7 +160,6 @@ public class BarrelDashTestManager : MonoBehaviour
         if (dashCounterText != null)
         {
             dashCounterText.text = "Dashes: 0";
-            dashCounterText.gameObject.SetActive(true);
         }
 
         SpawnPlayerAtSafePosition();
@@ -238,9 +244,9 @@ public class BarrelDashTestManager : MonoBehaviour
 
         resultText.text = $"You scored {score}!\nEarned {goldReward} Gold.";
         tutorialButton.gameObject.SetActive(true);
-        hardButton.gameObject.SetActive(true);
+        playButton.gameObject.SetActive(true);
         closeButton.gameObject.SetActive(true);
-        scoreText.gameObject.SetActive(true);   // keep score visible? Actually show result text instead, but keep layout
+        // Keep score text visible to show result? Actually result text is shown, but we keep score text for layout
         if (dashCounterText != null)
             dashCounterText.gameObject.SetActive(false);
     }
