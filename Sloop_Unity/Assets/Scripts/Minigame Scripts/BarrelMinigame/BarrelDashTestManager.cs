@@ -17,7 +17,7 @@ public class BarrelDashTestManager : MonoBehaviour
     public TextMeshProUGUI dashCounterText;
     public TextMeshProUGUI instructionText;
     public Button tutorialButton;
-    public Button playButton;          // renamed from hardButton
+    public Button playButton;
     public Button closeButton;
 
     [Header("Game Objects")]
@@ -33,7 +33,7 @@ public class BarrelDashTestManager : MonoBehaviour
 
     [Header("Mode Settings")]
     public float tutorialCannonChance = 1f;
-    public float playCannonChance = 0.5f;   // renamed from hardCannonChance
+    public float playCannonChance = 0.5f;
 
     [Header("Tutorial Instructions")]
     [TextArea(3, 5)]
@@ -49,6 +49,7 @@ public class BarrelDashTestManager : MonoBehaviour
     private float currentSpeed;
     private int score;
     private bool hasAwardedGold = false;
+    private bool isTutorialMode = false;   // Track if current game is tutorial
 
     private Camera mainCamera;
     private Transform ground;
@@ -72,7 +73,49 @@ public class BarrelDashTestManager : MonoBehaviour
         gamePanel.SetActive(true);
         player.gameObject.SetActive(false);
 
-        // Initially hide game UI elements and instruction text
+        scoreText.gameObject.SetActive(false);
+        if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
+        if (instructionText != null) instructionText.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (!gameActive) return;
+
+        // Allow exiting tutorial mode with P key
+        if (isTutorialMode && Input.GetKeyDown(KeyCode.P))
+        {
+            ExitTutorial();
+            return;
+        }
+
+        currentSpeed = Mathf.Min(currentSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
+
+        Barrel.GlobalSpeed = currentSpeed;
+        FlyingCannon.GlobalSpeed = currentSpeed;
+
+        score += Mathf.RoundToInt(currentSpeed * Time.deltaTime);
+        scoreText.text = "Score: " + score;
+
+        if (dashCounterText != null && player != null)
+        {
+            dashCounterText.text = "Dashes: " + player.GetDashCharges();
+        }
+    }
+
+    void ExitTutorial()
+    {
+        // Stop game and clean up
+        gameActive = false;
+        isTutorialMode = false;
+        spawner.StopSpawning();
+        player.gameObject.SetActive(false);
+
+        // Show the start UI buttons
+        tutorialButton.gameObject.SetActive(true);
+        playButton.gameObject.SetActive(true);
+        closeButton.gameObject.SetActive(true);
+        resultText.text = "Tutorial exited.\nChoose a mode to play.";
         scoreText.gameObject.SetActive(false);
         if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
         if (instructionText != null) instructionText.gameObject.SetActive(false);
@@ -82,10 +125,12 @@ public class BarrelDashTestManager : MonoBehaviour
     {
         if (mode == GameMode.Tutorial)
         {
+            isTutorialMode = true;
             StartCoroutine(ShowInstructionsAndStart());
         }
         else // Play mode
         {
+            isTutorialMode = false;
             // Hide start buttons and show game UI immediately
             tutorialButton.gameObject.SetActive(false);
             playButton.gameObject.SetActive(false);
@@ -109,16 +154,22 @@ public class BarrelDashTestManager : MonoBehaviour
         if (dashCounterText != null) dashCounterText.gameObject.SetActive(false);
         resultText.text = "";
 
-        // Show instruction text with "Press Space to continue"
+        // Show instruction text with "Press Space to continue" and "Press P to exit"
         if (instructionText != null)
         {
-            instructionText.text = tutorialMessage + "\n\nPress Space to continue";
+            instructionText.text = tutorialMessage + "\n\nPress Space to continue\nPress P to exit tutorial any time";
             instructionText.gameObject.SetActive(true);
         }
 
         // Wait until Space is pressed
         while (!Input.GetKeyDown(KeyCode.Space))
         {
+            // Also allow exiting during instruction screen
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                ExitTutorial();
+                yield break;
+            }
             yield return null;
         }
 
@@ -200,24 +251,6 @@ public class BarrelDashTestManager : MonoBehaviour
         player.transform.position = new Vector3(spawnX, spawnY, 0f);
     }
 
-    void Update()
-    {
-        if (!gameActive) return;
-
-        currentSpeed = Mathf.Min(currentSpeed + speedIncreaseRate * Time.deltaTime, maxSpeed);
-
-        Barrel.GlobalSpeed = currentSpeed;
-        FlyingCannon.GlobalSpeed = currentSpeed;
-
-        score += Mathf.RoundToInt(currentSpeed * Time.deltaTime);
-        scoreText.text = "Score: " + score;
-
-        if (dashCounterText != null && player != null)
-        {
-            dashCounterText.text = "Dashes: " + player.GetDashCharges();
-        }
-    }
-
     public void GameOver()
     {
         if (!gameActive) return;
@@ -225,28 +258,38 @@ public class BarrelDashTestManager : MonoBehaviour
         spawner.StopSpawning();
         player.gameObject.SetActive(false);
 
-        int goldReward = score * goldPerPoint;
-
-        if (!hasAwardedGold)
+        int goldReward = 0;
+        if (!isTutorialMode)
         {
-            var rm = ResourceManager.Instance;
-            if (rm != null)
+            goldReward = score * goldPerPoint;
+            if (!hasAwardedGold)
             {
-                rm.Add(Resource.Gold, goldReward);
-                Debug.Log($"Awarded {goldReward} gold.");
+                var rm = ResourceManager.Instance;
+                if (rm != null)
+                {
+                    rm.Add(Resource.Gold, goldReward);
+                    Debug.Log($"Awarded {goldReward} gold.");
+                }
+                else
+                {
+                    Debug.LogWarning("ResourceManager not found – gold not awarded.");
+                }
+                hasAwardedGold = true;
             }
-            else
-            {
-                Debug.LogWarning("ResourceManager not found – gold not awarded.");
-            }
-            hasAwardedGold = true;
         }
 
-        resultText.text = $"You scored {score}!\nEarned {goldReward} Gold.";
+        if (isTutorialMode)
+        {
+            resultText.text = $"Tutorial Score: {score}\nNo gold awarded in tutorial.";
+        }
+        else
+        {
+            resultText.text = $"You scored {score}!\nEarned {goldReward} Gold.";
+        }
+
         tutorialButton.gameObject.SetActive(true);
         playButton.gameObject.SetActive(true);
         closeButton.gameObject.SetActive(true);
-        // Keep score text visible to show result? Actually result text is shown, but we keep score text for layout
         if (dashCounterText != null)
             dashCounterText.gameObject.SetActive(false);
     }

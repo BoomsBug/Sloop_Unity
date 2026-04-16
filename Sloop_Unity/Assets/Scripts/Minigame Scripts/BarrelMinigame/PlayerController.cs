@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     [Range(0.8f, 1.2f)] public float jumpPitchMin = 0.9f;
     [Range(0.8f, 1.2f)] public float jumpPitchMax = 1.1f;
 
+    [Header("Boundaries")]
+    public float leftBoundaryOffset = 0.2f;   // distance from left camera edge
+    public float rightBoundaryOffset = 0.2f;  // distance from right camera edge
+
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private bool isInvincible = false;
     private int dashCharges = 0;
     private AudioSource audioSource;
+    private Camera mainCamera;
 
     void Awake()
     {
@@ -40,6 +45,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         manager = FindObjectOfType<BarrelDashTestManager>();
         audioSource = GetComponent<AudioSource>();
+        mainCamera = Camera.main;
     }
 
     void PlayJumpSound()
@@ -97,6 +103,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        // Clamp position within camera boundaries
+        if (mainCamera == null) return;
+
+        Vector3 viewMin = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 viewMax = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+        float leftBoundary = viewMin.x + leftBoundaryOffset;
+        float rightBoundary = viewMax.x - rightBoundaryOffset;
+
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, leftBoundary, rightBoundary);
+        transform.position = pos;
+    }
+
     void TryParry()
     {
         animator.SetTrigger("Slash");
@@ -137,7 +159,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Dash()
     {
         isDashing = true;
-        isInvincible = true;          // Invincible only for cannons (see OnCollisionEnter2D)
+        isInvincible = true;
         lastDashTime = Time.time;
         dashCharges--;
 
@@ -168,13 +190,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Barrel"))
         {
-            // Barrels always kill the player, even during dash
             if (manager != null)
                 manager.GameOver();
         }
         else if (collision.gameObject.CompareTag("FlyingCannon"))
         {
-            // Only die from cannon if NOT invincible (dashing)
             if (!isInvincible && manager != null)
                 manager.GameOver();
         }
