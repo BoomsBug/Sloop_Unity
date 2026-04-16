@@ -162,12 +162,18 @@ public class CannonController : MonoBehaviour
 
             //ResetButton.SetActive(true);
         }
+
+        if (TotalScore >= 100)
+        {
+            ReturnButton.SetActive(true);
+        }
+
         if (roundEnded && activeCannonballs == 0) {
 
-            if (TotalScore >= 100)
-            {
-                ReturnButton.SetActive(true);
-            }
+            //if (TotalScore >= 100)
+            //{
+            //    ReturnButton.SetActive(true);
+            //}
 
             if (shotsFired > 0)
             {
