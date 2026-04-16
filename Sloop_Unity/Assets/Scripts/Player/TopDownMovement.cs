@@ -55,31 +55,16 @@ public class TopDownPlayerMovement : MonoBehaviour
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
         
-        if (moveInput.x != 0 && moveInput.y !=0)
-        {
-            animator.SetBool("IsWalking",true);
-            // if (moveInput.x > 0)
-            // {
-            //     animator.SetFloat("InputX",1);
-            // }
-            // if (moveInput.x < 0)
-            // {
-            //     animator.SetFloat("InputX",-1);
-            // }
-            // if (moveInput.y > 0)
-            // {
-            //     animator.SetFloat("InputY",1);
-            // }
-            // if (moveInput.y < 0)
-            // {
-            //     animator.SetFloat("InputY",-1);
-            // }
-            animator.SetFloat("InputX",moveInput.x);
-            animator.SetFloat("InputY",moveInput.y);
+        bool isMoving = moveInput.x != 0 || moveInput.y != 0;
+        animator.SetBool("IsWalking", isMoving);   // consistent parameter name
 
+        if (isMoving)
+        {
+            animator.SetFloat("InputX", moveInput.x);
+            animator.SetFloat("InputY", moveInput.y);
         }else
         {
-            animator.SetBool("isWalking",false);
+            animator.SetBool("IsWalking",false);
         }
 
         // Handle interactions
