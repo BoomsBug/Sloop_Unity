@@ -49,7 +49,7 @@ MonoBehaviour:
   alignment: 0
   role: 0
   npcIndex: 0
-  sprite: {fileID: 5292535884887548555, guid: e72c95ced4d931b45af27a199aee63d2, type: 3}
+  sprite: {fileID: -5698704306220467826, guid: f7d742d8480df3a4e80d74970768c961, type: 3}
   description: 
   dialogues:
   - ooo AAA OooO aAAAa
