@@ -18,6 +18,7 @@ public class EncounterSystem : MonoBehaviour
     public List<EncounterSO> completedSeaEncounters = new List<EncounterSO>();
     public List<EncounterSO> possibleLandEncounters;
     public List<EncounterSO> completedLandEncounters = new List<EncounterSO>();
+    public EncounterSO startingEncounter;
     public bool cycleEncounters;
     public EncounterSO curEncounter;
     public EncounterSO nextLandEncounter;
@@ -26,6 +27,8 @@ public class EncounterSystem : MonoBehaviour
     private bool canContinue = false;
     private bool canChoose = false;
     private bool isEncounterActive = false;
+    private bool loseGameOnContinue = false;
+    private bool winGameOnContinue = false;
 
     [Header("Text Stuff")]
     public TextMeshProUGUI encounterText;
@@ -53,7 +56,7 @@ public class EncounterSystem : MonoBehaviour
     {
         UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
         nextLandEncounter = possibleLandEncounters[UnityEngine.Random.Range(0, possibleLandEncounters.Count)];
-        nextSeaEncounter = possibleSeaEncounters[UnityEngine.Random.Range(0, possibleSeaEncounters.Count)];   
+        nextSeaEncounter = startingEncounter;
     }
 
 
@@ -224,6 +227,16 @@ public class EncounterSystem : MonoBehaviour
         PauseManager.Paused = false;
         encounterUI.SetActive(false);
 
+        if (loseGameOnContinue)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+
+        if(winGameOnContinue)
+        {
+            SceneManager.LoadScene("Treasure");
+        }
+
         //allows another encounter to happen
         isEncounterActive = false;
 
@@ -320,10 +333,10 @@ public class EncounterSystem : MonoBehaviour
         }
 
         //hires
-        if (option.callAddCrewmate)
+        if (option.crewToAdd != null)
             CrewManager.Instance.HireEncounterCrew(option.crewToAdd);
 
-        if (option.loadMinigame)
+        if (option.minigameName.Length > 0)
         {
 
             Time.timeScale = 1.0f; //temorary, should have better state save system
@@ -337,7 +350,7 @@ public class EncounterSystem : MonoBehaviour
         }
 
         //adds encounter
-        if (option.callAddEncounter && option.encounterToAdd != null)
+        if (option.encounterToAdd != null)
         {
             if (option.encounterToAdd.landEncounter)
             {
@@ -373,6 +386,15 @@ public class EncounterSystem : MonoBehaviour
             {
                 possibleSeaEncounters.Add(option.encounterToAdd);
             } 
+        }
+
+        if (option.loseGame)
+        {
+            loseGameOnContinue = true;
+        }
+        else if (option.winGame)
+        {
+            winGameOnContinue = true;
         }
     }
 
