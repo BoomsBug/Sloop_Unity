@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Sloop.Player
 {
@@ -45,6 +46,18 @@ namespace Sloop.Player
         public void AddHonor(int delta)
         {
             SetHonor(honor + delta);
+        }
+
+        private HashSet<string> hiredNPCs = new();
+
+        public bool IsNPCHired(int islandID, int npcIndex)
+        {
+            return hiredNPCs.Contains($"{islandID}_{npcIndex}");
+        }
+
+        public void MarkNPCHired(int islandID, int npcIndex)
+        {
+            hiredNPCs.Add($"{islandID}_{npcIndex}");
         }
     }
 }

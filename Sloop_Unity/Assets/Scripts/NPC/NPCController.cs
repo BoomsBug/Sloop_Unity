@@ -269,16 +269,33 @@ namespace Sloop.NPC
                 $"Hire ({hireCost} gold)",
                 () =>
                 {
+
+                    int islandID = data.islandID;
+                    int npcIdx = data.npcIndex;
+
+                    var ps = Sloop.Player.PlayerStateManager.Instance;
+
+                    if (ps != null && ps.IsNPCHired(data.islandID, data.npcIndex))
+                    {
+                        ui.SetLine("This deckhand has already joined your crew.");
+                        ui.HideChoices();
+                        return;
+                    }
+                    
+                    if (ps != null)
+                    {
+                        ps.MarkNPCHired(islandID, npcIdx);
+                    }
+
                     ui.SetLine("You hired the deckhand.");
                     ui.HideChoices();
 
                     Sprite sprite = GetComponent<SpriteRenderer>().sprite;
-                    if (!sprite) Debug.Log("Invalid crewmember: missing sprite");
-                    
+
                     if (data.subclassIndex != -1)
                         CrewManager.Instance.HireCrew(data.subclassIndex, data, sprite);
-                    else
-                        Debug.Log("Invalid crewmember: missing subclass");
+                    
+                    gameObject.SetActive(false);
                 },
                 "Maybe Later",
                 () =>
