@@ -16,9 +16,9 @@ MonoBehaviour:
   text: This island is a beautiful paradise. The beaches sparkle, the water is warm,
     and the trees are shady. Inland you find a forest rich with fruit and small animals.
   options:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 2f8d00690532fc0409d187179337e282, type: 2}
+  - {fileID: 11400000, guid: e8d7b4451b590f54fb4a0eece8174be6, type: 2}
+  - {fileID: 11400000, guid: ec72396fff1dcf2418813300094eae59, type: 2}
+  - {fileID: 11400000, guid: 16cf632d708eaab4a8b7e9bf387b0655, type: 2}
   oneTime: 0
   landEncounter: 1
