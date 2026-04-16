@@ -54,6 +54,6 @@ MonoBehaviour:
     10 to gold gain
   dialogues:
   - oooOOOOoooOOO
-  - BOOOH
+  - BOO!
   crewID: 0
   crewEncounter: {fileID: 0}

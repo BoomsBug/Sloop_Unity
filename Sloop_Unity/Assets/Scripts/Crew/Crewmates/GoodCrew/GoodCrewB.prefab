@@ -56,8 +56,8 @@ MonoBehaviour:
 
     -5 to G gain'
   dialogues:
-  - It's a nice day out
-  - You're such a great captain!
-  - You've got this!
+  - Hey good looking ;)
+  - Where could the treasure be?
+  - Want to play Magic the Gathering with me?
   crewID: 0
   crewEncounter: {fileID: 0}
