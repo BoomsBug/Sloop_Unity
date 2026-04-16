@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  text: Leave
+  cost: []
+  gain: []
+  isGainHidden: 0
+  isGainNegative: 0
+  outcome: You continue on, hoping you don't have to face whatever did this...
+  minigameName: 
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 0
+  encounterToAdd: {fileID: 11400000, guid: b04ce06be38544844913f22a226e8444, type: 2}
+  encounterToReplace: {fileID: 0}
+  loseGame: 0
