@@ -61,6 +61,13 @@ namespace Sloop.NPC
             {
                 if (ctrl == null) continue;
 
+                var ps = Sloop.Player.PlayerStateManager.Instance;
+                if (ps != null && ps.IsNPCHired(islandID, ctrl.NpcIndex))
+                {
+                    ctrl.gameObject.SetActive(false);
+                    continue;
+                }
+
                 int idx = ctrl.NpcIndex;
                 var role = NPCSlotRules.RoleForSlot(idx);
 
