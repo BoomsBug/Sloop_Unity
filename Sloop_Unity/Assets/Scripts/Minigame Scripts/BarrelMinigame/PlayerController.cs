@@ -195,6 +195,14 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("FlyingCannon"))
         {
+            // If player is dashing, destroy the cannon and do nothing else
+            if (isDashing)
+            {
+                Destroy(collision.gameObject);
+                // Optional: Add a small effect, sound, or score here
+                return;
+            }
+            // Otherwise, if not invincible, game over
             if (!isInvincible && manager != null)
                 manager.GameOver();
         }
