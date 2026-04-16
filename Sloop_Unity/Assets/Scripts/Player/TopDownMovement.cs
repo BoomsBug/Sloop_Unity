@@ -56,12 +56,17 @@ public class TopDownPlayerMovement : MonoBehaviour
         moveInput.y = Input.GetAxis("Vertical");
         
         bool isMoving = moveInput.x != 0 || moveInput.y != 0;
+
         animator.SetBool("IsWalking", isMoving);   // consistent parameter name
 
         if (isMoving)
         {
             animator.SetFloat("InputX", moveInput.x);
             animator.SetFloat("InputY", moveInput.y);
+
+            // Store the last movement direction for idle animation
+            animator.SetFloat("LastInputX", moveInput.x);
+            animator.SetFloat("LastInputY", moveInput.y);
         }else
         {
             animator.SetBool("IsWalking",false);
