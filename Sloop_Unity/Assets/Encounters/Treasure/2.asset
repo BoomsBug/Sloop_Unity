@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ba4ec24db5845983b7281814bfc8, type: 3}
+  m_Name: 2
+  m_EditorClassIdentifier: 
+  text: Race to the treasure
+  cost: []
+  gain: []
+  isGainHidden: 1
+  isGainNegative: 0
+  outcome: There's no time to lose. You and your crew rush into the rowboats and
+    hastily paddle to the shoreline. As you land, Buckley and his men are just getting
+    into their rowboats. You race into the jungle towards the center of the island,
+    you can feel the treasure calling you.
+  minigameName: 
+  crewToAdd: {fileID: 0}
+  callRemoveCrewmate: 0
+  encounterToAdd: {fileID: 0}
+  encounterToReplace: {fileID: 0}
+  followUpEncounter: {fileID: 11400000, guid: b3c1a998e02c31645ab31adf81998a12, type: 2}
+  loseGame: 0
+  winGame: 0

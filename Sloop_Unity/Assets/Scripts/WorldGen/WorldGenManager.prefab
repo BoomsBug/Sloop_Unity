@@ -55,3 +55,5 @@ MonoBehaviour:
   resolution: 128
   islandParent: {fileID: 0}
   islands: []
+  treasureIsland: 0
+  treasureGlint: {fileID: 407377308954616493, guid: 76f2ec1691630634c98fb43b8db71ba8, type: 3}

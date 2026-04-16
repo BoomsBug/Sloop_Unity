@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Treasure
+  m_EditorClassIdentifier: 
+  encounterName: 
+  text: All your searching has led you here. You can feel it in your heart, the treasure
+    is on this island. Scanning the horizion, you see Captain Buckley's ship approaching
+    from far away, you've led him right to it!
+  options:
+  - {fileID: 11400000, guid: 4c6b37ba807f2a24482470e26192290a, type: 2}
+  - {fileID: 11400000, guid: 1a1768506fac0d748b0ba282d418873f, type: 2}
+  - {fileID: 11400000, guid: f29451e8fe8ddbb42ae1b4ff79163d8a, type: 2}
+  oneTime: 1
+  landEncounter: 0

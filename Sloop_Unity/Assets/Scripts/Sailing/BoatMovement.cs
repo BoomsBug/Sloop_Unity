@@ -264,15 +264,15 @@ public class BoatMovement : MonoBehaviour
             Collider2D islandCollider = Physics2D.OverlapCircle(gameObject.transform.position, dockCheckRadius, LayerMask.GetMask("Island"));
             if (islandCollider && !islandCollider.isTrigger && islandCollider.gameObject.GetComponent<Island>().hasTreasure)
             {
-                SceneManager.LoadScene("Treasure");
+                //loads the treasure encounter
+                EncounterSystem.Instance.LoadEncounter(islandCollider.gameObject.GetComponent<Island>(),isTreasureEncounter:true);
             }
             else if (islandCollider && !islandCollider.isTrigger)
             {
-                Debug.Log(islandCollider.gameObject.name);
-                EncounterSystem.Instance.LoadEncounter(islandCollider.gameObject.GetComponent<Island>(),true); //true means it loads land encounters
+                //loads island encounter
+                EncounterSystem.Instance.LoadEncounter(islandCollider.gameObject.GetComponent<Island>(),landEncounter:true);
             }
-        }
-        
+        }    
     }
 
     private string AngleToDirection(float angle)

@@ -34,6 +34,7 @@ public class WorldGen : MonoBehaviour
     private int islandCounter = 0;
     public List<GameObject> islands;
     public int treasureIsland;
+    public GameObject treasureGlint;
 
 
     public class TreeNode
@@ -111,8 +112,16 @@ public class WorldGen : MonoBehaviour
         DFS(root);
 
         //decide which island will have the treasure
-        treasureIsland = Random.Range(0, islands.Count);
-        islands[treasureIsland].GetComponent<Island>().hasTreasure = true;
+        //gets only islands that are not empty ocean tiles
+        List<GameObject> nonEmptyIslands = islands.Where(n => n.GetComponent<Island>().isIsland).ToList();
+
+        treasureIsland = Random.Range(0, nonEmptyIslands.Count);
+        nonEmptyIslands[treasureIsland].GetComponent<Island>().hasTreasure = true;
+
+        nonEmptyIslands[treasureIsland].GetComponent<Island>().treasureGlint = treasureGlint;
+
+        treasureIsland = islands.IndexOf(nonEmptyIslands[treasureIsland]);
+        
         // CircleCollider2D treasureCollider = islands[treasureIsland].AddComponent<CircleCollider2D>();
         // treasureCollider.isTrigger = true;
         // treasureCollider.
