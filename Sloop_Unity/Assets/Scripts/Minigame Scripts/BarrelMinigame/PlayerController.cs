@@ -23,8 +23,12 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 1f)] public float jumpVolume = 1f;
     [Range(0.8f, 1.2f)] public float jumpPitchMin = 0.9f;
     [Range(0.8f, 1.2f)] public float jumpPitchMax = 1.1f;
+    public AudioClip parryClip;
+    [Range(0f, 1f)] public float parryVolume = 1f;
+    [Range(0.8f, 1.2f)] public float parryPitchMin = 0.9f;
+    [Range(0.8f, 1.2f)] public float parryPitchMax = 1.1f;
 
-    
+
 
     [Header("Boundaries")]
     public float leftBoundaryOffset = 0.2f;
@@ -135,6 +139,12 @@ public class PlayerController : MonoBehaviour
     void TryParry()
     {
         animator.SetTrigger("Slash");
+
+        if (audioSource != null && parryClip != null)
+        {
+            audioSource.pitch = Random.Range(parryPitchMin, parryPitchMax);
+            audioSource.PlayOneShot(parryClip, parryVolume);
+        }
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, parryRange);
         FlyingCannon nearest = null;

@@ -1096,7 +1096,7 @@ MonoBehaviour:
   releaseDownTime: 0.12
   returnUpTime: 0.18
   cooldown: 0
-  dipSound: {fileID: 0}
+  dipSound: {fileID: 8300000, guid: 72db8d6a78181bc4abc8c06068574fbc, type: 3}
   volume: 1
   pitchMin: 0.9
   pitchMax: 1.1
