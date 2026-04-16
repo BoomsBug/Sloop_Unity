@@ -36,7 +36,7 @@ public class FishSpawner : MonoBehaviour
             Debug.Log($"Spawner alive. active={isActiveAndEnabled} timeScale={Time.timeScale} time={Time.time} next={nextSpawnTime}");
 
         if (Time.time < nextSpawnTime) return;
-        Debug.Log("SPAWN!");
+        //Debug.Log("SPAWN!");
         SpawnOne();
         ScheduleNext();
 

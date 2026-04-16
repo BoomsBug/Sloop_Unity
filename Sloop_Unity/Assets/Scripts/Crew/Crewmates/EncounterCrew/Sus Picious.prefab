@@ -54,5 +54,6 @@ MonoBehaviour:
   dialogues:
   - I totally forgive you for killing my family
   - Enjoy your sleep tonight *wink*
+  - You can trust me. I swear
   crewID: 0
   crewEncounter: {fileID: 11400000, guid: b2f4b76f0692bcfed9b62d6d5cb56c8b, type: 2}
