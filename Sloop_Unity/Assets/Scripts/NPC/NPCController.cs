@@ -79,10 +79,7 @@ namespace Sloop.NPC
             int playerHonor = GetPlayerHonor();
             int willingness = CalculateWillingness(playerHonor);
 
-            WillingnessBand band = 
-                willingness <= 25 ? WillingnessBand.Hostile :
-                willingness >= 25 ? WillingnessBand.Friendly :
-                WillingnessBand.Neutral;
+            WillingnessBand band = ToBand(willingness);
 
             // Print two dialogue types to console (testing)
             var db = DialogueService.Instance?.Database;
@@ -262,39 +259,61 @@ namespace Sloop.NPC
 
         private void ShowDeckhandChoices(NPCDialogueUI ui, int willingness)
         {
-            int hireCost = 100; // TEMP UNTIL RESOURCE SYSTEM BUILT
-            // Later: baseCost * multiplier based on willingness + traits
+            var band = ToBand(willingness);
+
+            int baseHireCost = 100;
+            int hireCost = GetHireCostForBand(baseHireCost, band);
+
+            var ps = Sloop.Player.PlayerStateManager.Instance;
+            if (ps != null && ps.IsNPCHired(data.islandID, data.npcIndex))
+            {
+                ui.SetLine("This deckhand has already joined your crew.");
+                ui.HideChoices();
+                return;
+            }
 
             ui.ShowChoices(
-                $"Hire ({hireCost} gold)",
+                $"Hire ({hireCost} Gold)",
                 () =>
                 {
-
-                    int islandID = data.islandID;
-                    int npcIdx = data.npcIndex;
-
-                    var ps = Sloop.Player.PlayerStateManager.Instance;
-
-                    if (ps != null && ps.IsNPCHired(data.islandID, data.npcIndex))
+                    var rm = Sloop.Economy.ResourceManager.Instance;
+                    if (rm == null)
                     {
-                        ui.SetLine("This deckhand has already joined your crew.");
+                        ui.SetLine("(ResourceManager missing in scene.)");
                         ui.HideChoices();
                         return;
                     }
-                    
-                    if (ps != null)
+
+                    if (!rm.TrySpend(Sloop.Economy.Resource.Gold, hireCost))
                     {
-                        ps.MarkNPCHired(islandID, npcIdx);
+                        int currentGold = rm.GetAmount(Sloop.Economy.Resource.Gold);
+                        ui.SetLine($"Not enough Gold to hire this deckhand. Need {hireCost}, you have {currentGold}.");
+                        ui.HideChoices();
+                        return;
                     }
 
-                    ui.SetLine("You hired the deckhand.");
-                    ui.HideChoices();
+                    if (ps != null)
+                    {
+                        ps.MarkNPCHired(data.islandID, data.npcIndex);
+                    }
 
-                    Sprite sprite = GetComponent<SpriteRenderer>().sprite;
+                    Sprite sprite = GetComponent<SpriteRenderer>()?.sprite;
+                    if (sprite == null)
+                        Debug.LogWarning("Invalid crewmember: missing sprite");
 
                     if (data.subclassIndex != -1)
+                    {
                         CrewManager.Instance.HireCrew(data.subclassIndex, data, sprite);
-                    
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Invalid crewmember: missing subclass");
+                    }
+
+                    int goldLeft = rm.GetAmount(Sloop.Economy.Resource.Gold);
+                    ui.SetLine($"You hired the deckhand for {hireCost} Gold.\nGold remaining: {goldLeft}");
+                    ui.HideChoices();
+
                     gameObject.SetActive(false);
                 },
                 "Maybe Later",
@@ -304,6 +323,20 @@ namespace Sloop.NPC
                     ui.HideChoices();
                 }
             );
+        }
+
+        private int GetHireCostForBand(int baseCost, WillingnessBand band)
+        {
+            switch (band)
+            {
+                case WillingnessBand.Hostile:
+                    return Mathf.RoundToInt(baseCost * 1.5f);   // 150
+                case WillingnessBand.Friendly:
+                    return Mathf.RoundToInt(baseCost * 0.7f);   // 70
+                case WillingnessBand.Neutral:
+                default:
+                    return baseCost;                            // 100
+            }
         }
 
         /*
