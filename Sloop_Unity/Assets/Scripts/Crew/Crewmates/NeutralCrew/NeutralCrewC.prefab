@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8136305172649963412}
   - component: {fileID: 7378446691858167259}
   m_Layer: 0
-  m_Name: GoodCrewC
+  m_Name: NeutralCrewC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,8 +52,8 @@ MonoBehaviour:
   sprite: {fileID: -7359962188882910793, guid: 9e9e60d593d327b4c80e5018b30fdca9, type: 3}
   description: +5 to all gain
   dialogues:
-  - That Captain Buckley is a meanie
+  - I could use a bite to eat
   - I hope nothing bad happens to me
-  - I don't want to die
+  - Arrgh
   crewID: 0
   crewEncounter: {fileID: 0}

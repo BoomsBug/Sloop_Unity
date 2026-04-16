@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4039500620428884999
+--- !u!1 &2487529704208245251
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5019591457742064248}
-  - component: {fileID: 4395761589881249859}
+  - component: {fileID: 1928282150333392209}
+  - component: {fileID: 4327313998667810847}
   m_Layer: 0
-  m_Name: HyukHyukHarry
+  m_Name: EvilCrewB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5019591457742064248
+--- !u!4 &1928282150333392209
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4039500620428884999}
+  m_GameObject: {fileID: 2487529704208245251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 474, y: 266.75, z: 0}
@@ -32,37 +32,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4395761589881249859
+--- !u!114 &4327313998667810847
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4039500620428884999}
+  m_GameObject: {fileID: 2487529704208245251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8e112a82346c0f4bb0076c305918f18, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f07b999f131df243b398c5853a1d41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crewName: Hyuk Hyuk Harry
+  crewName: 
   traits: []
-  alignment: 0
+  alignment: 2
   role: 0
   npcIndex: 0
   sprite: {fileID: -2761686722248681670, guid: a35830f869a2c594d95a6b43a9f59937, type: 3}
-  description: '+5 to existing W cost
+  description: '+2 to H cost,
 
-    +5 to existing F cost
-
-    +10 to H gain
-
-    +10
-    to P gain
-
-'
+    +10 to G gain'
   dialogues:
-  - Hyuk Hyuk
-  - Hyuk Hyuk Hyuk
-  - Hyuk Hyuk Hyuk Hyuk
+  - What are your thoughts on the morality of piracy
+  - Is it justified to steal a loaf of bread to survive?
+  - Is it justified to kill a man because he has cool stuff?
   crewID: 0
-  crewEncounter: {fileID: 11400000, guid: 0ddd44787b500e64e87b84f845a4ec31, type: 2}
+  crewEncounter: {fileID: 0}

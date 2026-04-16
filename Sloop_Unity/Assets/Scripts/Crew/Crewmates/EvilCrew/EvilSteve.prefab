@@ -56,5 +56,6 @@ MonoBehaviour:
   dialogues:
   - Hey its me!! Evil Steve!! Muahahaha
   - You should kill the next guy you see
+  - Muahaha
   crewID: 0
   crewEncounter: {fileID: 0}

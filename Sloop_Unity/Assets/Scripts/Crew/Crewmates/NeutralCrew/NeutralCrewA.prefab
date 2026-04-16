@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6797865123997028648
+--- !u!1 &6566680467820755752
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8136305172649963412}
-  - component: {fileID: 7378446691858167259}
+  - component: {fileID: 3474884309183865618}
+  - component: {fileID: 8221732269888114513}
   m_Layer: 0
-  m_Name: GoodCrewC
+  m_Name: NeutralCrewA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8136305172649963412
+--- !u!4 &3474884309183865618
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6797865123997028648}
+  m_GameObject: {fileID: 6566680467820755752}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,16 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7378446691858167259
+--- !u!114 &8221732269888114513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6797865123997028648}
+  m_GameObject: {fileID: 6566680467820755752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b21987b404b074998f065f3b503495, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b548258a77471f438247e5bccf32593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   crewName: 
@@ -49,11 +49,11 @@ MonoBehaviour:
   alignment: 0
   role: 0
   npcIndex: 0
-  sprite: {fileID: -7359962188882910793, guid: 9e9e60d593d327b4c80e5018b30fdca9, type: 3}
-  description: +5 to all gain
+  sprite: {fileID: 5292535884887548555, guid: e72c95ced4d931b45af27a199aee63d2, type: 3}
+  description: +9 to H gain
   dialogues:
-  - That Captain Buckley is a meanie
-  - I hope nothing bad happens to me
-  - I don't want to die
+  - It's a nice day out
+  - I love the ocean breeze
+  - What do you feel like getting up to?
   crewID: 0
   crewEncounter: {fileID: 0}
