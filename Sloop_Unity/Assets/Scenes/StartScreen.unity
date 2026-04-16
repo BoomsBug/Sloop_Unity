@@ -381,7 +381,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8a9c7b399f2c4a94dbce43592f416b1d, type: 3}
     volume: 0.623
   cannonMusic:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 725befbad5ab9c44a8eb9b8ac54e7725, type: 3}
     volume: 1
   barrelMusic:
     clip: {fileID: 8300000, guid: ac837a0521ae25d47861be0c31c5ee9b, type: 3}

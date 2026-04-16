@@ -635,6 +635,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3998750566737372601, guid: 6df7b402f8ece834aa5b4a0a936356e5, type: 3}
+      propertyPath: parryClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5b87747c540404040a8b191fa795988a, type: 3}
+    - target: {fileID: 3998750566737372601, guid: 6df7b402f8ece834aa5b4a0a936356e5, type: 3}
+      propertyPath: parryVolume
+      value: 0.196
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 6df7b402f8ece834aa5b4a0a936356e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.05
@@ -1264,11 +1272,11 @@ MonoBehaviour:
   playerSpawnOffsetX: 0.2
   coinClip: {fileID: 8300000, guid: edaad012be06b4241abd3c3c405982cb, type: 3}
   catchGoldVolume: 1
-  catchGoldPitchMin: 2.3
-  catchGoldPitchMax: 2.9
+  catchGoldPitchMin: 1.31
+  catchGoldPitchMax: 2.351
   audioSource: {fileID: 630871825}
   birdClip: {fileID: 8300000, guid: 01ebee964a148944ea025536f8d924ab, type: 3}
-  catchBirdVolume: 1
+  catchBirdVolume: 0.842
 --- !u!4 &630871824
 Transform:
   m_ObjectHideFlags: 0

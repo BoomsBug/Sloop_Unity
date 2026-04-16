@@ -64,10 +64,10 @@ public class BarrelDashTestManager : MonoBehaviour
     [Range(0f, 1f)]
     public float catchGoldVolume = 1f;
 
-    [Range(2.2f, 3f)]
+    [Range(1f, 2.5f)]
     public float catchGoldPitchMin = 2.3f;
 
-    [Range(2.2f, 3)]
+    [Range(1f, 2.5f)]
     public float catchGoldPitchMax = 2.9f;
 
     public AudioSource audioSource;
