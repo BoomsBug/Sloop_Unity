@@ -1370,11 +1370,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 4fe92d1eac2374b45a11c08b6a4c8524, type: 2}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleSeaEncounters.Array.size
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleLandEncounters.Array.size
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: possibleSeaEncounters.Array.data[0]
@@ -1420,6 +1420,38 @@ PrefabInstance:
       propertyPath: possibleLandEncounters.Array.data[6]
       value: 
       objectReference: {fileID: 11400000, guid: dac22feda13695f5488858dcd72753fb, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 84e7b302f795d36489f64d042511797d, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 097c64cd00d60ce45a140e3053816488, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 03f4f30d9848153b6a30897218b1e4fc, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleSeaEncounters.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ee107ebbf240b4409411f1b00e86e9e, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleSeaEncounters.Array.data[11]
+      value: 
+      objectReference: {fileID: 11400000, guid: 988b232f48952ad4294c5192e797962c, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleSeaEncounters.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleSeaEncounters.Array.data[13]
+      value: 
+      objectReference: {fileID: 11400000, guid: d4ae11e004fbd2b4cb55f96a62e9229e, type: 2}
+    - target: {fileID: 5747907252497119421, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
+      propertyPath: possibleLandEncounters.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 03f4f30d9848153b6a30897218b1e4fc, type: 2}
     - target: {fileID: 6189032163039647756, guid: e38bcf6eaa21d17409cf9dfc7033cee9, type: 3}
       propertyPath: m_Name
       value: EncounterManager

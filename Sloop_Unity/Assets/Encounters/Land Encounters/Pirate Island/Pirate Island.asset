@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf5dedf477f544b95e72d414f7b792, type: 3}
+  m_Name: Pirate Island
+  m_EditorClassIdentifier: 
+  encounterName: Pirate Island
+  text: As you approach this island you notice someone is already docked here. Their
+    ship is battle ready and flies a black flag. The island itself looks like a small
+    paradise; palm trees with ripe coconuts, and sandy beaches that sparkle in the
+    sun.
+  options:
+  - {fileID: 11400000, guid: d62046b57017fcf4291b08481fd4eb5e, type: 2}
+  - {fileID: 11400000, guid: f7c8accee6ef8a74f89cf295834a4b79, type: 2}
+  - {fileID: 11400000, guid: 3d8a24504cd1b934eaad93fb138de327, type: 2}
+  - {fileID: 11400000, guid: 51b8196b113f2ca4abae2e1a460d6568, type: 2}
+  oneTime: 0
+  landEncounter: 1

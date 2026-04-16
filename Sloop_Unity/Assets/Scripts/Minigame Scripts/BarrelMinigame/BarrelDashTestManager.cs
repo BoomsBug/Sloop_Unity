@@ -59,6 +59,33 @@ public class BarrelDashTestManager : MonoBehaviour
     private Camera mainCamera;
     private Transform ground;
 
+    [Header("Audio")]
+    public AudioClip coinClip;
+    [Range(0f, 1f)]
+    public float catchGoldVolume = 1f;
+
+    [Range(2.2f, 3f)]
+    public float catchGoldPitchMin = 2.3f;
+
+    [Range(2.2f, 3)]
+    public float catchGoldPitchMax = 2.9f;
+
+    public AudioSource audioSource;
+
+    public AudioClip birdClip;
+    [Range(0f, 1f)]
+
+    public float catchBirdVolume = 1f;
+
+    public void PlayBirdSound()
+    {
+        if (audioSource != null && birdClip != null)
+        {
+            audioSource.pitch = Random.Range(1f, 1.5f);
+            audioSource.PlayOneShot(birdClip, catchBirdVolume);
+        }
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -323,12 +350,18 @@ public class BarrelDashTestManager : MonoBehaviour
     public void AddCoinScore(int coinValue)
     {
         if (!gameActive) return;
+        if (audioSource != null)
+        {
+            audioSource.pitch = Random.Range(catchGoldPitchMin, catchGoldPitchMax);
+            audioSource.PlayOneShot(coinClip, catchGoldVolume);
+        }
         score += coinValue;
         scoreText.text = "Score: " + score;
     }
 
     public void AddParryScore(int value)
     {
+        PlayBirdSound();
         if (!gameActive) return;
         score += value;
         scoreText.text = "Score: " + score;
@@ -364,6 +397,7 @@ public class BarrelDashTestManager : MonoBehaviour
     {
         if (parryCounterText != null)
         {
+            
             int displayValue = parryCount % 10;
             parryCounterText.text = "Birds Parried: " + displayValue;
         }

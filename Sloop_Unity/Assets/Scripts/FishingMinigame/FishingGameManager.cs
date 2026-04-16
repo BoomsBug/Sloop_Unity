@@ -20,15 +20,27 @@ public class FishingGameManager : MonoBehaviour
 
     [Header("Audio")]
     public AudioClip catchFishSound;
+    
 
     [Range(0f, 1f)]
     public float catchVolume = 1f;
+
 
     [Range(2.2f, 3f)]
     public float catchPitchMin = 2.3f;
 
     [Range(2.2f, 3)]
     public float catchPitchMax = 2.9f;
+
+    public AudioClip catchGoldSound;
+    [Range(0f, 1f)]
+    public float catchGoldVolume = 1f;
+
+    [Range(2.2f, 3f)]
+    public float catchGoldPitchMin = 2.3f;
+
+    [Range(2.2f, 3)]
+    public float catchGoldPitchMax = 2.9f;
 
     private AudioSource audioSource;
 
@@ -56,6 +68,14 @@ public class FishingGameManager : MonoBehaviour
         {
             audioSource.pitch = Random.Range(catchPitchMin, catchPitchMax);
             audioSource.PlayOneShot(catchFishSound, catchVolume);
+        }
+    }
+    void PlayCatchGoldSound()
+    {
+        if (catchGoldSound != null && audioSource != null)
+        {
+            audioSource.pitch = Random.Range(catchGoldPitchMin, catchGoldPitchMax);
+            audioSource.PlayOneShot(catchGoldSound, catchGoldVolume);
         }
     }
 
@@ -118,6 +138,8 @@ public class FishingGameManager : MonoBehaviour
     public void CatchGold(GameObject loot)
     {
         if (ended) return;
+        
+        PlayCatchGoldSound();
 
         Destroy(loot);
         Popup("Gold!", loot.transform.position + popupWorldOffset);

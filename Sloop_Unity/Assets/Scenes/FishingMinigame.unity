@@ -403,6 +403,10 @@ MonoBehaviour:
   catchVolume: 1
   catchPitchMin: 2.3
   catchPitchMax: 2.9
+  catchGoldSound: {fileID: 8300000, guid: edaad012be06b4241abd3c3c405982cb, type: 3}
+  catchGoldVolume: 1
+  catchGoldPitchMin: 2.3
+  catchGoldPitchMax: 2.9
   returnSceneName: PRODUCTION
   uiRoot: {fileID: 1559966911}
   floatingTextPrefab: {fileID: 4508708029077706253, guid: 8754255f87414d842b9c489420c9db06, type: 3}
