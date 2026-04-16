@@ -36,6 +36,7 @@ public class Panel : MonoBehaviour
     public void LoadBubble()
     {
         Crewmate crew = null;
+        //finds crewmate that should be in bubble and get their dialogue options
         foreach (Crewmate i in CrewManager.Instance.hiredCrew)
         {
             if (i.crewID == crewID) crew = i;
@@ -50,7 +51,8 @@ public class Panel : MonoBehaviour
         newBubble.GetComponentInChildren<TextMeshProUGUI>().text = text;
         newBubble.GetComponentInChildren<Typewriter>().StartTypewriter();
 
-        StartCoroutine(WaitToUnload());
+        Destroy(newBubble, secondsBubbleIsActive);
+        // StartCoroutine(WaitToUnload());
     }
     
     public void UnloadBubble()

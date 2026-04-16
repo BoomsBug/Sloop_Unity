@@ -25,11 +25,22 @@ public class BarrelSpawner : MonoBehaviour
     public float cannonMaxIntervalLimit = 1.2f;
     public float cannonIntervalDecreaseRate = 0.02f;
     [Range(0f, 1f)] public float cannonSpawnProbability = 0.8f;
-    public float cannonHeightAboveGround = 2.0f;   // Constant height above ground
+    public float cannonHeightAboveGround = 2.0f;
 
     [Header("Coin Settings (attached to barrels)")]
     [Range(0f, 1f)] public float coinSpawnProbability = 0.3f;
     public Vector2 coinOffset = new Vector2(0f, 1f);
+
+    [Header("Spawn Offsets")]
+    public float spawnOffsetX = 0.5f;
+
+    [Header("Tutorial Mode")]
+    public bool tutorialMode = false;
+    public float tutorialSpawnInterval = 1.5f;
+    public bool tutorialFirstSpawnIsCannon = true;  // This was missing
+
+    // Track spawned objects to efficiently clean up
+    private List<GameObject> spawnedObjects = new List<GameObject>();
 
     private float currentBarrelMinInterval;
     private float currentBarrelMaxInterval;
@@ -40,7 +51,10 @@ public class BarrelSpawner : MonoBehaviour
     private bool spawning = false;
 
     private Camera mainCamera;
-    private float groundY; // Top of the ground collider
+    private float groundY;
+
+    private float nextTutorialSpawnTime;
+    private bool nextIsCannon;
 
     void Awake()
     {
@@ -68,48 +82,62 @@ public class BarrelSpawner : MonoBehaviour
     {
         if (!spawning) return;
 
-        // Spawn barrels
-        if (Time.time >= nextBarrelSpawnTime)
+        if (tutorialMode)
         {
-            if (barrelPrefab != null && Random.value < barrelSpawnProbability)
-                SpawnBarrel();
+            if (Time.time >= nextTutorialSpawnTime)
+            {
+                if (nextIsCannon)
+                    SpawnCannon();
+                else
+                    SpawnBarrel();
 
-            // Decrease intervals for next barrel spawn
-            currentBarrelMinInterval = Mathf.Max(currentBarrelMinInterval - barrelIntervalDecreaseRate, barrelMinIntervalLimit);
-            currentBarrelMaxInterval = Mathf.Max(currentBarrelMaxInterval - barrelIntervalDecreaseRate, barrelMaxIntervalLimit);
-            nextBarrelSpawnTime = Time.time + Random.Range(currentBarrelMinInterval, currentBarrelMaxInterval);
+                nextIsCannon = !nextIsCannon;
+                nextTutorialSpawnTime = Time.time + tutorialSpawnInterval;
+            }
         }
-
-        // Spawn cannons
-        if (Time.time >= nextCannonSpawnTime)
+        else
         {
-            if (flyingCannonPrefab != null && Random.value < cannonSpawnProbability)
-                SpawnCannon();
+            if (Time.time >= nextBarrelSpawnTime)
+            {
+                if (barrelPrefab != null && Random.value < barrelSpawnProbability)
+                    SpawnBarrel();
 
-            // Decrease intervals for next cannon spawn
-            currentCannonMinInterval = Mathf.Max(currentCannonMinInterval - cannonIntervalDecreaseRate, cannonMinIntervalLimit);
-            currentCannonMaxInterval = Mathf.Max(currentCannonMaxInterval - cannonIntervalDecreaseRate, cannonMaxIntervalLimit);
-            nextCannonSpawnTime = Time.time + Random.Range(currentCannonMinInterval, currentCannonMaxInterval);
+                currentBarrelMinInterval = Mathf.Max(currentBarrelMinInterval - barrelIntervalDecreaseRate, barrelMinIntervalLimit);
+                currentBarrelMaxInterval = Mathf.Max(currentBarrelMaxInterval - barrelIntervalDecreaseRate, barrelMaxIntervalLimit);
+                nextBarrelSpawnTime = Time.time + Random.Range(currentBarrelMinInterval, currentBarrelMaxInterval);
+            }
+
+            if (Time.time >= nextCannonSpawnTime)
+            {
+                if (flyingCannonPrefab != null && Random.value < cannonSpawnProbability)
+                    SpawnCannon();
+
+                currentCannonMinInterval = Mathf.Max(currentCannonMinInterval - cannonIntervalDecreaseRate, cannonMinIntervalLimit);
+                currentCannonMaxInterval = Mathf.Max(currentCannonMaxInterval - cannonIntervalDecreaseRate, cannonMaxIntervalLimit);
+                nextCannonSpawnTime = Time.time + Random.Range(currentCannonMinInterval, currentCannonMaxInterval);
+            }
         }
     }
 
     void SpawnBarrel()
     {
         float rightEdgeX = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
+        float spawnX = rightEdgeX + spawnOffsetX;
 
-        // Random height above ground for barrel
         float heightOffset = Random.Range(barrelHeightRange.x, barrelHeightRange.y);
-        Vector3 spawnPos = new Vector3(rightEdgeX, groundY + heightOffset, 0f);
+        Vector3 spawnPos = new Vector3(spawnX, groundY + heightOffset, 0f);
 
         GameObject barrel = Instantiate(barrelPrefab, spawnPos, Quaternion.identity);
+        spawnedObjects.Add(barrel);
+
         float scale = Random.Range(barrelSizeRange.x, barrelSizeRange.y);
         barrel.transform.localScale = Vector3.one * scale;
 
-        // Spawn coin attached to barrel
         if (coinPrefab != null && Random.value < coinSpawnProbability)
         {
             Vector3 worldOffset = new Vector3(coinOffset.x, coinOffset.y, 0);
             GameObject coin = Instantiate(coinPrefab, barrel.transform.position + worldOffset, Quaternion.identity);
+            spawnedObjects.Add(coin);
             CoinFollow follow = coin.AddComponent<CoinFollow>();
             follow.target = barrel.transform;
             follow.offset = worldOffset;
@@ -119,31 +147,41 @@ public class BarrelSpawner : MonoBehaviour
     void SpawnCannon()
     {
         float rightEdgeX = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
-        Vector3 spawnPos = new Vector3(rightEdgeX, groundY + cannonHeightAboveGround, 0f);
-        Instantiate(flyingCannonPrefab, spawnPos, Quaternion.identity);
+        float spawnX = rightEdgeX + spawnOffsetX;
+        Vector3 spawnPos = new Vector3(spawnX, groundY + cannonHeightAboveGround, 0f);
+        GameObject cannon = Instantiate(flyingCannonPrefab, spawnPos, Quaternion.identity);
+        spawnedObjects.Add(cannon);
     }
 
     public void StartSpawning()
     {
         spawning = true;
-        currentBarrelMinInterval = barrelInitialMinInterval;
-        currentBarrelMaxInterval = barrelInitialMaxInterval;
-        currentCannonMinInterval = cannonInitialMinInterval;
-        currentCannonMaxInterval = cannonInitialMaxInterval;
 
-        nextBarrelSpawnTime = Time.time + Random.Range(currentBarrelMinInterval, currentBarrelMaxInterval);
-        nextCannonSpawnTime = Time.time + Random.Range(currentCannonMinInterval, currentCannonMaxInterval);
+        if (tutorialMode)
+        {
+            nextIsCannon = tutorialFirstSpawnIsCannon;
+            nextTutorialSpawnTime = Time.time + tutorialSpawnInterval;
+        }
+        else
+        {
+            currentBarrelMinInterval = barrelInitialMinInterval;
+            currentBarrelMaxInterval = barrelInitialMaxInterval;
+            currentCannonMinInterval = cannonInitialMinInterval;
+            currentCannonMaxInterval = cannonInitialMaxInterval;
+
+            nextBarrelSpawnTime = Time.time + Random.Range(currentBarrelMinInterval, currentBarrelMaxInterval);
+            nextCannonSpawnTime = Time.time + Random.Range(currentCannonMinInterval, currentCannonMaxInterval);
+        }
     }
 
     public void StopSpawning()
     {
         spawning = false;
 
-        foreach (GameObject barrel in GameObject.FindGameObjectsWithTag("Barrel"))
-            Destroy(barrel);
-        foreach (GameObject coin in GameObject.FindGameObjectsWithTag("Loot"))
-            Destroy(coin);
-        foreach (GameObject cannon in GameObject.FindGameObjectsWithTag("FlyingCannon"))
-            Destroy(cannon);
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj != null) Destroy(obj);
+        }
+        spawnedObjects.Clear();
     }
 }
