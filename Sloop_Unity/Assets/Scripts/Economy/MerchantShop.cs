@@ -4,44 +4,65 @@ using Sloop.Economy;
 namespace Sloop.NPC.Dialogue
 {
     /// <summary>
-    /// Very simple merchant shop: one trade offer.
-    /// Miminal for PoC purposes
-    /// Spend cost -> receive reward.
+    /// Simple merchant shop with willingness-based pricing.
+    /// Low willingness => markup
+    /// Neutral => base price
+    /// High willingness => discount
     /// </summary>
     public class MerchantShop : MonoBehaviour
     {
-        [Header("Single Offer (for now)")]
-        [SerializeField] private ResourceAmount[] cost =
-        {
-            new ResourceAmount { type = Resource.Gold, amount = 100 }
-        };
+        [Header("Base Prices")]
+        [SerializeField] private int woodGoldCost = 100;
+        [SerializeField] private int woodAmount = 400;
 
-        [SerializeField] private ResourceAmount[] reward =
-        {
-            new ResourceAmount { type = Resource.Wood, amount = 400 }
-        };
+        [SerializeField] private int foodGoldCost = 50;
+        [SerializeField] private int foodAmount = 200;
 
-        public void OpenShop(NPCDialogueUI ui)
+        public void OpenShop(NPCDialogueUI ui, int willingness)
         {
             if (ui == null) return;
 
-            ui.SetLine($"Offer: Pay 100 Gold for 400 Wood.");
+            int pricedWoodCost = GetAdjustedCost(woodGoldCost, willingness);
+            int pricedFoodCost = GetAdjustedCost(foodGoldCost, willingness);
+
+            ui.SetLine(
+                "What would you like to buy?\n" +
+                $"Wood: {pricedWoodCost} Gold → {woodAmount} Wood\n" +
+                $"Food: {pricedFoodCost} Gold → {foodAmount} Food"
+            );
+
             ui.ShowChoices(
-                "Buy (100 Gold → 400 Wood)",
+                $"Buy Wood ({pricedWoodCost} Gold → {woodAmount} Wood)",
                 () =>
                 {
-                    TryBuy(ui);
+                    TryBuy(
+                        ui,
+                        pricedWoodCost,
+                        Resource.Wood,
+                        woodAmount,
+                        "Wood"
+                    );
                 },
-                "Leave",
+                $"Buy Food ({pricedFoodCost} Gold → {foodAmount} Food)",
                 () =>
                 {
-                    ui.SetLine("Come back anytime.");
-                    ui.HideChoices();
+                    TryBuy(
+                        ui,
+                        pricedFoodCost,
+                        Resource.Food,
+                        foodAmount,
+                        "Food"
+                    );
                 }
             );
         }
 
-        private void TryBuy(NPCDialogueUI ui)
+        private void TryBuy(
+            NPCDialogueUI ui,
+            int goldCost,
+            Resource rewardType,
+            int rewardAmount,
+            string rewardName)
         {
             var rm = ResourceManager.Instance;
             if (rm == null)
@@ -51,21 +72,41 @@ namespace Sloop.NPC.Dialogue
                 return;
             }
 
-            if (!rm.TrySpend(cost))
+            if (!rm.TrySpend(Resource.Gold, goldCost))
             {
                 int gold = rm.GetAmount(Resource.Gold);
-                ui.SetLine($"Not enough Gold. You have {gold}.");
+                ui.SetLine($"Not enough Gold. Need {goldCost}, you have {gold}.");
                 ui.HideChoices();
                 return;
             }
 
-            rm.Add(reward);
+            rm.Add(rewardType, rewardAmount);
 
             int newGold = rm.GetAmount(Resource.Gold);
             int newWood = rm.GetAmount(Resource.Wood);
+            int newFood = rm.GetAmount(Resource.Food);
 
-            ui.SetLine($"Deal! You bought 400 Wood.\nGold: {newGold} | Wood: {newWood}");
+            ui.SetLine(
+                $"Deal! You bought {rewardAmount} {rewardName}.\n" +
+                $"Gold: {newGold} | Wood: {newWood} | Food: {newFood}"
+            );
             ui.HideChoices();
+        }
+
+        private int GetAdjustedCost(int baseCost, int willingness)
+        {
+            // Match the same band logic used elsewhere:
+            // Hostile (<= -25): more expensive
+            // Friendly (>= 25): discounted
+            // Neutral: unchanged
+
+            if (willingness <= -25)
+                return Mathf.RoundToInt(baseCost * 1.5f);
+
+            if (willingness >= 25)
+                return Mathf.RoundToInt(baseCost * 0.7f);
+
+            return baseCost;
         }
     }
 }

@@ -24,6 +24,7 @@ public class EncounterOptionSO : ScriptableObject
     public bool callRemoveCrewmate; //can't specify which crewmate to remove, will remove one at random
     public EncounterSO encounterToAdd;
     public EncounterSO encounterToReplace;
+    public EncounterSO followUpEncounter; //Encounter that will immediatly be loaded after option is chosen
     public bool loseGame;
     public bool winGame;
 }
