@@ -399,7 +399,7 @@ MonoBehaviour:
   timeLimit: 50
   hud: {fileID: 1684261664}
   resultPanel: {fileID: 985582080}
-  catchFishSound: {fileID: 0}
+  catchFishSound: {fileID: 8300000, guid: 8492340f51cb5da409db24418c884121, type: 3}
   catchVolume: 1
   catchPitchMin: 2.3
   catchPitchMax: 2.9
