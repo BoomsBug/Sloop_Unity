@@ -89,22 +89,22 @@ public class TopDownPlayerMovement : MonoBehaviour
         //     }
         // }
 
-        if (Input.GetKeyDown(KeyCode.E) && isNearNPC && spriteRenderer.color == defaultColor)
-        {
-            spriteRenderer.color = npcInteractionColor;
-            Debug.Log("Talked to NPC");
-        } 
-        else if (Input.GetKeyDown(KeyCode.E) && isNearNPC && spriteRenderer.color == npcInteractionColor)
-        {
-            spriteRenderer.color = defaultColor;
-            Debug.Log("Stopped talking to NPC");
-        }
+        // if (Input.GetKeyDown(KeyCode.E) && isNearNPC && spriteRenderer.color == defaultColor)
+        // {
+        //     spriteRenderer.color = npcInteractionColor;
+        //     Debug.Log("Talked to NPC");
+        // } 
+        // else if (Input.GetKeyDown(KeyCode.E) && isNearNPC && spriteRenderer.color == npcInteractionColor)
+        // {
+        //     spriteRenderer.color = defaultColor;
+        //     Debug.Log("Stopped talking to NPC");
+        // }
         
-        if (Input.GetKeyDown(KeyCode.F) && isNearItem)
-        {
-            spriteRenderer.color = itemPickupColor;
-            Debug.Log("Picked up item");
-        }
+        // if (Input.GetKeyDown(KeyCode.F) && isNearItem)
+        // {
+        //     spriteRenderer.color = itemPickupColor;
+        //     Debug.Log("Picked up item");
+        // }
         
         // Reset to default color when moving away
         if (moveInput.magnitude > 0.1f && !isNearNPC && !isNearItem)
