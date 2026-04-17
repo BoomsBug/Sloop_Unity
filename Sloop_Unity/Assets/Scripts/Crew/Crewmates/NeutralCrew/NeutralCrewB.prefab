@@ -58,6 +58,7 @@ MonoBehaviour:
   dialogues:
   - Why did you become a sailor?
   - Where could the treasure be?
-  - Want to play Magic the Gathering with me?
+  - Want to play cards?
+  - The sea's upset my tummy sometime
   crewID: 0
   crewEncounter: {fileID: 0}

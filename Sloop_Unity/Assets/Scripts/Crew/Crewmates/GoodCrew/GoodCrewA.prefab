@@ -55,5 +55,6 @@ MonoBehaviour:
   - It's a nice day out
   - You're such a great captain!
   - You've got this!
+  - Smooth sailing
   crewID: 0
   crewEncounter: {fileID: 0}
