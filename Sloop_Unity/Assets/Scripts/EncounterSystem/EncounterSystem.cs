@@ -41,6 +41,7 @@ public class EncounterSystem : MonoBehaviour
 
     public Island currentIsland;
 
+    private System.Random landEncounterRng;
 
     void Awake()
     {
@@ -58,7 +59,9 @@ public class EncounterSystem : MonoBehaviour
     void Start()
     {
         UnityEngine.Random.InitState(GameManager.Instance.worldSeed);
-        nextLandEncounter = possibleLandEncounters[UnityEngine.Random.Range(0, possibleLandEncounters.Count)];
+        landEncounterRng = new System.Random(GameManager.Instance.worldSeed);
+        possibleLandEncounters = possibleLandEncounters.OrderBy(e => e.name).ToList();
+        nextLandEncounter = possibleLandEncounters[landEncounterRng.Next(0, possibleLandEncounters.Count)];
         nextSeaEncounter = startingEncounter;
     }
 
@@ -291,7 +294,14 @@ public class EncounterSystem : MonoBehaviour
                 }
             }
         }
-        return possible[UnityEngine.Random.Range(0, possible.Count)];
+        if (curEncounter.landEncounter)
+        {
+            return possible[landEncounterRng.Next(0, possible.Count)];
+        }
+        else
+        {
+            return possible[UnityEngine.Random.Range(0, possible.Count)];
+        }
     }
 
     private ResourceAmount[] CalculateAlteredCosts(ResourceAmount[] baseCosts)
@@ -450,7 +460,7 @@ public class EncounterSystem : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-    }
+    }   
 
     void OnDisable()
     {
