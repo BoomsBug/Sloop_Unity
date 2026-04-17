@@ -30,7 +30,7 @@ public class EncounterSpawner : MonoBehaviour
         if (t < checkEvery) return;
         t = 0f;
 
-        if (Random.value < chance && !playedFirstEncounter)
+        if (Random.value < chance || !playedFirstEncounter)
         {
             // controller.StartEncounter();
             playedFirstEncounter = true;

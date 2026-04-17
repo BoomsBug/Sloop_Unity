@@ -500,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterSystem: {fileID: 0}
   checkEvery: 10
-  chance: 0.5
+  chance: 0.25
 --- !u!4 &388698943
 Transform:
   m_ObjectHideFlags: 0
