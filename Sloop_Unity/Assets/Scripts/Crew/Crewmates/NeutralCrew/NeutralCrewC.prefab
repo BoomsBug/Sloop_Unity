@@ -55,5 +55,6 @@ MonoBehaviour:
   - I could use a bite to eat
   - I hope nothing bad happens to me
   - Arrgh
+  - Got any hardtack to eat?
   crewID: 0
   crewEncounter: {fileID: 0}

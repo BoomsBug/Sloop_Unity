@@ -54,8 +54,9 @@ MonoBehaviour:
 
     +10 to G gain'
   dialogues:
-  - Hey its me!! Evil Steve!! Muahahaha
+  - Hey I'm super Evil!! Muahahaha
   - You should kill the next guy you see
   - Muahaha
+  - Water tasted strange this morning
   crewID: 0
   crewEncounter: {fileID: 0}
