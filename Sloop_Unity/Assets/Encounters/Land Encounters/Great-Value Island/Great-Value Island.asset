@@ -22,6 +22,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d7fbff86b44c6486cb396dda62bc1271, type: 2}
   - {fileID: 11400000, guid: 8f5422e0856348750b63bba5fc7c89c3, type: 2}
   - {fileID: 11400000, guid: 16cd428148779577aa987a7da535843e, type: 2}
-  - {fileID: 11400000, guid: 16cd428148779577aa987a7da535843e, type: 2}
+  - {fileID: 11400000, guid: cfdf9808b4de7cb49b9c5490cead9eff, type: 2}
   oneTime: 0
   landEncounter: 1
