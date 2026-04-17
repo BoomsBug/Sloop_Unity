@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sloop.UI;
+using Sloop.Economy;
 
 public class FishingGameManager : MonoBehaviour
 {
-    public PlayerResources resources;
+    //public PlayerResources resources;
 
     [Header("Rewards")]
     public int foodPerFish = 2;
@@ -59,7 +60,7 @@ public class FishingGameManager : MonoBehaviour
 
     void Awake()
     {
-        if (!resources) resources = FindObjectOfType<PlayerResources>();
+        //if (!resources) resources = FindObjectOfType<PlayerResources>();
         audioSource = GetComponent<AudioSource>();
     }
     void PlayCatchSound()
@@ -128,7 +129,9 @@ public class FishingGameManager : MonoBehaviour
         UpdateGoalUI();
 
         int food = foodPerFish;
-        if (resources) resources.AddFood(food);
+        //if (resources) resources.AddFood(food);
+        if (ResourceManager.Instance != null)
+            ResourceManager.Instance.Add(Resource.Food, food);
 
         // Instant win if you reach target before time ends
         if (fishCaught >= targetFish)
@@ -143,7 +146,9 @@ public class FishingGameManager : MonoBehaviour
 
         Destroy(loot);
         Popup("Gold!", loot.transform.position + popupWorldOffset);
-        if (resources) resources.AddGold(goldPerSack);
+        //if (resources) resources.AddGold(goldPerSack);
+        if (ResourceManager.Instance != null)
+            ResourceManager.Instance.Add(Resource.Gold, goldPerSack);
     }
 
     public void Miss()
